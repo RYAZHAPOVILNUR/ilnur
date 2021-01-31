@@ -8,10 +8,15 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatCardModule } from '@angular/material/card';
+import { FlexModule } from '@angular/flex-layout';
+import { CreateTodoComponent } from './create-todo/create-todo.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { EditTodoComponent } from './edit-todo/edit-todo.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CreateTodoComponent, EditTodoComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -20,7 +25,11 @@ import { FormsModule } from '@angular/forms';
     MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
-    FormsModule
+    FormsModule,
+    MatCardModule,
+    MatDialogModule,
+    FlexModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent],

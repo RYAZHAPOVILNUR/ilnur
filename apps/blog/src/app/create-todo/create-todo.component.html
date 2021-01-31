@@ -1,0 +1,11 @@
+<form [formGroup]='form' (ngSubmit)='createTodo()' style='display: flex; flex-direction: column'>
+  <mat-form-field class="example-full-width">
+    <mat-label>Title</mat-label>
+    <input formControlName='title' matInput placeholder="Title">
+  </mat-form-field>
+  <mat-form-field class="example-full-width">
+    <mat-label>Description</mat-label>
+    <input formControlName='description' matInput placeholder="Description">
+  </mat-form-field>
+  <button [disabled]='form.invalid'  mat-flat-button color='primary' type='submit'>create</button>
+</form>

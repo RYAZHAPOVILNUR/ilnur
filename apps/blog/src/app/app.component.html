@@ -15,32 +15,24 @@
 </p>
 
 <div style='max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column'>
-  example todo app
-  <mat-form-field class="example-full-width">
-    <mat-label>enter todo</mat-label>
-    <input
-      label='todo'
-      matInput
-      [value]='todoName$ | async'
-      (change)='todoNameChanged($event)'
-    >
-  </mat-form-field>
+  <h2>example todo app</h2>
   <ng-container *ngFor='let todo of todos$ | async'>
     <div class="todo">
-      <p>
-        <input type="checkbox" (click)="onChange(todo.id)" [checked]="todo.checked">
-        <small [class.done]="todo.checked">{{todo.title}}</small>
-      </p>
-      <div class="btn">
-        <button color="primary"  mat-icon-button class="example-icon create-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>create</mat-icon>
-        </button>
-        <button (click)="removeTodo(todo.id)"  mat-icon-button class="example-icon delete-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
+      <mat-card class="example-card">
+        <div>
+          <mat-card-header>
+            <mat-card-title>{{todo.title}}</mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p>{{todo.description}}</p>
+          </mat-card-content>
+        </div>
+        <mat-card-actions>
+          <button mat-button (click)='editTodo(todo.id)'>EDIT</button>
+          <button mat-button (click)='removeTodo(todo.id)'>REMOVE</button>
+        </mat-card-actions>
+      </mat-card>
     </div>
-
   </ng-container>
-  <button (click)='createTodo()' color='primary' mat-flat-button>Add todo</button>
+  <button style='margin-top: 20px; max-width: 200px;' (click)='createTodo()' color='primary' mat-flat-button>Add todo</button>
 </div>
