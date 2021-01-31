@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
 
 interface Todo {
   id: number;
@@ -10,35 +11,46 @@ interface Todo {
   selector: 'ilnur-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  title = 'blog';
+  readonly title = 'blog';
+  public readonly todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
+  public readonly todoName$: BehaviorSubject<string> = new BehaviorSubject<string>('');
 
-  todos: Todo[] = []
-  todoName: string
-
-  createTodo() {
+  public createTodo() {
     const newTodo: Todo = {
       id: new Date().getTime(),
-      title: this.todoName,
+      title: this.todoName$.value,
       checked: false
     }
 
-    if(this.todoName.trim()) {
-      this.todos.push(newTodo)
+    if(this.todoName$.value.trim()) {
+      this.todos$.next([
+        ...this.todos$.value,
+        newTodo
+      ]);
     }
-    this.todoName = ''
+    this.todoName$.next('');
   }
 
-  removeTodo(id: number) {
-    this.todos = this.todos.filter(todo => todo.id != id)
+  public removeTodo(id: number) {
+    this.todos$.next(
+      this.todos$.value.filter(todo => todo.id != id)
+    )
   }
 
-  onChange(id: number) {
-    this.todos.map(todo => {
-      if(todo.id == id) {
-        todo.checked = !todo.checked
-      }
-    })
+  public onChange(id: number) {
+    this.todos$.next(
+      this.todos$.value.map(
+        todo => todo.id === id
+          ? {...todo, checked: !todo.checked}
+          : todo
+      )
+    )
+  }
+
+  public todoNameChanged(event: Event) {
+    this.todoName$.next((event.target as HTMLInputElement).value)
   }
 }
