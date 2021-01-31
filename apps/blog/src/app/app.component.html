@@ -14,5 +14,14 @@
   </mat-toolbar>
 </p>
 
-container
-example todo app
+<div style='max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column'>
+  example todo app
+  <mat-form-field class="example-full-width">
+    <mat-label>enter todo</mat-label>
+    <input label='todo' matInput [(ngModel)]='todoName'>
+  </mat-form-field>
+  <ng-container *ngFor='let todo of todos'>
+    <span>{{todo.title}}</span>
+  </ng-container>
+  <button (click)='createTodo()' color='primary' mat-flat-button>Add todo</button>
+</div>
