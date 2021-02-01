@@ -1,38 +1,61 @@
-<p>
+<div style="height: 80vh">
   <mat-toolbar color="primary">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>My App</span>
-    <span class="example-spacer"></span>
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-      <mat-icon>favorite</mat-icon>
-    </button>
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-      <mat-icon>share</mat-icon>
-    </button>
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/">My App</a>
+      </li>
+      <span class="menu-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <a routerLinkActive="active" mat-button routerLink="/demos">Demos</a>
+        <a routerLinkActive="active" mat-button routerLink="#">Blog</a>
+        <a routerLinkActive="active" mat-button routerLink="#">CV</a>
+        <a routerLinkActive="active" mat-button routerLink="#">Contacts</a>
+        <a mat-button>
+          <mat-form-field appearance="standart">
+            <mat-select [(ngModel)]="selectedLeanguage">
+              <mat-option
+                *ngFor="let leanguage of leanguages"
+                [value]="leanguage.value"
+                >{{ leanguage.viewValue }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </a>
+      </div>
+    </mat-toolbar-row>
   </mat-toolbar>
-</p>
 
-<div style='max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column'>
-  <h2>example todo app</h2>
-  <ng-container *ngFor='let todo of todos$ | async'>
-    <div class="todo">
-      <mat-card class="example-card">
-        <div>
-          <mat-card-header>
-            <mat-card-title>{{todo.title}}</mat-card-title>
-          </mat-card-header>
-          <mat-card-content>
-            <p>{{todo.description}}</p>
-          </mat-card-content>
-        </div>
-        <mat-card-actions>
-          <button mat-button (click)='editTodo(todo.id)'>EDIT</button>
-          <button mat-button (click)='removeTodo(todo.id)'>REMOVE</button>
-        </mat-card-actions>
-      </mat-card>
-    </div>
-  </ng-container>
-  <button style='margin-top: 20px; max-width: 200px;' (click)='createTodo()' color='primary' mat-flat-button>Add todo</button>
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <!-- <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a> -->
+        <a mat-list-item routerLinkActive="active" routerLink="/demos">Demos</a>
+        <a mat-list-item routerLinkActive="active" routerLink="#">Blog</a>
+        <a mat-list-item routerLinkActive="active" routerLink="#">CV</a>
+        <a mat-list-item routerLinkActive="active" routerLink="#">Contacts</a>
+        <a mat-list-item>
+          <mat-form-field appearance="standart">
+            <mat-select mat-list-item [(ngModel)]="selectedLeanguage">
+              <mat-option
+                *ngFor="let leanguage of leanguages"
+                [value]="leanguage.value"
+                >{{ leanguage.viewValue }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content fxFlexFill
+      ><router-outlet></router-outlet
+    ></mat-sidenav-content>
+  </mat-sidenav-container>
 </div>

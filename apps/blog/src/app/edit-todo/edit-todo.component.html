@@ -1,11 +1,32 @@
-<form [formGroup]='form' (ngSubmit)='editTodo()' style='display: flex; flex-direction: column'>
-  <mat-form-field class="example-full-width">
-    <mat-label>Title</mat-label>
-    <input formControlName='title' matInput placeholder="Title">
-  </mat-form-field>
+<form [formGroup]="form" (ngSubmit)="editTodo()">
+  <div class="example">
+    <mat-form-field class="example-width">
+      <mat-label>Title</mat-label>
+      <input formControlName="title" matInput placeholder="Title" />
+    </mat-form-field>
+    <mat-form-field class="example-width">
+      <mat-label>Priority</mat-label>
+      <mat-select formControlName="priority">
+        <mat-option value="Lowest">Lowest </mat-option>
+        <mat-option value="Low">Low</mat-option>
+        <mat-option value="High">High</mat-option>
+        <mat-option value="Highest">Highest</mat-option>
+        <mat-option value="Medium">Medium</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
   <mat-form-field class="example-full-width">
     <mat-label>Description</mat-label>
-    <input formControlName='description' matInput placeholder="Description">
+    <textarea formControlName="description" matInput></textarea>
   </mat-form-field>
-  <button [disabled]='form.invalid'  mat-flat-button color='primary' type='submit'>edit</button>
+  <button
+    [disabled]="form.invalid"
+    mat-flat-button
+    color="primary"
+    type="submit"
+    class="edit-btn"
+  >
+    edit
+  </button>
 </form>

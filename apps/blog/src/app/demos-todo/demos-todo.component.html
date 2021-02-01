@@ -1,0 +1,63 @@
+<div>
+  <div class="add-todo">
+    <mat-form-field>
+      <mat-label>Найти Todo...</mat-label>
+      <input matInput [(ngModel)]="searchStr" />
+    </mat-form-field>
+    <button
+      style="margin-top: 20px; max-width: 200px"
+      (click)="createTodo()"
+      color="primary"
+      mat-flat-button
+    >
+      Add todo
+    </button>
+  </div>
+  <p class="hr"></p>
+  <mat-grid-list cols="4">
+    <mat-grid-tile *ngFor="let todo of todos$ | async | searchTodo: searchStr">
+      <div>
+        <mat-card class="example-card">
+          <div>
+            <mat-card-header>
+              <mat-card-title>
+                <p>{{ todo.title }}</p>
+              </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+              <div class="options">
+                <span>{{ todo.priority }}</span>
+                <span
+                  *ngIf="
+                    todo.priority == 'Low' || todo.priority == 'Lowest';
+                    else upward
+                  "
+                  [class.low]="todo.priority === 'Low'"
+                  [class.lowest]="todo.priority === 'Lowest'"
+                  class="material-icons"
+                >
+                  arrow_downward
+                </span>
+                <ng-template #upward>
+                  <span
+                    [class.medium]="todo.priority === 'Medium'"
+                    [class.high]="todo.priority === 'High'"
+                    [class.highest]="todo.priority === 'Highest'"
+                    class="material-icons"
+                  >
+                    arrow_upward
+                  </span>
+                </ng-template>
+              </div>
+            </mat-card-content>
+          </div>
+          <mat-card-actions>
+            <button mat-button (click)="editTodo(todo.id)">EDIT</button>
+            <button mat-button (click)="removeTodo(todo.id)">REMOVE</button>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>

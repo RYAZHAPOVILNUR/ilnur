@@ -1,41 +1,8 @@
-.example-spacer {
+mat-form-field.mat-form-field {
+  width: 45px;
+  padding-top: 10px;
+}
+
+.menu-spacer {
   flex: 1 1 auto;
 }
-
-.todo {
-  display: flex;
-  justify-content: space-between;
-
-  p{
-    margin: 0;
-    display: flex;
-    align-items: center;
-
-    small{
-      margin-left: 10px;
-    }
-  }
-
-  .delete-icon{
-      color: red;
-  }
-
-  .create-icon:hover{
-    color: red;
-    position: relative;
-  }
-
-  .done{
-    text-decoration: line-through;
-  }
-}
-
-.example-card {
-  max-width: 400px;
-}
-
-.example-header-image {
-  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-  background-size: cover;
-}
-

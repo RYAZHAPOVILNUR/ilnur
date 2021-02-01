@@ -1,11 +1,38 @@
-<form [formGroup]='form' (ngSubmit)='createTodo()' style='display: flex; flex-direction: column'>
+<form
+  [formGroup]="form"
+  (ngSubmit)="createTodo()"
+  style="display: flex; flex-direction: column"
+>
   <mat-form-field class="example-full-width">
     <mat-label>Title</mat-label>
-    <input formControlName='title' matInput placeholder="Title">
+    <input formControlName="title" matInput placeholder="Title" />
   </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Priority</mat-label>
+    <mat-select formControlName="priority">
+      <mat-option value="Lowest">Lowest </mat-option>
+      <mat-option value="Low">Low</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Highest">Highest</mat-option>
+      <mat-option value="Medium">Medium</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <mat-form-field class="example-full-width">
     <mat-label>Description</mat-label>
-    <input formControlName='description' matInput placeholder="Description">
+    <textarea formControlName="description" matInput></textarea>
   </mat-form-field>
-  <button [disabled]='form.invalid'  mat-flat-button color='primary' type='submit'>create</button>
+
+  <div>
+    <button
+      [disabled]="form.invalid"
+      mat-flat-button
+      color="primary"
+      type="submit"
+    >
+      Create todo
+    </button>
+    <button class="btn-cancel" mat-flat-button>Cancel</button>
+  </div>
 </form>
