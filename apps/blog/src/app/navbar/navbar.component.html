@@ -1,0 +1,83 @@
+<div>
+  <mat-toolbar color="primary">
+    <mat-toolbar-row>
+      <button
+        mat-icon-button
+        (click)="sidenav.toggle()"
+        fxShow="true"
+        fxHide.gt-sm
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+      <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+        <a routerLink="/">My App</a>
+      </li>
+      <span class="menu-spacer"></span>
+      <div fxShow="true" fxHide.lt-md>
+        <a routerLinkActive="active" mat-button routerLink="/demos">Demos</a>
+        <a routerLinkActive="active" mat-button routerLink="#">Blog</a>
+        <a routerLinkActive="active" mat-button routerLink="#">CV</a>
+        <a routerLinkActive="active" mat-button routerLink="#">Contacts</a>
+        <a mat-button>
+          <mat-form-field appearance="standart">
+            <mat-select [(ngModel)]="selectedLanguage">
+              <mat-option
+                *ngFor="let language of languages"
+                [value]="language.value"
+                >{{ language.viewValue }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </a>
+      </div>
+    </mat-toolbar-row>
+  </mat-toolbar>
+
+  <mat-sidenav-container>
+    <mat-sidenav #sidenav>
+      <mat-nav-list>
+        <!-- <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a> -->
+        <a
+          (click)="sidenav.toggle()"
+          mat-list-item
+          routerLinkActive="active"
+          routerLink="/demos"
+          >Demos</a
+        >
+        <a
+          (click)="sidenav.toggle()"
+          mat-list-item
+          routerLinkActive="active"
+          routerLink="#"
+          >Blog</a
+        >
+        <a
+          (click)="sidenav.toggle()"
+          mat-list-item
+          routerLinkActive="active"
+          routerLink="#"
+          >CV</a
+        >
+        <a
+          (click)="sidenav.toggle()"
+          mat-list-item
+          routerLinkActive="active"
+          routerLink="#"
+          >Contacts</a
+        >
+        <a mat-list-item>
+          <mat-form-field appearance="standart">
+            <mat-select mat-list-item [(ngModel)]="selectedLanguage">
+              <mat-option
+                *ngFor="let language of languages"
+                [value]="language.value"
+                >{{ language.viewValue }}</mat-option
+              >
+            </mat-select>
+          </mat-form-field>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+    <!-- <mat-sidenav-content fxFlexFill></mat-sidenav-content> -->
+  </mat-sidenav-container>
+</div>

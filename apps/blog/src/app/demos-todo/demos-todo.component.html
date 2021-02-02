@@ -14,8 +14,8 @@
     </button>
   </div>
   <p class="hr"></p>
-  <mat-grid-list cols="4">
-    <mat-grid-tile *ngFor="let todo of todos$ | async | searchTodo: searchStr">
+  <mat-grid-list cols="6">
+    <mat-grid-tile *ngFor="let todo of todos$ | async | searchTodo: searchStr" (click)="editTodo(todo.id)" >
       <div>
         <mat-card class="example-card">
           <div>
@@ -53,7 +53,7 @@
             </mat-card-content>
           </div>
           <mat-card-actions>
-            <button mat-button (click)="editTodo(todo.id)">EDIT</button>
+<!--            <button mat-button>EDIT</button>-->
             <button mat-button (click)="removeTodo(todo.id)">REMOVE</button>
           </mat-card-actions>
         </mat-card>

@@ -13,12 +13,16 @@ export class EditTodoComponent {
   constructor(
     private readonly dialogRef: MatDialogRef<EditTodoComponent>,
     @Inject(MAT_DIALOG_DATA)
-    private readonly data: Todo
+    public readonly data: Todo
   ) {
     this.form = new FormGroup({
       title: new FormControl(data.title, [Validators.required]),
       priority: new FormControl(data.priority),
-      description: new FormControl(data.description)
+      description: new FormControl(data.description),
+      comment: new FormGroup({
+        authorId: new FormControl(data.comment.authorId),
+        text: new FormControl(data.comment.text)
+      })
     })
   }
 

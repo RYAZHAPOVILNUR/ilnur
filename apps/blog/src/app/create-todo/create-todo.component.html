@@ -1,7 +1,6 @@
 <form
   [formGroup]="form"
   (ngSubmit)="createTodo()"
-  style="display: flex; flex-direction: column"
 >
   <mat-form-field class="example-full-width">
     <mat-label>Title</mat-label>
@@ -24,7 +23,24 @@
     <textarea formControlName="description" matInput></textarea>
   </mat-form-field>
 
-  <div>
+
+  <mat-form-field>
+    <mat-label>Reporter</mat-label>
+    <mat-select>
+      <mat-option value="Lowest">Lowest </mat-option>
+      <mat-option value="Low">Low</mat-option>
+      <mat-option value="High">High</mat-option>
+      <mat-option value="Highest">Highest</mat-option>
+      <mat-option value="Medium">Medium</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Assignees</mat-label>
+    <input matInput placeholder="Assignees" />
+  </mat-form-field>
+
+  <div class="create-btns">
     <button
       [disabled]="form.invalid"
       mat-flat-button

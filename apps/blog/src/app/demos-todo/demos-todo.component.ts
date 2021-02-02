@@ -4,11 +4,11 @@ import { MatDialog } from '@angular/material/dialog';
 import { tap } from 'rxjs/operators';
 import { CreateTodoComponent } from '../create-todo/create-todo.component';
 import { EditTodoComponent } from '../edit-todo/edit-todo.component';
-// import {COMMA, ENTER} from '@angular/cdk/keycodes';
-// import {MatChipInputEvent} from '@angular/material/chips';
+import { UserService } from '../shared/services/user.service';
 
-export interface Tags {
-  name: string;
+export interface Comment {
+  authorId: number;
+  text: string;
 }
 
 export interface Todo {
@@ -16,31 +16,25 @@ export interface Todo {
   title: string;
   description: string;
   priority: string,
-  changeDetection: ChangeDetectionStrategy.OnPush
+  comment: Comment,
+  reporterId: number,
+  assignesIds: number[],
+  created: number, // Date().getTime()
+  updated: number,
 }
 
 @Component({
   selector: 'ilnur-demos-todo',
   templateUrl: './demos-todo.component.html',
-  styleUrls: ['./demos-todo.component.scss']
+  styleUrls: ['./demos-todo.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
 export class DemosTodoComponent {
   readonly title = 'blog';
   public readonly todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
   searchStr = ''
-  constructor(public dialog: MatDialog) {}
-
-
-  // visible = true;
-  // selectable = true;
-  // removable = true;
-  // addOnBlur = true;
-  // readonly separatorKeysCodes: number[] = [ENTER, COMMA];
-  // fruits: Tags[] = [
-  //   {name: 'Lemon'},
-  //   {name: 'Lime'},
-  //   {name: 'Apple'},
-  // ];
+  constructor(public dialog: MatDialog, public userService: UserService) {}
 
   public createTodo(): void {
     this.dialog.open(CreateTodoComponent)
@@ -52,6 +46,7 @@ export class DemosTodoComponent {
         ]))
       )
       .subscribe()
+
   }
 
   public editTodo(id: number): void {
@@ -78,37 +73,4 @@ export class DemosTodoComponent {
       this.todos$.value.filter(todo => todo.id != id)
     )
   }
-
-  // public add(event: MatChipInputEvent): void {
-  //   const input = event.input;
-  //   const value = event.value;
-
-  //   // Add our fruit
-  //   if ((value || '').trim()) {
-  //     this.fruits.push({name: value.trim()});
-  //   }
-
-  //   // Reset the input value
-  //   if (input) {
-  //     input.value = '';
-  //   }
-  // }
-
-  // public remove(fruit: Tags): void {
-  //   const index = this.fruits.indexOf(fruit);
-
-  //   if (index >= 0) {
-  //     this.fruits.splice(index, 1);
-  //   }
-  // }
-
-  // public onChange(id: number) {
-  //   this.todos$.next(
-  //     this.todos$.value.map(
-  //       todo => todo.id === id
-  //         ? {...todo, checked: !todo.checked}
-  //         : todo
-  //     )
-  //   )
-  // }
 }
