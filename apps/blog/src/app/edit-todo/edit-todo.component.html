@@ -1,9 +1,24 @@
 <form [formGroup]="form" (ngSubmit)="editTodo()">
-  <div class="example">
+  <div class="example-left">
     <mat-form-field class="example-full-width">
       <mat-label>Title</mat-label>
       <input formControlName="title" matInput placeholder="Title" />
     </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" matInput></textarea>
+    </mat-form-field>
+
+    <p>{{data.comment.text}}</p>
+
+    <mat-form-field appearance="outline" class="example-full-width" formGroupName="comment">
+      <mat-label>Comments</mat-label>
+      <textarea formControlName="text" matInput></textarea>
+    </mat-form-field>
+
+  </div>
+  <div class="example-right">
     <mat-form-field class="example-full-width">
       <mat-label>Priority</mat-label>
       <mat-select formControlName="priority">
@@ -14,25 +29,15 @@
         <mat-option value="Medium">Medium</mat-option>
       </mat-select>
     </mat-form-field>
+
+    <button
+      [disabled]="form.invalid"
+      mat-flat-button
+      color="primary"
+      type="submit"
+      class="edit-btn"
+    >
+      edit
+    </button>
   </div>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Description</mat-label>
-    <textarea formControlName="description" matInput></textarea>
-  </mat-form-field>
-
-  <mat-form-field class="example-full-width">
-    <mat-label>Comments</mat-label>
-    <textarea formGroupName="comment" matInput></textarea>
-  </mat-form-field>
-
-  <button
-    [disabled]="form.invalid"
-    mat-flat-button
-    color="primary"
-    type="submit"
-    class="edit-btn"
-  >
-    edit
-  </button>
 </form>

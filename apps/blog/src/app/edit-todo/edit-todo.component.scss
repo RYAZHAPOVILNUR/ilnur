@@ -1,22 +1,18 @@
 form {
   display: flex;
-  flex-direction: column;
   width: 600px;
   height: 350px;
 
+  .example-left {
+    width: 65%;
+  }
 
-  //.example {
-  //  width: 400px;
-  //  display: flex;
-  //  justify-content: space-between;
-  //
-  //  .example-width {
-  //    width: 180px;
-  //  }
-  //}
-  //
+  .example-right {
+    width: 35%;
+  }
+
   .example-full-width {
-    width: 400px;
+    width: 200px;
   }
 
   .edit-btn {
