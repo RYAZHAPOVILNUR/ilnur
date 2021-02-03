@@ -23,21 +23,16 @@
     <textarea formControlName="description" matInput></textarea>
   </mat-form-field>
 
-
   <mat-form-field>
     <mat-label>Reporter</mat-label>
-    <mat-select>
-      <mat-option value="Lowest">Lowest </mat-option>
-      <mat-option value="Low">Low</mat-option>
-      <mat-option value="High">High</mat-option>
-      <mat-option value="Highest">Highest</mat-option>
-      <mat-option value="Medium">Medium</mat-option>
-    </mat-select>
+    <input matInput value="{{user.name}}" />
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Assignees</mat-label>
-    <input matInput placeholder="Assignees" />
+    <mat-select formControlName="assigneesIds" multiple>
+      <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</mat-option>
+    </mat-select>
   </mat-form-field>
 
   <div class="create-btns">

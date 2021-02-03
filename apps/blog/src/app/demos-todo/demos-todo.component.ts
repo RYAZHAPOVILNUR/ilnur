@@ -17,9 +17,10 @@ export interface Todo {
   description: string;
   priority: string,
   comment: Comment,
+  comments: [],
   reporterId: number,
-  assignesIds: number[],
-  created: number, // Date().getTime()
+  assigneesIds: number[],
+  created: number,
   updated: number,
 }
 

@@ -10,7 +10,7 @@ export interface User {
 export const users: User[] = [
   {
     id: 1,
-    name: 'Leanne',
+    name: 'Bret',
     username: 'Graham',
     email: 'Sincere@april.biz',
     phone: '1-770-736-8031',
@@ -18,7 +18,7 @@ export const users: User[] = [
   },
   {
     id: 2,
-    name: 'Bret',
+    name: 'Brdddet',
     username: 'Leanne',
     email: 'Sincere@april.biz',
     phone: '1-770-736-8031',
@@ -49,5 +49,3 @@ export const users: User[] = [
     avatar: '...url...'
   },
 ]
-
-

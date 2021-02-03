@@ -1,25 +1,67 @@
-<form [formGroup]="form" (ngSubmit)="editTodo()">
+<form [formGroup]="form">
   <div class="example-left">
-    <mat-form-field class="example-full-width">
+    <p>{{data.id}}</p>
+    <mat-form-field appearance="outline" class="example-left_input">
       <mat-label>Title</mat-label>
       <input formControlName="title" matInput placeholder="Title" />
     </mat-form-field>
 
-    <mat-form-field class="example-full-width">
+    <mat-form-field appearance="outline" class="example-left_input descr">
       <mat-label>Description</mat-label>
       <textarea formControlName="description" matInput></textarea>
     </mat-form-field>
 
-    <p>{{data.comment.text}}</p>
-
-    <mat-form-field appearance="outline" class="example-full-width" formGroupName="comment">
+    <mat-form-field appearance="outline" formGroupName="comment" class="example-left_input">
       <mat-label>Comments</mat-label>
       <textarea formControlName="text" matInput></textarea>
     </mat-form-field>
+    <button mat-flat-button color="primary" (click)="addComment()">Save</button>
+    <button mat-flat-button (click)="cancelComment()">Cancel</button>
+    <div *ngFor="let com of data.comments">
+      <p>{{com.authorId}} {{com.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+      <p>{{com.text}}</p>
+    </div>
 
   </div>
   <div class="example-right">
-    <mat-form-field class="example-full-width">
+
+    <button (click)="editTodo()" class="material-icons close" mat-icon-button >
+      <mat-icon>close</mat-icon>
+    </button>
+
+    <div class="reporter">
+      <span>Reporter:</span>
+      <span class="reporter__name">{{reporter.name}}</span>
+    </div>
+
+    <mat-form-field class="example-chip-list" >
+      <mat-label>Assignees</mat-label>
+      <mat-chip-list #chipList aria-label="UserName selection">
+        <mat-chip
+          *ngFor="let userName of userNames"
+          [selectable]="selectable"
+          [removable]="removable"
+          (removed)="remove(userName)">
+          {{userName}}
+          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+        </mat-chip>
+        <input
+          placeholder="New assignees..."
+          #userNamesInput
+          [formControl]="userNamesCtrl"
+          [matAutocomplete]="auto"
+          [matChipInputFor]="chipList"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="add($event)" />
+      </mat-chip-list>
+      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+        <mat-option *ngFor="let userName of filteredUserNames | async" [value]="userName">
+          {{userName}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Priority</mat-label>
       <mat-select formControlName="priority">
         <mat-option value="Lowest">Lowest </mat-option>
@@ -29,6 +71,8 @@
         <mat-option value="Medium">Medium</mat-option>
       </mat-select>
     </mat-form-field>
+    <p>Created: {{data.created | date:'dd.MM.yy HH:mm:ss'}}</p>
+    <p>Updated: {{data.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
 
     <button
       [disabled]="form.invalid"
@@ -36,6 +80,7 @@
       color="primary"
       type="submit"
       class="edit-btn"
+      (click)="editTodo()"
     >
       edit
     </button>

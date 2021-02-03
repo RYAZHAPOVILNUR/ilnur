@@ -1,15 +1,4 @@
-mat-sidenav-container.mat-drawer-container.mat-sidenav-container.mat-drawer-transition {
-  position: absolute;
-  z-index: 99;
-  height: 100%;
-  min-width: 12%;
-  display: none;
-  border-right: 1px solid #ccc;
 
-  &.mat-drawer-container-has-open {
-    display: block;
-  }
-}
 
 mat-form-field.mat-form-field {
   width: 45px;
@@ -19,3 +8,20 @@ mat-form-field.mat-form-field {
 .menu-spacer {
   flex: 1 1 auto;
 }
+
+.show {
+  height: 100vh;
+}
+
+.sidenav {
+  background: #eee;
+  transform: none;
+  visibility: visible !important;
+}
+
+
+.hidden {
+  box-shadow: none;
+  visibility: hidden;
+}
+

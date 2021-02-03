@@ -1,11 +1,12 @@
-<div>
+<div id="window">
   <mat-toolbar color="primary">
     <mat-toolbar-row>
       <button
         mat-icon-button
-        (click)="sidenav.toggle()"
         fxShow="true"
         fxHide.gt-sm
+        id="menu"
+        (click)="onToggle()"
       >
         <mat-icon>menu</mat-icon>
       </button>
@@ -33,33 +34,33 @@
     </mat-toolbar-row>
   </mat-toolbar>
 
-  <mat-sidenav-container>
-    <mat-sidenav #sidenav>
+  <mat-sidenav-container fxFlexFill>
+    <mat-sidenav id="sidenav">
       <mat-nav-list>
         <!-- <a (click)="sidenav.toggle()" href="" mat-list-item>Close</a> -->
         <a
-          (click)="sidenav.toggle()"
+          (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
           routerLink="/demos"
           >Demos</a
         >
         <a
-          (click)="sidenav.toggle()"
+          (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
           routerLink="#"
           >Blog</a
         >
         <a
-          (click)="sidenav.toggle()"
+          (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
           routerLink="#"
           >CV</a
         >
         <a
-          (click)="sidenav.toggle()"
+          (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
           routerLink="#"

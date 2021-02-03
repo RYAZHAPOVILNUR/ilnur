@@ -15,8 +15,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatChipsModule} from '@angular/material/chips';
 
 @NgModule({
   imports: [
@@ -30,7 +30,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatToolbarModule,
     MatButtonModule,
     MatFormFieldModule,
-    MatInputModule,
     MatCardModule,
     MatSelectModule,
     MatListModule,
@@ -44,7 +43,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatSidenavModule,
     MatToolbarModule,
     MatGridListModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ],
   declarations: [
     SearchPipe
@@ -69,13 +70,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     MatButtonModule,
     MatCardModule,
     MatIconModule,
-    MatInputModule,
     MatListModule,
     MatSelectModule,
     MatSidenavModule,
     MatToolbarModule,
     MatGridListModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatAutocompleteModule,
+    MatChipsModule
   ]
 })
 export class SharedModule {
