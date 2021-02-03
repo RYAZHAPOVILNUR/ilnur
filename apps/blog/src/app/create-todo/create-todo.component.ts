@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Todo } from '../demos-todo/demos-todo.component';
 import { UserService } from '../shared/services/user.service';
-import { User, users } from '../shared/users'
+import { User } from '../shared/users'
 
 @Component({
   selector: 'ilnur-create-todo',
@@ -19,7 +19,7 @@ export class CreateTodoComponent {
     private readonly dialogRef: MatDialogRef<CreateTodoComponent>,
     private userService: UserService
   ) {
-    this.userService.getCurrentUser().subscribe(user => {
+    this.userService.currentUser.subscribe(user => {
       this.user = user
     })
 

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core'
 import { Observable, of } from 'rxjs';
-import { filter, map } from 'rxjs/operators';
 import { User } from '../users';
 import { users } from '../users'
 
@@ -9,15 +8,13 @@ import { users } from '../users'
 })
 export class UserService {
   public users = users
-  public currentUser = this.users.filter( user => {
-    return user.id === 1
-  })
 
-  public getUsers(): Observable<User[]> {
-    return of(this.users)
+  public get getUsers(): Observable<User[]> {
+    return of(users)
   }
 
-  public getCurrentUser(): Observable<User> {
-    return of(this.currentUser[0])
+  public get currentUser(): Observable<User> {
+    const currentUser = this.users.find(user => user.id === 1)
+    return of(currentUser)
   }
 }
