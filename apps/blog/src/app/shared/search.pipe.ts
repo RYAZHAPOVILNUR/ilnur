@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import {Todo} from '../demos-todo/demos-todo.component'
+import { Todo } from '../pages/demos-todo/demos-todo.component'
 
 @Pipe({
   name: 'searchTodo'

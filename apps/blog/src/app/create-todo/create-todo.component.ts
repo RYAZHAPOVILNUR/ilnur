@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
-import { Todo } from '../demos-todo/demos-todo.component';
+import { Todo } from '../pages/demos-todo/demos-todo.component';
 import { UserService } from '../shared/services/user.service';
 import { User } from '../shared/users'
 
@@ -35,7 +35,7 @@ export class CreateTodoComponent implements OnInit, OnDestroy{
       priority: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       created: new FormControl(new Date(new Date().getTime())),
-      reporterId: new FormControl(this.user.id,[Validators.required]),
+      reporterId: new FormControl('',[Validators.required]),
       assigneesIds: new FormControl([]),
       updated: new FormControl(''),
       comments: new FormControl([]),

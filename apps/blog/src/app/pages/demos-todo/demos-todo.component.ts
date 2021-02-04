@@ -2,9 +2,9 @@ import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { tap } from 'rxjs/operators';
-import { CreateTodoComponent } from '../create-todo/create-todo.component';
-import { EditTodoComponent } from '../edit-todo/edit-todo.component';
-import { UserService } from '../shared/services/user.service';
+import { CreateTodoComponent } from '../../create-todo/create-todo.component';
+import { EditTodoComponent } from '../../edit-todo/edit-todo.component';
+import { UserService } from '../../shared/services/user.service';
 
 export interface Comment {
   authorId: number;

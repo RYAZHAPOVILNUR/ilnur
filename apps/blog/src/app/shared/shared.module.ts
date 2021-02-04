@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { SearchPipe } from './search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
-import { CommonModule } from '@angular/common';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -24,7 +23,6 @@ import {MatChipsModule} from '@angular/material/chips';
     ReactiveFormsModule,
     FlexModule,
     FlexLayoutModule,
-    CommonModule,
     MatDialogModule,
     MatIconModule,
     MatToolbarModule,
@@ -48,15 +46,12 @@ import {MatChipsModule} from '@angular/material/chips';
     MatChipsModule
   ],
   declarations: [
-    SearchPipe
   ],
   exports: [
-    SearchPipe,
     FormsModule,
     ReactiveFormsModule,
     FlexModule,
     FlexLayoutModule,
-    CommonModule,
     MatDialogModule,
     MatIconModule,
     MatToolbarModule,
@@ -75,7 +70,6 @@ import {MatChipsModule} from '@angular/material/chips';
     MatSidenavModule,
     MatToolbarModule,
     MatGridListModule,
-    BrowserAnimationsModule,
     MatAutocompleteModule,
     MatChipsModule
   ]

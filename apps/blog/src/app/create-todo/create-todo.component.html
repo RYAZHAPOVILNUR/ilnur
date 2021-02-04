@@ -25,12 +25,14 @@
 
   <mat-form-field>
     <mat-label>Reporter</mat-label>
-    <input matInput value="{{user.name}}" />
+    <mat-select formControlName="reporterId">
+      <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Assignees</mat-label>
-    <mat-select formControlName="assigneesIds" multiple>
+    <mat-select formControlName="assigneesIds">
       <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</mat-option>
     </mat-select>
   </mat-form-field>

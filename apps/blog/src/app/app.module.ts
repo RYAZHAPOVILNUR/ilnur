@@ -4,11 +4,13 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { EditTodoComponent } from './edit-todo/edit-todo.component';
-import { DemosTodoComponent } from './demos-todo/demos-todo.component';
 import { AppRoutingModule } from './app-routing.module';
-import { HomeComponent } from './home/home.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
+import { HomeComponent } from './pages/home/home.component';
+import { BlogComponent } from './pages/blog/blog.component';
+import { ContactsComponent } from './pages/contacts/contacts.component';
+import { CvComponent } from './pages/cv/cv.component';
 
 
 @NgModule({
@@ -16,9 +18,11 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     CreateTodoComponent,
     EditTodoComponent,
-    DemosTodoComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    BlogComponent,
+    ContactsComponent,
+    CvComponent
   ],
   imports: [
     AppRoutingModule,

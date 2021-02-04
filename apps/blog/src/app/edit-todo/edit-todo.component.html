@@ -13,19 +13,25 @@
 
     <mat-form-field appearance="outline" formGroupName="comment" class="example-left_input">
       <mat-label>Comments</mat-label>
-      <textarea formControlName="text" matInput></textarea>
+      <textarea formControlName="text" matInput (click)="toggle = !toggle"></textarea>
     </mat-form-field>
-    <button mat-flat-button color="primary" (click)="addComment()">Save</button>
-    <button mat-flat-button (click)="cancelComment()">Cancel</button>
-    <div *ngFor="let com of data.comments">
+    <div *ngIf="toggle">
+      <button mat-flat-button color="primary" (click)="addComment()" [disabled]="form.invalid">Save</button>
+      <button mat-flat-button (click)="cancelComment()">Cancel</button>
+    </div>
+
+
+    <div *ngFor="let com of form.value.comments">
       <p>{{com.authorId}} {{com.time | date:'dd.MM.yy HH:mm:ss'}} </p>
       <p>{{com.text}}</p>
     </div>
 
+
+
   </div>
   <div class="example-right">
 
-    <button (click)="editTodo()" class="material-icons close" mat-icon-button >
+    <button (click)="editTodo()" class="material-icons close" mat-icon-button>
       <mat-icon>close</mat-icon>
     </button>
 
@@ -34,32 +40,35 @@
       <span class="reporter__name">{{reporter.name}}</span>
     </div>
 
-    <mat-form-field class="example-chip-list" >
-      <mat-label>Assignees</mat-label>
-      <mat-chip-list #chipList aria-label="UserName selection">
-        <mat-chip
-          *ngFor="let userName of userNames"
-          [selectable]="selectable"
-          [removable]="removable"
-          (removed)="remove(userName)">
-          {{userName}}
-          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
-        </mat-chip>
-        <input
-          placeholder="New assignees..."
-          #userNamesInput
-          [formControl]="userNamesCtrl"
-          [matAutocomplete]="auto"
-          [matChipInputFor]="chipList"
-          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-          (matChipInputTokenEnd)="add($event)" />
-      </mat-chip-list>
-      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let userName of filteredUserNames | async" [value]="userName">
-          {{userName}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+
+<!--&lt;!&ndash;    autocomplete&ndash;&gt;-->
+<!--    <mat-form-field class="example-chip-list" >-->
+<!--      <mat-label>Assignees</mat-label>-->
+<!--      <mat-chip-list #chipList aria-label="UserName selection">-->
+<!--        <mat-chip-->
+<!--          *ngFor="let userName of userNames"-->
+<!--          [selectable]="selectable"-->
+<!--          [removable]="removable"-->
+<!--          (removed)="remove(userName)">-->
+<!--          {{userName}}-->
+<!--          <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>-->
+<!--        </mat-chip>-->
+<!--        <input-->
+<!--          placeholder="New assignees..."-->
+<!--          #userNamesInput-->
+<!--          [formControl]="userNamesCtrl"-->
+<!--          [matAutocomplete]="auto"-->
+<!--          [matChipInputFor]="chipList"-->
+<!--          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"-->
+<!--          (matChipInputTokenEnd)="add($event)" />-->
+<!--      </mat-chip-list>-->
+<!--      <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">-->
+<!--        <mat-option *ngFor="let userName of filteredUserNames | async" [value]="userName">-->
+<!--          {{userName}}-->
+<!--        </mat-option>-->
+<!--      </mat-autocomplete>-->
+<!--    </mat-form-field>-->
+<!--    &lt;!&ndash;    autocomplete&ndash;&gt;-->
 
     <mat-form-field appearance="outline">
       <mat-label>Priority</mat-label>

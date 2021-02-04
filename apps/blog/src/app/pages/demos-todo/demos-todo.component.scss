@@ -10,7 +10,24 @@
   border-bottom: 1px solid #ccc;
 }
 
+.descr{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.mat-grid-tile .mat-figure{
+  height: 130px;
+}
+
+mat-card-header{
+  display: flex;
+  justify-content: space-around;
+  align-items: end;
+}
+
 .example-card {
+  width: 200px;
   max-width: 400px;
 
   .options {

@@ -14,7 +14,7 @@
     </button>
   </div>
   <p class="hr"></p>
-  <mat-grid-list cols="6">
+  <mat-grid-list cols="5">
     <mat-grid-tile *ngFor="let todo of todos$ | async | searchTodo: searchStr" (click)="editTodo(todo.id)" >
       <div>
         <mat-card class="example-card">
@@ -23,11 +23,7 @@
               <mat-card-title>
                 <p>{{ todo.title }}</p>
               </mat-card-title>
-            </mat-card-header>
-
-            <mat-card-content>
               <div class="options">
-                <span>{{ todo.priority }}</span>
                 <span
                   *ngIf="
                     todo.priority == 'Low' || todo.priority == 'Lowest';
@@ -50,7 +46,12 @@
                   </span>
                 </ng-template>
               </div>
-            </mat-card-content>
+            </mat-card-header>
+
+            <div class="descr">
+              {{todo.description}}
+            </div>
+
           </div>
           <mat-card-actions>
 <!--            <button mat-button>EDIT</button>-->
