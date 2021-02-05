@@ -1,8 +1,17 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
+import { CvComponent } from './cv.component';
 
 @NgModule({
-  declarations: [],
-  imports: [SharedModule],
+  declarations: [
+    CvComponent
+  ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      {path: '', component: CvComponent}
+    ])
+  ],
 })
 export class CvModule {}

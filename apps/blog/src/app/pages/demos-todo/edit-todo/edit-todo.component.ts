@@ -21,6 +21,7 @@ export class EditTodoComponent {
   public readonly todo$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null)
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
+
   constructor(
     private readonly dialogRef: MatDialogRef<EditTodoComponent>,
     @Inject(MAT_DIALOG_DATA)
@@ -68,6 +69,8 @@ export class EditTodoComponent {
   }
 
   public editTodo(): void {
+    console.log(this.form.value)
+
     this.dialogRef.close({
       ...this.form.value,
       id: this.data.todo.id

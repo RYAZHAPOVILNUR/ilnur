@@ -8,9 +8,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SharedModule } from './shared/shared.module';
 import { HomeComponent } from './pages/home/home.component';
-import { BlogComponent } from './pages/blog/blog.component';
-import { ContactsComponent } from './pages/contacts/contacts.component';
-import { CvComponent } from './pages/cv/cv.component';
 
 
 @NgModule({
@@ -18,9 +15,6 @@ import { CvComponent } from './pages/cv/cv.component';
     AppComponent,
     HomeComponent,
     NavbarComponent,
-    BlogComponent,
-    ContactsComponent,
-    CvComponent
   ],
   imports: [
     AppRoutingModule,

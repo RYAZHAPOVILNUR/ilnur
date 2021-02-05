@@ -16,9 +16,9 @@
       <span class="menu-spacer"></span>
       <div fxShow="true" fxHide.lt-md>
         <a routerLinkActive="active" mat-button routerLink="/demos">Demos</a>
-        <a routerLinkActive="active" mat-button routerLink="#">Blog</a>
-        <a routerLinkActive="active" mat-button routerLink="#">CV</a>
-        <a routerLinkActive="active" mat-button routerLink="#">Contacts</a>
+        <a routerLinkActive="active" mat-button routerLink="/blog">Blog</a>
+        <a routerLinkActive="active" mat-button routerLink="/cv">CV</a>
+        <a routerLinkActive="active" mat-button routerLink="/contacts">Contacts</a>
         <a mat-button>
           <mat-form-field appearance="standart">
             <mat-select [(ngModel)]="selectedLanguage">
@@ -49,21 +49,21 @@
           (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
-          routerLink="#"
+          routerLink="/blog"
           >Blog</a
         >
         <a
           (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
-          routerLink="#"
+          routerLink="/cv"
           >CV</a
         >
         <a
           (click)="onToggle()"
           mat-list-item
           routerLinkActive="active"
-          routerLink="#"
+          routerLink="/contacts"
           >Contacts</a
         >
         <a mat-list-item>
