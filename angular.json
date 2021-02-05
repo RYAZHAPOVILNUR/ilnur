@@ -48,7 +48,10 @@
             "tsConfig": "apps/blog/tsconfig.app.json",
             "aot": true,
             "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/blog/src/styles.scss"],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/blog/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -139,6 +142,117 @@
           "builder": "@nrwl/linter:eslint",
           "options": {
             "lintFilePatterns": ["apps/blog-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
+    },
+    "nikah": {
+      "projectType": "application",
+      "root": "apps/nikah",
+      "sourceRoot": "apps/nikah/src",
+      "prefix": "ilnur",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/apps/nikah",
+            "index": "apps/nikah/src/index.html",
+            "main": "apps/nikah/src/main.ts",
+            "polyfills": "apps/nikah/src/polyfills.ts",
+            "tsConfig": "apps/nikah/tsconfig.app.json",
+            "aot": true,
+            "assets": ["apps/nikah/src/favicon.ico", "apps/nikah/src/assets"],
+            "styles": ["apps/nikah/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/nikah/src/environments/environment.ts",
+                  "with": "apps/nikah/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "nikah:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "nikah:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "nikah:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/nikah/src/**/*.ts",
+              "apps/nikah/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/nikah"],
+          "options": {
+            "jestConfig": "apps/nikah/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "nikah-e2e": {
+      "root": "apps/nikah-e2e",
+      "sourceRoot": "apps/nikah-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/nikah-e2e/cypress.json",
+            "tsConfig": "apps/nikah-e2e/tsconfig.e2e.json",
+            "devServerTarget": "nikah:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "nikah:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/nikah-e2e/**/*.{js,ts}"]
           }
         }
       }

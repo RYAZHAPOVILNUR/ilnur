@@ -17,6 +17,8 @@
   },
   "projects": {
     "blog": { "tags": [] },
-    "blog-e2e": { "tags": [], "implicitDependencies": ["blog"] }
+    "blog-e2e": { "tags": [], "implicitDependencies": ["blog"] },
+    "nikah": { "tags": [] },
+    "nikah-e2e": { "tags": [], "implicitDependencies": ["nikah"] }
   }
 }

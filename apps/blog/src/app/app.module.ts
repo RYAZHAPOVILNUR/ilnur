@@ -14,7 +14,7 @@ import { HomeComponent } from './pages/home/home.component';
   declarations: [
     AppComponent,
     HomeComponent,
-    NavbarComponent,
+    NavbarComponent
   ],
   imports: [
     AppRoutingModule,
