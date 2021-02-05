@@ -1,34 +1,31 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
-import { Todo } from '../pages/demos-todo/demos-todo.component';
-import { UserService } from '../shared/services/user.service';
-import { User } from '../shared/users'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Todo } from '../demos-todo.component';
+import { User } from '../../../shared/users'
+
+export interface CreateTodoModalData {
+  users: User[],
+  currentUser: User
+}
 
 @Component({
   selector: 'ilnur-create-todo',
   templateUrl: './create-todo.component.html',
   styleUrls: ['./create-todo.component.scss']
 })
-export class CreateTodoComponent implements OnInit, OnDestroy{
-  public form: FormGroup
-  public users: User[]
-  public user: User
-  public userSub
-  public usersSub
+export class CreateTodoComponent {
+  public readonly form: FormGroup
+  public readonly users: User[]
+  public readonly user: User
 
   constructor(
-    private readonly dialogRef: MatDialogRef<CreateTodoComponent>,
-    private userService: UserService
-  ) {}
-
-  ngOnInit() {
-    this.userSub = this.userService.currentUser.subscribe(user => {
-      this.user = user
-    })
-    this.usersSub = this.userService.getUsers.subscribe(users => {
-      this.users = users
-    })
+    @Inject(MAT_DIALOG_DATA)
+    private readonly data: CreateTodoModalData,
+    private readonly dialogRef: MatDialogRef<CreateTodoComponent>
+  ) {
+    this.users = data.users
+    this.user = data.currentUser
 
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
@@ -51,16 +48,6 @@ export class CreateTodoComponent implements OnInit, OnDestroy{
       id: new Date().getTime(),
       ...this.form.value
     } as Todo)
-  }
-
-  ngOnDestroy() {
-    if(this.userSub) {
-      this.userSub.unsubscribe()
-    }
-
-    if(this.usersSub) {
-      this.usersSub.unsubscribe()
-    }
   }
 
 }

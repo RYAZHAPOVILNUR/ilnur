@@ -1,10 +1,11 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { tap } from 'rxjs/operators';
-import { CreateTodoComponent } from '../../create-todo/create-todo.component';
-import { EditTodoComponent } from '../../edit-todo/edit-todo.component';
+import { map, switchMap, tap } from 'rxjs/operators';
+import { CreateTodoComponent, CreateTodoModalData } from './create-todo/create-todo.component';
+import { EditTodoComponent, EditTodoModalData } from './edit-todo/edit-todo.component';
 import { UserService } from '../../shared/services/user.service';
+import { User } from '../../shared/users';
 
 export interface Comment {
   authorId: number;
@@ -16,8 +17,7 @@ export interface Todo {
   title: string;
   description: string;
   priority: string,
-  comment: Comment,
-  comments: [],
+  comments: Comment[],
   reporterId: number,
   assigneesIds: number[],
   created: number,
@@ -32,29 +32,52 @@ export interface Todo {
 
 })
 export class DemosTodoComponent {
-  readonly title = 'blog';
   public readonly todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-  searchStr = ''
-  constructor(public dialog: MatDialog, public userService: UserService) {}
+  private readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null)
+  private readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
+  public searchStr = ''
+
+  constructor(
+    public dialog: MatDialog,
+    private userService: UserService
+  ) {
+    combineLatest([
+      this.userService.getUsers,
+      this.userService.currentUser
+    ])
+      .pipe(
+        tap(([users, user]) => {
+          this.user$.next(user)
+          this.users$.next(users)
+        })
+      ).subscribe()
+  }
 
   public createTodo(): void {
-    this.dialog.open(CreateTodoComponent)
-      .afterClosed()
-      .pipe(
-        tap((data: Todo) => this.todos$.next([
-          ...this.todos$.value,
-          data
-        ]))
-      )
+    this.dialog.open(
+      CreateTodoComponent, {data: {
+        users: this.users$.value,
+        currentUser: this.user$.value
+      } as CreateTodoModalData}
+    ).afterClosed()
+    .pipe(
+      tap((data: Todo) => this.todos$.next([
+        ...this.todos$.value,
+        data
+      ]))
+    )
       .subscribe()
-
   }
 
   public editTodo(id: number): void {
     this.dialog.open(EditTodoComponent, {
-      data: this.todos$.value.find(
-        (todo: Todo) => todo.id === id
-      )
+      data: {
+        todo: this.todos$.value.find(
+          (todo: Todo) => todo.id === id
+        ),
+        users: this.users$.value,
+        currentUser: this.user$.value
+      } as EditTodoModalData
     })
       .afterClosed()
       .pipe(

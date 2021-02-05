@@ -18,14 +18,18 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import {FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { CreateTodoComponent } from './create-todo/create-todo.component';
+import { EditTodoComponent } from './edit-todo/edit-todo.component';
 
 
 
 @NgModule({
   declarations: [
     DemosTodoComponent,
-    SearchPipe]
-  ,
+    CreateTodoComponent,
+    EditTodoComponent,
+    SearchPipe
+  ],
   imports: [
     FormsModule,
     ReactiveFormsModule,

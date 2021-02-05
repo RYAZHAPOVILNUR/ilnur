@@ -1,0 +1,41 @@
+form {
+  display: flex;
+  width: 600px;
+  height: auto;
+  position: relative;
+
+  .example-left {
+    width: 65%;
+
+    .example-left_input {
+      width: 90%;
+    }
+  }
+
+  .example-right {
+    width: 35%;
+  }
+
+  .example-full-width {
+    width: 90%;
+  }
+
+  .edit-btn {
+    width: 100px;
+  }
+}
+
+.reporter__name {
+  background: #ccc;
+  width: 100px;
+  height: 30px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+.material-icons.close {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+}
