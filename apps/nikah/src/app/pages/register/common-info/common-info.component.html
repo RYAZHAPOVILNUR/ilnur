@@ -1,0 +1,34 @@
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column'>
+    <div formGroupName='country'>
+      <mat-form-field appearance="fill">
+        <mat-label>Страна проживания</mat-label>
+        <mat-select formControlName='value' (change)="changeCity($event)">
+          <mat-option *ngFor="let country of countries$ | async" value='country'>
+            {{country.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div formGroupName='city'>
+      <mat-form-field appearance="fill">
+        <mat-label>Город или местность</mat-label>
+        <mat-select formControlName='value'>
+          <mat-option *ngFor="let city of cities$ | async" [value]="city">
+            {{city.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div formGroupName='nationality'>
+      <mat-form-field appearance="fill">
+        <mat-label>Национальность</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let nationality of nationalities$ | async" [value]="nationality">
+            {{nationality.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+</form>
