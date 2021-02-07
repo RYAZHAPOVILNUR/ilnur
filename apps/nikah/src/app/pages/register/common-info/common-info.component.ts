@@ -6,11 +6,11 @@ import { BehaviorSubject } from 'rxjs';
 const countries = [
   {
     id: 1,
-    label: 'Россия'
+    name: 'Россия'
   },
   {
     id: 2,
-    label: 'Египет'
+    name: 'Египет'
   }
 ]
 
@@ -26,22 +26,22 @@ export class CommonInfoComponent {
   public readonly cities$: BehaviorSubject<any> = new BehaviorSubject<any>([
     {
       id: 1,
-      label:  'Санкт-Петербург'
+      name:  'Санкт-Петербург'
     },
     {
       id: 2,
-      label: 'Каир'
+      name: 'Каир'
     }
   ])
 
   public readonly nationalities$: BehaviorSubject<any> = new BehaviorSubject<any>([
     {
       id: 1,
-      label:  'Башкир'
+      name:  'Башкир'
     },
     {
       id: 2,
-      label: 'Казах'
+      name: 'Казах'
     }
   ])
 
@@ -50,20 +50,8 @@ export class CommonInfoComponent {
     private readonly store: RegisterStore
   ) { }
 
-  changeCity(e) {
-    console.log({e})
-    this.form.patchValue(e.target.value, {
-      onlySelf: true,
-      emitEvent: false
-    })
-  }
-
-  test() {
-    console.log(this.form.value)
-  }
-
 
   selectValueChange(field, e) {
-    this.form.patchValue({[field]: e.id})
+    this.form.patchValue({[field]: e})
   }
 }

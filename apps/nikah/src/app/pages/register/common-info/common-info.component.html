@@ -4,7 +4,7 @@
       <mat-label>Страна проживания</mat-label>
       <mat-select (valueChange)='selectValueChange("country", $event)'>
         <mat-option *ngFor="let country of countries$ | async" [value]='country'>
-          {{country.label}}
+          {{country.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -12,7 +12,7 @@
       <mat-label>Город или местность</mat-label>
       <mat-select (valueChange)='selectValueChange("city", $event)'>
         <mat-option *ngFor="let city of cities$ | async" [value]="city">
-          {{city.label}}
+          {{city.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
@@ -20,10 +20,9 @@
       <mat-label>Национальность</mat-label>
       <mat-select (valueChange)='selectValueChange("nationality", $event)'>
         <mat-option *ngFor="let nationality of nationalities$ | async" [value]="nationality">
-          {{nationality.label}}
+          {{nationality.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <button (click)='test()'>test</button>
   </div>
 </form>
