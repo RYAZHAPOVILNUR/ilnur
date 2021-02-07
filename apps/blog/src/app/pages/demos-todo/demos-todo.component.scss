@@ -2,8 +2,6 @@
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  width: 90%;
-  margin: 0 auto;
 }
 
 .hr {
@@ -40,6 +38,7 @@ mat-card-title{
 
 .example-card {
   //width: 180px;
+  margin: 5px;
 
   .options {
     display: flex;

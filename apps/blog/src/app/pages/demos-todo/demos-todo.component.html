@@ -1,4 +1,7 @@
-<div>
+<div style='
+  width: 90%;
+  margin: 0 auto;'
+>
   <div class="add-todo">
     <mat-form-field>
       <mat-label>Найти Todo...</mat-label>
@@ -14,56 +17,54 @@
     </button>
   </div>
   <p class="hr"></p>
-  <mat-grid-list cols="6" rowHeight="2:1" >
-    <mat-grid-tile *ngFor="let todo of todos$ | async | searchTodo: searchStr" (click)="editTodo(todo.id)" >
+  <div style='display: flex'>
+    <mat-card
+      class="example-card"
+      *ngFor="let todo of todos$ | async | searchTodo: searchStr"
+      (click)="editTodo(todo.id)"
+    >
       <mat-card-header>
-        <mat-card class="example-card">
-          <div>
-             <mat-card-title>
-               <p>{{ todo.title }}</p>
+        <mat-card-title>
+          <p>{{ todo.title }}</p>
 
-             </mat-card-title>
-
-            <mat-card-content>
-              <p class="descr">{{todo.description}}</p>
-            </mat-card-content>
-
-          </div>
-          <mat-card-actions class="priority">
-            <div class="options">
-              <p>{{todo.priority}}</p>
-                <span
-                  *ngIf="
-                    todo.priority == 'Low' || todo.priority == 'Lowest';
-                    else upward
-                  "
-                  [class.low]="todo.priority === 'Low'"
-                  [class.lowest]="todo.priority === 'Lowest'"
-                  class="material-icons"
-                >
-                  arrow_downward
-                </span>
-              <ng-template #upward>
-                  <span
-                    [class.medium]="todo.priority === 'Medium'"
-                    [class.high]="todo.priority === 'High'"
-                    [class.highest]="todo.priority === 'Highest'"
-                    class="material-icons"
-                  >
-                    arrow_upward
-                  </span>
-              </ng-template>
-            </div>
-            <button
-              mat-icon-button color="warn"
-              aria-label="Example icon button with a heart icon"
-              (click)="removeTodo(todo.id)"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-card>
+        </mat-card-title>
       </mat-card-header>
-    </mat-grid-tile>
-  </mat-grid-list>
+        <mat-card-content>
+          <p class="descr">{{todo.description}}</p>
+        </mat-card-content>
+      <mat-card-actions class="priority">
+        <div class="options">
+          <p>{{todo.priority}}</p>
+          <span
+            *ngIf="
+                todo.priority == 'Low' || todo.priority == 'Lowest';
+                else upward
+              "
+            [class.low]="todo.priority === 'Low'"
+            [class.lowest]="todo.priority === 'Lowest'"
+            class="material-icons"
+          >
+            arrow_downward
+          </span>
+          <ng-template #upward>
+            <span
+              [class.medium]="todo.priority === 'Medium'"
+              [class.high]="todo.priority === 'High'"
+              [class.highest]="todo.priority === 'Highest'"
+              class="material-icons"
+            >
+              arrow_upward
+            </span>
+          </ng-template>
+        </div>
+        <button
+          mat-icon-button color="warn"
+          aria-label="Example icon button with a heart icon"
+          (click)="removeTodo(todo.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
 </div>
