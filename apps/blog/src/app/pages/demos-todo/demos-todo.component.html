@@ -54,7 +54,7 @@
         <button
           mat-icon-button color="warn"
           aria-label="Example icon button with a heart icon"
-          (click)="removeTodo(todo.id)"
+          (click)="removeTodo(todo.id, $event)"
         >
           <mat-icon>delete</mat-icon>
         </button>

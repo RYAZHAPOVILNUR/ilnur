@@ -1,11 +1,14 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
+import { BehaviorSubject, combineLatest } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, tap } from 'rxjs/operators';
 import { CreateTodoComponent, CreateTodoModalData } from './create-todo/create-todo.component';
 import { EditTodoComponent, EditTodoModalData } from './edit-todo/edit-todo.component';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/users';
+
+const COLLECTION_NAME = 'tasks'
 
 export interface Comment {
   authorId: number;
@@ -14,7 +17,7 @@ export interface Comment {
 }
 
 export interface Todo {
-  id: number;
+  id: string;
   title: string;
   description: string;
   priority: string,
@@ -40,8 +43,23 @@ export class DemosTodoComponent {
 
   constructor(
     public dialog: MatDialog,
-    private userService: UserService
+    private userService: UserService,
+    private firestore: AngularFirestore
   ) {
+    this.collection.snapshotChanges()
+      .pipe(
+        map(
+          (actions) => actions.map(
+            (action) => ({
+              ...action.payload.doc.data(),
+              id: action.payload.doc.id
+            })
+          )
+        ),
+        tap(console.log)
+      )
+      .subscribe((todos: Todo[]) => this.todos$.next(todos))
+
     combineLatest([
       this.userService.getUsers,
       this.userService.currentUser
@@ -62,15 +80,12 @@ export class DemosTodoComponent {
       } as CreateTodoModalData}
     ).afterClosed()
     .pipe(
-      tap((data: Todo) => this.todos$.next([
-        ...this.todos$.value,
-        data
-      ]))
+      tap((data: Todo) => this.collection.add(data))
     )
       .subscribe()
   }
 
-  public editTodo(id: number): void {
+  public editTodo(id: string): void {
     this.dialog.open(EditTodoComponent, {
       data: {
         todo: this.todos$.value.find(
@@ -83,20 +98,20 @@ export class DemosTodoComponent {
       .afterClosed()
       .pipe(
         filter((data: Todo) => data != null),
-        tap((data: Todo) => this.todos$.next(
-          this.todos$.value.map(
-            (todo: Todo) => todo.id === data.id
-              ? {...todo, ...data}
-              : todo
-          )
-        ))
+        tap(
+          (data: Todo) => this.firestore.doc(`${COLLECTION_NAME}/${data.id}`).update(data)
+        )
       )
       .subscribe()
   }
 
-  public removeTodo(id: number) {
-    this.todos$.next(
-      this.todos$.value.filter(todo => todo.id != id)
-    )
+  public removeTodo(id: string, event) {
+    event.stopPropagation()
+    console.log({id})
+    this.firestore.doc(`${COLLECTION_NAME}/${id}`).delete()
+  }
+
+  private get collection(): AngularFirestoreCollection<Todo> {
+    return this.firestore.collection(COLLECTION_NAME)
   }
 }

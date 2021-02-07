@@ -33,7 +33,7 @@ export class EditTodoComponent {
       title: new FormControl(this.data.todo.title, [Validators.required]),
       priority: new FormControl(this.data.todo.priority),
       description: new FormControl(this.data.todo.description),
-      updated: new FormControl(new Date(new Date().getTime())),
+      updated: new FormControl(new Date().getTime()),
       assigneesIds: new FormControl(this.data.todo.assigneesIds),
       comments: new FormControl(this.data.todo.comments)
     });

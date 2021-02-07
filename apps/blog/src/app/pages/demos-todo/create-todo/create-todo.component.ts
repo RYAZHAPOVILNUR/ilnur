@@ -31,7 +31,6 @@ export class CreateTodoComponent {
       title: new FormControl('', [Validators.required]),
       priority: new FormControl('', [Validators.required]),
       description: new FormControl(''),
-      created: new FormControl(new Date(new Date().getTime())),
       reporterId: new FormControl('',[Validators.required]),
       assigneesIds: new FormControl([]),
       comments: new FormControl([])
@@ -40,7 +39,7 @@ export class CreateTodoComponent {
 
   public createTodo(): void {
     this.dialogRef.close({
-      id: new Date().getTime(),
+      created: new Date().getTime(),
       ...this.form.value
     } as Todo)
   }
