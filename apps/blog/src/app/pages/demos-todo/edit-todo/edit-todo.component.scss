@@ -23,33 +23,37 @@ form {
   .edit-btn {
     width: 100px;
   }
-}
 
-.assignees {
-  margin-top: 20px;
-}
+  .comment-btn {
+    padding-bottom: 10px;
+  }
 
-.reporter {
-  margin-top: 20px;
+  .assignees {
+    margin-top: 20px;
+  }
 
-  &__name {
-    background: #ccc;
-    width: 100px;
-    height: 30px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
+  .reporter {
+    margin-top: 20px;
+
+    &__name {
+      background: #ccc;
+      width: 100px;
+      height: 30px;
+      align-items: center;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .time {
+    margin-top: 10px;
+  }
+
+  .material-icons.close {
+    position: absolute;
+    top: -10px;
+    right: -10px;
   }
 }
 
-.time {
-  margin-top: 10px;
-}
-
-
-.material-icons.close {
-  position: absolute;
-  top: -10px;
-  right: -10px;
-}
 

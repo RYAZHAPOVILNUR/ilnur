@@ -1,66 +1,98 @@
-.add-todo {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-}
+.demos {
 
-.hr {
-  border-bottom: 1px solid #ccc;
-}
-
-mat-card-title{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    margin: 0;
-  }
-}
-
-.priority {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  p {
-    margin: 0;
-  }
-}
-
-.descr{
-  white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 200px;
-
-}
-
-.example-card {
-  //width: 180px;
-  margin: 5px;
-
-  .options {
+  &__add-todo {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
+    border-bottom: 1px solid #ccc;
 
-    .lowest {
-      color: rgb(6, 196, 6);
+    mat-form-field {
+      margin-left: 5%;
     }
-    .low {
-      color: green;
+
+    button {
+      margin-right: 5%;
+      margin-top: 20px;
+      max-width: 200px;
     }
-    .high {
-      color: orange;
+  }
+
+  &__content {
+    display: flex;
+    flex-wrap: wrap;
+    padding-top: 20px;
+    width: 90%;
+    margin: 0 auto;
+
+    &_example-card {
+      margin: 5px;
+      position: relative;
+
+      mat-card-title{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        p {
+          margin: 0;
+        }
+      }
+
+      mat-card-content{
+        padding-bottom: 25px;
+      }
+
+      .descr{
+        white-space: normal;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 200px;
+      }
+
+      .options {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .lowest {
+          color: rgb(6, 196, 6);
+        }
+        .low {
+          color: green;
+        }
+        .high {
+          color: orange;
+        }
+        .highest {
+          color: red;
+        }
+        .medium {
+          color: yellow;
+        }
+      }
     }
-    .highest {
-      color: red;
-    }
-    .medium {
-      color: yellow;
+
+    &_priority {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: absolute;
+      width: 90%;
+      bottom: 10px;
+      right: 10px;
+      left: 25px;
+
+      p {
+        margin: 0;
+      }
     }
   }
 }
+
+
+
+
+
+
 
 

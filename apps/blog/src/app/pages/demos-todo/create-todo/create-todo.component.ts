@@ -34,12 +34,7 @@ export class CreateTodoComponent {
       created: new FormControl(new Date(new Date().getTime())),
       reporterId: new FormControl('',[Validators.required]),
       assigneesIds: new FormControl([]),
-      updated: new FormControl(''),
-      comments: new FormControl([]),
-      comment: new FormGroup({
-        authorId: new FormControl(this.user.id),
-        text: new FormControl('')
-      })
+      comments: new FormControl([])
     })
   }
 

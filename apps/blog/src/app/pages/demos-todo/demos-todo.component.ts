@@ -10,6 +10,7 @@ import { User } from '../../shared/users';
 export interface Comment {
   authorId: number;
   text: string;
+  time: string;
 }
 
 export interface Todo {

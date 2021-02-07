@@ -1,6 +1,6 @@
 <form [formGroup]="form">
   <div class="example-left">
-    <p>{{todo$.value.id}}</p>
+    <p>todo №: {{todo$.value.id}}</p>
     <mat-form-field appearance="outline" class="example-left_input">
       <mat-label>Title</mat-label>
       <input formControlName="title" matInput placeholder="Title" />
@@ -11,18 +11,18 @@
       <textarea formControlName="description" matInput></textarea>
     </mat-form-field>
 
-    <mat-form-field appearance="outline" formGroupName="comment" class="example-left_input">
+    <mat-form-field appearance="outline" [formGroup]="commentForm" class="example-left_input">
       <mat-label>Comments</mat-label>
       <textarea formControlName="text" matInput (click)="toggleShowCommentButtons()"></textarea>
     </mat-form-field>
-    <div *ngIf="isShowedCommentButtons$ | async">
-      <button mat-flat-button color="primary" (click)="addComment()" [disabled]="form.invalid">Save</button>
+    <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
+      <button mat-flat-button color="primary" (click)="addComment()" [disabled]="commentForm.invalid">Save</button>
       <button mat-flat-button (click)="cancelComment()">Cancel</button>
     </div>
 
-    <div *ngFor="let com of form.value.comments">
-      <p>{{com.authorId}} {{com.time | date:'dd.MM.yy HH:mm:ss'}} </p>
-      <p>{{com.text}}</p>
+    <div *ngFor="let comment of form.value.comments">
+      <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+      <p>{{comment.text}}</p>
     </div>
 
   </div>
@@ -60,7 +60,7 @@
     </div>
 
     <button
-      [disabled]="form.invalid"
+      [disabled]="form.pristine"
       mat-flat-button
       color="primary"
       type="submit"

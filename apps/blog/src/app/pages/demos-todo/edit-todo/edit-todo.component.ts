@@ -17,10 +17,10 @@ export interface EditTodoModalData extends CreateTodoModalData {
 })
 export class EditTodoComponent {
   public readonly form: FormGroup
+  public readonly commentForm: FormGroup
   public readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
   public readonly todo$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null)
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
-
 
   constructor(
     private readonly dialogRef: MatDialogRef<EditTodoComponent>,
@@ -28,42 +28,42 @@ export class EditTodoComponent {
     private readonly data: EditTodoModalData
   ) {
     this.users$.next(data.users);
-    this.todo$.next(data.todo)
+    this.todo$.next(data.todo);
     this.form = new FormGroup({
       title: new FormControl(this.data.todo.title, [Validators.required]),
       priority: new FormControl(this.data.todo.priority),
       description: new FormControl(this.data.todo.description),
       updated: new FormControl(new Date(new Date().getTime())),
       assigneesIds: new FormControl(this.data.todo.assigneesIds),
-      comments: new FormControl(this.data.todo.comments),
-      comment: new FormGroup({
-        authorId: new FormControl(this.reporter.name),
-        text: new FormControl('', [Validators.required])
-      })
-    })
+      comments: new FormControl(this.data.todo.comments)
+    });
+    this.commentForm = new FormGroup({
+      authorId: new FormControl(this.reporter.name),
+      text: new FormControl('', [Validators.required])
+    });
   }
 
   public addComment(): void {
-    if(this.form.value.comment.text) {
+    if(this.commentForm.value.text) {
       this.form.patchValue({
         comments: [
-          ...this.form.get('comments').value,
+          ...this.form.value.comments,
           {
-            authorId: this.form.value.comment.authorId,
-            text: this.form.value.comment.text,
+            authorId: this.commentForm.value.authorId,
+            text: this.commentForm.value.text,
             time: new Date(new Date().getTime())
           }
         ]
       })
 
-      const formComment = this.form.get('comment.text') as FormGroup;
+      const formComment = this.commentForm.get('text') as FormGroup;
       formComment.reset();
     }
     this.isShowedCommentButtons$.next(false)
   }
 
   public cancelComment() {
-    const formComment = this.form.get('comment.text') as FormGroup;
+    const formComment = this.commentForm.get('text') as FormGroup;
     formComment.reset();
     this.isShowedCommentButtons$.next(false);
   }
@@ -74,8 +74,6 @@ export class EditTodoComponent {
       id: this.data.todo.id
     } as Todo)
   }
-
-
 
   public toggleShowCommentButtons(): void {
     this.isShowedCommentButtons$.next(

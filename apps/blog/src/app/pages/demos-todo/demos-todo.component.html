@@ -1,14 +1,10 @@
-<div style='
-  width: 90%;
-  margin: 0 auto;'
->
-  <div class="add-todo">
+<div class="demos">
+  <div class="demos__add-todo">
     <mat-form-field>
       <mat-label>Найти Todo...</mat-label>
       <input matInput [(ngModel)]="searchStr" />
     </mat-form-field>
     <button
-      style="margin-top: 20px; max-width: 200px"
       (click)="createTodo()"
       color="primary"
       mat-flat-button
@@ -16,23 +12,21 @@
       Add todo
     </button>
   </div>
-  <p class="hr"></p>
-  <div style='display: flex'>
+  <div class="demos__content">
     <mat-card
-      class="example-card"
+      class="demos__content_example-card"
       *ngFor="let todo of todos$ | async | searchTodo: searchStr"
       (click)="editTodo(todo.id)"
     >
       <mat-card-header>
         <mat-card-title>
           <p>{{ todo.title }}</p>
-
         </mat-card-title>
       </mat-card-header>
         <mat-card-content>
           <p class="descr">{{todo.description}}</p>
         </mat-card-content>
-      <mat-card-actions class="priority">
+      <mat-card-actions class="demos__content_priority">
         <div class="options">
           <p>{{todo.priority}}</p>
           <span
