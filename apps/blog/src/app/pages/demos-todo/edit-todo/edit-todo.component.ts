@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Comment, Todo } from '../demos-todo.component';
 import { User } from '../../../shared/users';
@@ -33,8 +33,7 @@ export class EditTodoComponent {
       title: new FormControl(this.data.todo.title, [Validators.required]),
       priority: new FormControl(this.data.todo.priority),
       description: new FormControl(this.data.todo.description),
-      assigneesId: new FormControl(this.data.todo.assigneesId),
-      comments: new FormControl(this.data.todo.comments)
+      assigneesId: new FormControl(this.data.todo.assigneesId)
     });
     this.commentForm = new FormGroup({
       authorId: new FormControl(this.reporter.name),
@@ -66,8 +65,7 @@ export class EditTodoComponent {
   }
 
   public cancelComment() {
-    const formComment = this.commentForm.get('text') as FormGroup;
-    formComment.reset();
+    this.commentForm.get('text').reset();
     this.isShowedCommentButtons$.next(false);
   }
 
@@ -91,7 +89,7 @@ export class EditTodoComponent {
   }
 
   public get commentsAdded(): boolean {
-    return this.todo$.value.comments.length !== this.form.get('comments').value.length
+    return this.todo$.value.comments.length !== this.data.todo.comments.length
   }
 }
 
