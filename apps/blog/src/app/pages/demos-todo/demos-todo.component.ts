@@ -80,6 +80,7 @@ export class DemosTodoComponent {
       } as CreateTodoModalData}
     ).afterClosed()
     .pipe(
+      filter(data => !!data),
       tap((data: Todo) => this.collection.add(data))
     )
       .subscribe()
@@ -107,7 +108,6 @@ export class DemosTodoComponent {
 
   public removeTodo(id: string, event) {
     event.stopPropagation()
-    console.log({id})
     this.firestore.doc(`${COLLECTION_NAME}/${id}`).delete()
   }
 
