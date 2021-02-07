@@ -47,8 +47,14 @@
             "polyfills": "apps/blog/src/polyfills.ts",
             "tsConfig": "apps/blog/tsconfig.app.json",
             "aot": true,
-            "assets": ["apps/blog/src/favicon.ico", "apps/blog/src/assets"],
-            "styles": ["./node_modules/@angular/material/prebuilt-themes/indigo-pink.css", "apps/blog/src/styles.scss"],
+            "assets": [
+              "apps/blog/src/favicon.ico",
+              "apps/blog/src/assets"
+            ],
+            "styles": [
+              "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
+              "apps/blog/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -109,11 +115,17 @@
         },
         "test": {
           "builder": "@nrwl/jest:jest",
-          "outputs": ["coverage/apps/blog"],
+          "outputs": [
+            "coverage/apps/blog"
+          ],
           "options": {
             "jestConfig": "apps/blog/jest.config.js",
             "passWithNoTests": true
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
     },
@@ -138,7 +150,9 @@
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "options": {
-            "lintFilePatterns": ["apps/blog-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": [
+              "apps/blog-e2e/**/*.{js,ts}"
+            ]
           }
         }
       }
