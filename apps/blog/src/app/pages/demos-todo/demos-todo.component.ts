@@ -1,7 +1,7 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { map, switchMap, tap } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 import { CreateTodoComponent, CreateTodoModalData } from './create-todo/create-todo.component';
 import { EditTodoComponent, EditTodoModalData } from './edit-todo/edit-todo.component';
 import { UserService } from '../../shared/services/user.service';
@@ -81,6 +81,7 @@ export class DemosTodoComponent {
     })
       .afterClosed()
       .pipe(
+        filter((data: Todo) => data != null),
         tap((data: Todo) => this.todos$.next(
           this.todos$.value.map(
             (todo: Todo) => todo.id === data.id

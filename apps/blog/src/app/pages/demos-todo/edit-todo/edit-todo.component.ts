@@ -69,13 +69,13 @@ export class EditTodoComponent {
   }
 
   public editTodo(): void {
-    console.log(this.form.value)
-
     this.dialogRef.close({
       ...this.form.value,
       id: this.data.todo.id
     } as Todo)
   }
+
+
 
   public toggleShowCommentButtons(): void {
     this.isShowedCommentButtons$.next(

@@ -10,25 +10,36 @@
   border-bottom: 1px solid #ccc;
 }
 
+mat-card-title{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+}
+
+.priority {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  p {
+    margin: 0;
+  }
+}
+
 .descr{
-  white-space: nowrap;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
-}
+  width: 200px;
 
-.mat-grid-tile .mat-figure{
-  height: 130px;
-}
-
-mat-card-header{
-  display: flex;
-  justify-content: space-around;
-  align-items: end;
 }
 
 .example-card {
-  width: 200px;
-  max-width: 400px;
+  //width: 180px;
 
   .options {
     display: flex;
@@ -52,3 +63,5 @@ mat-card-header{
     }
   }
 }
+
+

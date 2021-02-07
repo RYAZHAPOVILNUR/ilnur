@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SearchPipe } from '../../shared/search.pipe';
-import { DemosTodoComponent } from './demos-todo.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
@@ -18,10 +16,11 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { EditTodoComponent } from './edit-todo/edit-todo.component';
-
-
+import { DemosTodoComponent } from './demos-todo.component';
+import { SearchPipe } from '../../shared/search.pipe';
 
 @NgModule({
   declarations: [

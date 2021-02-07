@@ -48,7 +48,6 @@ export class CreateTodoComponent {
       id: new Date().getTime(),
       ...this.form.value
     } as Todo)
-    console.log(this.form.value)
   }
 
 }

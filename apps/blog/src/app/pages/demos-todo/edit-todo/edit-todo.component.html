@@ -37,14 +37,14 @@
       <span class="reporter__name">{{reporter.name}}</span>
     </div>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field class="assignees">
       <mat-label>Assignees</mat-label>
       <mat-select formControlName="assigneesIds">
         <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">{{user.name}}</mat-option>
       </mat-select>
     </mat-form-field>
 
-    <mat-form-field appearance="outline">
+    <mat-form-field>
       <mat-label>Priority</mat-label>
       <mat-select formControlName="priority">
         <mat-option value="Lowest">Lowest </mat-option>
@@ -54,8 +54,10 @@
         <mat-option value="Medium">Medium</mat-option>
       </mat-select>
     </mat-form-field>
-    <p>Created: {{todo$.value.created | date:'dd.MM.yy HH:mm:ss'}}</p>
-    <p>Updated: {{todo$.value.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
+    <div class="time">
+      <p>Created: {{todo$.value.created | date:'dd.MM.yy HH:mm:ss'}}</p>
+      <p>Updated: {{todo$.value.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
+    </div>
 
     <button
       [disabled]="form.invalid"

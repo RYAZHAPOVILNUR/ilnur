@@ -25,14 +25,27 @@ form {
   }
 }
 
-.reporter__name {
-  background: #ccc;
-  width: 100px;
-  height: 30px;
-  align-items: center;
-  display: flex;
-  justify-content: center;
+.assignees {
+  margin-top: 20px;
 }
+
+.reporter {
+  margin-top: 20px;
+
+  &__name {
+    background: #ccc;
+    width: 100px;
+    height: 30px;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.time {
+  margin-top: 10px;
+}
+
 
 .material-icons.close {
   position: absolute;
