@@ -22,13 +22,6 @@
         <mat-card-title>
           <p>{{ todo.title }}</p>
         </mat-card-title>
-        <button
-          mat-icon-button color="warn"
-          aria-label="Example icon button with a heart icon"
-          (click)="removeTodo(todo.id)"
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
       </mat-card-header>
         <mat-card-content>
           <p class="descr">{{todo.description}}</p>

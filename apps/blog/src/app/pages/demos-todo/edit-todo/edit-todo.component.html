@@ -42,7 +42,7 @@
 
     <mat-form-field class="assignees">
       <mat-label>Assignees</mat-label>
-      <mat-select formControlName="assigneesIds">
+      <mat-select formControlName="assigneesId">
         <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
 
           <p>{{user.name}}</p>
@@ -66,7 +66,7 @@
     </div>
 
     <button
-      [disabled]="form.pristine"
+      [disabled]="form.pristine && !commentsAdded"
       mat-flat-button
       color="primary"
       type="submit"

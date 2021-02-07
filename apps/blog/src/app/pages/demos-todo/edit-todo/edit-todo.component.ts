@@ -33,8 +33,7 @@ export class EditTodoComponent {
       title: new FormControl(this.data.todo.title, [Validators.required]),
       priority: new FormControl(this.data.todo.priority),
       description: new FormControl(this.data.todo.description),
-      updated: new FormControl(new Date().getTime()),
-      assigneesIds: new FormControl(this.data.todo.assigneesIds),
+      assigneesId: new FormControl(this.data.todo.assigneesId),
       comments: new FormControl(this.data.todo.comments)
     });
     this.commentForm = new FormGroup({
@@ -51,7 +50,7 @@ export class EditTodoComponent {
           {
             authorId: this.commentForm.value.authorId,
             text: this.commentForm.value.text,
-            time: new Date(new Date().getTime())
+            time: new Date().getTime()
           }
         ]
       })
@@ -71,7 +70,8 @@ export class EditTodoComponent {
   public editTodo(): void {
     this.dialogRef.close({
       ...this.form.value,
-      id: this.data.todo.id
+      id: this.data.todo.id,
+      updated: new Date().getTime()
     } as Todo)
   }
 
@@ -85,6 +85,10 @@ export class EditTodoComponent {
     return this.users$.value.find(
       user => user.id == this.todo$.value.reporterId
     )
+  }
+
+  public get commentsAdded(): boolean {
+    return this.todo$.value.comments.length !== this.form.get('comments').value.length
   }
 }
 

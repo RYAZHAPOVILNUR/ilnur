@@ -23,9 +23,9 @@ export interface Todo {
   priority: string,
   comments: Comment[],
   reporterId: number,
-  assigneesIds: number[],
-  created: number,
-  updated: number,
+  assigneesId: number,
+  created: Date,
+  updated: Date,
 }
 
 @Component({
