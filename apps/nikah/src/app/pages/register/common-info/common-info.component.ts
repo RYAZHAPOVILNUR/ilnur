@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RegisterStore } from '../register.store';
 import { FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
+
+const countries = [
+  {
+    id: 1,
+    label: 'Россия'
+  },
+  {
+    id: 2,
+    label: 'Египет'
+  }
+]
 
 @Component({
   selector: 'ilnur-common-info',
   templateUrl: './common-info.component.html',
   styleUrls: ['./common-info.component.css']
 })
-export class CommonInfoComponent implements OnInit {
+export class CommonInfoComponent {
   public readonly form: FormGroup = this.store.form.get('commonInfo') as FormGroup
-  public readonly countries$: BehaviorSubject<any> = new BehaviorSubject<any>([
-    {
-      id: 1,
-      label: 'Россия'
-    },
-    {
-      id: 2,
-      label: 'Египет'
-    }
-  ])
+  public readonly countries$: BehaviorSubject<any> = new BehaviorSubject<any>(countries);
+
   public readonly cities$: BehaviorSubject<any> = new BehaviorSubject<any>([
     {
       id: 1,
@@ -42,14 +45,10 @@ export class CommonInfoComponent implements OnInit {
     }
   ])
 
-  pu
 
   constructor(
     private readonly store: RegisterStore
   ) { }
-
-  ngOnInit(): void {
-  }
 
   changeCity(e) {
     console.log({e})
@@ -59,4 +58,12 @@ export class CommonInfoComponent implements OnInit {
     })
   }
 
+  test() {
+    console.log(this.form.value)
+  }
+
+
+  selectValueChange(field, e) {
+    this.form.patchValue({[field]: e.id})
+  }
 }

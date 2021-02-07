@@ -11,18 +11,9 @@ export class RegisterStore extends ComponentStore<any> {
 
     this.form = new FormGroup({
       commonInfo: new FormGroup({
-        country: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        }),
-        city: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        }),
-        nationality: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        })
+        country: new FormControl(null),
+        city: new FormControl(null),
+        nationality: new FormControl(null)
       }),
       looks: new FormGroup({
         height: new FormControl(null),
