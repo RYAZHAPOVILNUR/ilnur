@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "tasks-11f98": {
+      "hosting": {
+        "blog": [
+          "tasks-11f98"
+        ]
+      }
+    }
+  }
+}
