@@ -32,12 +32,22 @@ form {
     margin-top: 20px;
   }
 
+ .img {
+    width: 20px;
+    border-radius: 50%;
+    height: 20px;
+  }
+
   .reporter {
     margin-top: 20px;
 
+    img {
+      margin-right: 10px;
+    }
+
     &__name {
-      background: #ccc;
-      width: 100px;
+      background: #eee;
+      width: 50%;
       height: 30px;
       align-items: center;
       display: flex;

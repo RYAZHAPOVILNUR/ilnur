@@ -34,13 +34,19 @@
 
     <div class="reporter">
       <span>Reporter:</span>
-      <span class="reporter__name">{{reporter.name}}</span>
+      <span class="reporter__name">
+        <img class="img" [src]="reporter.avatarUrl" alt="{{reporter.name}}" />
+        {{reporter.name}}
+      </span>
     </div>
 
     <mat-form-field class="assignees">
       <mat-label>Assignees</mat-label>
       <mat-select formControlName="assigneesIds">
-        <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">{{user.name}}</mat-option>
+        <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
+
+          <p>{{user.name}}</p>
+        </mat-option>
       </mat-select>
     </mat-form-field>
 

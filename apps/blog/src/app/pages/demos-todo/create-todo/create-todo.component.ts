@@ -33,7 +33,7 @@ export class CreateTodoComponent {
       description: new FormControl(''),
       created: new FormControl(new Date(new Date().getTime())),
       reporterId: new FormControl('',[Validators.required]),
-      assigneesIds: new FormControl([]),
+      assigneesIds: new FormControl(''),
       comments: new FormControl([])
     })
   }

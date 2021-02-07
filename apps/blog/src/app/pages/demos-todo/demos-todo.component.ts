@@ -20,7 +20,7 @@ export interface Todo {
   priority: string,
   comments: Comment[],
   reporterId: number,
-  assigneesIds: number[],
+  assigneesIds: number,
   created: number,
   updated: number,
 }
@@ -34,9 +34,9 @@ export interface Todo {
 })
 export class DemosTodoComponent {
   public readonly todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-  private readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null)
-  private readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
-  public searchStr = ''
+  private readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  public searchStr = '';
 
   constructor(
     public dialog: MatDialog,
@@ -66,8 +66,7 @@ export class DemosTodoComponent {
         ...this.todos$.value,
         data
       ]))
-    )
-      .subscribe()
+    ).subscribe();
   }
 
   public editTodo(id: number): void {
