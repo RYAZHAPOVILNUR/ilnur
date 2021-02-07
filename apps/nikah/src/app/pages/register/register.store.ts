@@ -18,22 +18,10 @@ export class RegisterStore extends ComponentStore<any> {
       looks: new FormGroup({
         height: new FormControl(null),
         weight: new FormControl(null),
-        bodyType: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        }),
-        eyeColor: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        }),
-        hairColor: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        }),
-        facialHair: new FormGroup({
-          label: new FormControl(null),
-          value: new FormControl(null)
-        })
+        // bodyType: new FormControl(null),
+        // eyeColor: new FormControl(null),
+        // hairColor: new FormControl(null),
+        // facialHair: new FormControl(null)
       }),
       lifestyle: new FormGroup({
         smoke: new FormGroup({
