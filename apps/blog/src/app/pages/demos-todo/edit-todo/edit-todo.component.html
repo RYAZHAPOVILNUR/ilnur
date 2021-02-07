@@ -53,7 +53,8 @@
         <mat-label>Assignees</mat-label>
         <mat-select formControlName="assigneesId">
           <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
-            <p>{{user.name}}</p>
+            <img [src]='user.avatarUrl' style='height: 15px; width: 15px; border-radius: 50%;' alt=''>
+            {{user.name}}
           </mat-option>
         </mat-select>
       </mat-form-field>
