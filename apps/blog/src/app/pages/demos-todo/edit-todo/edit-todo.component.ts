@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Todo } from '../demos-todo.component';
+import { Comment, Todo } from '../demos-todo.component';
 import { User } from '../../../shared/users';
 import { CreateTodoModalData } from '../create-todo/create-todo.component';
 import { BehaviorSubject } from 'rxjs';
@@ -42,21 +42,25 @@ export class EditTodoComponent {
     });
   }
 
-  public addComment(): void {
+  public addComment(event): void {
+    event.preventDefault()
+    event.stopPropagation()
     if(this.commentForm.value.text) {
-      this.form.patchValue({
+      const newComment: Comment = {
+        authorId: this.commentForm.value.authorId,
+        text: this.commentForm.value.text,
+        time: new Date().getTime()
+      }
+
+      this.todo$.next({
+        ...this.todo$.value,
         comments: [
-          ...this.form.value.comments,
-          {
-            authorId: this.commentForm.value.authorId,
-            text: this.commentForm.value.text,
-            time: new Date().getTime()
-          }
+          ...this.todo$.value.comments,
+          newComment
         ]
       })
 
-      const formComment = this.commentForm.get('text') as FormGroup;
-      formComment.reset();
+      this.commentForm.get('text').reset()
     }
     this.isShowedCommentButtons$.next(false)
   }
@@ -69,16 +73,15 @@ export class EditTodoComponent {
 
   public editTodo(): void {
     this.dialogRef.close({
+      ...this.todo$.value,
       ...this.form.value,
       id: this.data.todo.id,
       updated: new Date().getTime()
     } as Todo)
   }
 
-  public toggleShowCommentButtons(): void {
-    this.isShowedCommentButtons$.next(
-      !this.isShowedCommentButtons$.value
-    )
+  public showCommentButton(): void {
+    this.isShowedCommentButtons$.next(true)
   }
 
   public get reporter(): User {

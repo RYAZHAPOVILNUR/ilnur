@@ -1,79 +1,88 @@
-<form [formGroup]="form">
-  <div class="example-left">
-    <p>todo №: {{todo$.value.id}}</p>
-    <mat-form-field appearance="outline" class="example-left_input">
-      <mat-label>Title</mat-label>
-      <input formControlName="title" matInput placeholder="Title" />
-    </mat-form-field>
+<ng-container
+  *ngIf='{
+    todo: todo$ | async
+  } as ctx'
+>
+  <form [formGroup]="form">
+    <div class="example-left">
+      <p>todo №: {{ctx.todo.id}}</p>
+      <mat-form-field appearance="outline" class="example-left_input">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput placeholder="Title" />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="example-left_input descr">
-      <mat-label>Description</mat-label>
-      <textarea formControlName="description" matInput></textarea>
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="example-left_input descr">
+        <mat-label>Description</mat-label>
+        <textarea formControlName="description" matInput></textarea>
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" [formGroup]="commentForm" class="example-left_input">
-      <mat-label>Comments</mat-label>
-      <textarea formControlName="text" matInput (click)="toggleShowCommentButtons()"></textarea>
-    </mat-form-field>
-    <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
-      <button mat-flat-button color="primary" (click)="addComment()" [disabled]="commentForm.invalid">Save</button>
-      <button mat-flat-button (click)="cancelComment()">Cancel</button>
+      <mat-form-field appearance="outline" [formGroup]="commentForm" class="example-left_input">
+        <mat-label>Comments</mat-label>
+        <textarea
+          formControlName="text"
+          matInput
+          (focus)="showCommentButton()"
+        ></textarea>
+      </mat-form-field>
+      <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
+        <button mat-flat-button color="primary" (click)="addComment($event)" [disabled]="commentForm.invalid">Save</button>
+        <button mat-flat-button (click)="cancelComment()">Cancel</button>
+      </div>
+
+      <div *ngFor="let comment of ctx.todo.comments">
+        <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+        <p>{{comment.text}}</p>
+      </div>
+
     </div>
+    <div class="example-right">
 
-    <div *ngFor="let comment of form.value.comments">
-      <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
-      <p>{{comment.text}}</p>
-    </div>
+      <button (click)="editTodo()" class="material-icons close" mat-icon-button>
+        <mat-icon>close</mat-icon>
+      </button>
 
-  </div>
-  <div class="example-right">
-
-    <button (click)="editTodo()" class="material-icons close" mat-icon-button>
-      <mat-icon>close</mat-icon>
-    </button>
-
-    <div class="reporter">
-      <span>Reporter:</span>
-      <span class="reporter__name">
+      <div class="reporter">
+        <span>Reporter:</span>
+        <span class="reporter__name">
         <img class="img" [src]="reporter.avatarUrl" alt="{{reporter.name}}" />
-        {{reporter.name}}
+          {{reporter.name}}
       </span>
+      </div>
+
+      <mat-form-field class="assignees">
+        <mat-label>Assignees</mat-label>
+        <mat-select formControlName="assigneesId">
+          <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
+            <p>{{user.name}}</p>
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="Lowest">Lowest </mat-option>
+          <mat-option value="Low">Low</mat-option>
+          <mat-option value="High">High</mat-option>
+          <mat-option value="Highest">Highest</mat-option>
+          <mat-option value="Medium">Medium</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="time">
+        <p>Created: {{ctx.todo.created | date:'dd.MM.yy HH:mm:ss'}}</p>
+        <p>Updated: {{ctx.todo.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
+      </div>
+
+      <button
+        [disabled]="form.pristine && !commentsAdded"
+        mat-flat-button
+        color="primary"
+        type="submit"
+        class="edit-btn"
+        (click)="editTodo()"
+      >
+        edit
+      </button>
     </div>
-
-    <mat-form-field class="assignees">
-      <mat-label>Assignees</mat-label>
-      <mat-select formControlName="assigneesId">
-        <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
-
-          <p>{{user.name}}</p>
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Priority</mat-label>
-      <mat-select formControlName="priority">
-        <mat-option value="Lowest">Lowest </mat-option>
-        <mat-option value="Low">Low</mat-option>
-        <mat-option value="High">High</mat-option>
-        <mat-option value="Highest">Highest</mat-option>
-        <mat-option value="Medium">Medium</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="time">
-      <p>Created: {{todo$.value.created | date:'dd.MM.yy HH:mm:ss'}}</p>
-      <p>Updated: {{todo$.value.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
-    </div>
-
-    <button
-      [disabled]="form.pristine && !commentsAdded"
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="edit-btn"
-      (click)="editTodo()"
-    >
-      edit
-    </button>
-  </div>
-</form>
+  </form>
+</ng-container>

@@ -13,7 +13,7 @@ const COLLECTION_NAME = 'tasks'
 export interface Comment {
   authorId: number;
   text: string;
-  time: string;
+  time: number;
 }
 
 export interface Todo {
