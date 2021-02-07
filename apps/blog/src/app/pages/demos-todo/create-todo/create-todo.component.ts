@@ -32,7 +32,7 @@ export class CreateTodoComponent {
       priority: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       reporterId: new FormControl('',[Validators.required]),
-      assigneesIds: new FormControl([]),
+      assigneesIds: new FormControl(''),
       comments: new FormControl([])
     })
   }

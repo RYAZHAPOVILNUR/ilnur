@@ -37,9 +37,9 @@ export interface Todo {
 })
 export class DemosTodoComponent {
   public readonly todos$: BehaviorSubject<Todo[]> = new BehaviorSubject<Todo[]>([]);
-  private readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null)
-  private readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
-  public searchStr = ''
+  private readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  private readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  public searchStr = '';
 
   constructor(
     public dialog: MatDialog,

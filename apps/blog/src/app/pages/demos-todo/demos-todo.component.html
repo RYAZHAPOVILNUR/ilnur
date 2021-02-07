@@ -22,25 +22,34 @@
         <mat-card-title>
           <p>{{ todo.title }}</p>
         </mat-card-title>
+        <button
+          mat-icon-button color="warn"
+          aria-label="Example icon button with a heart icon"
+          (click)="removeTodo(todo.id)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-card-header>
         <mat-card-content>
           <p class="descr">{{todo.description}}</p>
         </mat-card-content>
-      <mat-card-actions class="demos__content_priority">
+      <mat-card-actions class="priority">
         <div class="options">
-          <p>{{todo.priority}}</p>
-          <span
-            *ngIf="
+          <img mat-card-image [src]="user$.value.avatarUrl" alt="Photo of a Shiba Inu" />
+          <div class="priority__item">
+            <p>{{todo.priority}}</p>
+            <span
+              *ngIf="
                 todo.priority == 'Low' || todo.priority == 'Lowest';
                 else upward
               "
-            [class.low]="todo.priority === 'Low'"
-            [class.lowest]="todo.priority === 'Lowest'"
-            class="material-icons"
-          >
+              [class.low]="todo.priority === 'Low'"
+              [class.lowest]="todo.priority === 'Lowest'"
+              class="material-icons"
+            >
             arrow_downward
           </span>
-          <ng-template #upward>
+            <ng-template #upward>
             <span
               [class.medium]="todo.priority === 'Medium'"
               [class.high]="todo.priority === 'High'"
@@ -49,7 +58,8 @@
             >
               arrow_upward
             </span>
-          </ng-template>
+            </ng-template>
+          </div>
         </div>
         <button
           mat-icon-button color="warn"
