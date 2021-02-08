@@ -16,20 +16,26 @@ import { MatCardModule } from '@angular/material/card';
 import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { QuillModule } from 'ngx-quill';
 
 import { CreateTodoComponent } from './create-todo/create-todo.component';
 import { EditTodoComponent } from './edit-todo/edit-todo.component';
 import { DemosTodoComponent } from './demos-todo.component';
 import { SearchPipe } from '../../shared/search.pipe';
+import { DemosPageComponent } from './demos-page/demos-page.component';
+import { DemosLayoutComponent } from './demos-layout/demos-layout.component';
 
 @NgModule({
   declarations: [
     DemosTodoComponent,
     CreateTodoComponent,
     EditTodoComponent,
-    SearchPipe
+    SearchPipe,
+    DemosPageComponent,
+    DemosLayoutComponent
   ],
   imports: [
+    QuillModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     FlexModule,
@@ -54,7 +60,10 @@ import { SearchPipe } from '../../shared/search.pipe';
     MatFormFieldModule,
     CommonModule,
     RouterModule.forChild([
-      {path: '', component: DemosTodoComponent}
+      {path: '', component: DemosLayoutComponent, children: [
+          {path: '', component: DemosTodoComponent},
+          {path: 'demos/:id', component: DemosPageComponent}
+        ]}
     ])
   ],
 })

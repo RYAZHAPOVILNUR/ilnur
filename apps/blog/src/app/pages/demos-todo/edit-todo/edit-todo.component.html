@@ -11,10 +11,9 @@
         <input formControlName="title" matInput placeholder="Title" />
       </mat-form-field>
 
-      <mat-form-field appearance="outline" class="example-left_input descr">
-        <mat-label>Description</mat-label>
-        <textarea formControlName="description" matInput></textarea>
-      </mat-form-field>
+      <div class="example-left_editor">
+        <quill-editor formControlName="description"></quill-editor>
+      </div>
 
       <mat-form-field appearance="outline" [formGroup]="commentForm" class="example-left_input">
         <mat-label>Comments</mat-label>
@@ -29,13 +28,38 @@
         <button mat-flat-button (click)="cancelComment()">Cancel</button>
       </div>
 
-      <div *ngFor="let comment of ctx.todo.comments">
-        <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+      <div class="comments" *ngFor="let comment of ctx.todo.comments">
+        <div class="comments__title">
+          <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+          <button
+            mat-icon-button color="primary"
+            aria-label="Example icon "
+            (click)="editComment(comment.text)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            mat-icon-button color="warn"
+            aria-label="Example icon button "
+            (click)="removeComment(comment.time)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
         <p>{{comment.text}}</p>
       </div>
 
     </div>
     <div class="example-right">
+
+      <button
+        (click)="editTodo()"
+        class="material-icons aspect"
+        [routerLink]="['/demos', ctx.todo.id]"
+        [queryParams]="ctx.todo"
+        mat-icon-button>
+        <mat-icon>aspect_ratio</mat-icon>
+      </button>
 
       <button (click)="editTodo()" class="material-icons close" mat-icon-button>
         <mat-icon>close</mat-icon>

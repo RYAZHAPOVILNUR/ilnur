@@ -25,7 +25,7 @@ export class EditTodoComponent {
   constructor(
     private readonly dialogRef: MatDialogRef<EditTodoComponent>,
     @Inject(MAT_DIALOG_DATA)
-    private readonly data: EditTodoModalData
+    private readonly data: EditTodoModalData,
   ) {
     this.users$.next(data.users);
     this.todo$.next(data.todo);
@@ -63,6 +63,30 @@ export class EditTodoComponent {
     }
     this.isShowedCommentButtons$.next(false)
   }
+
+
+  public fesmI(id: string): void {
+
+  }
+
+  public removeComment(comTime): void {
+    let newComments = this.todo$.value.comments.filter(
+      comment => comment.time != comTime
+    )
+
+    this.todo$.next({
+      ...this.todo$.value,
+      comments: [
+        ...newComments
+      ]
+    })
+  }
+
+  // editComment(comText): void {
+  //   let newComments = this.todo$.value.comments.filter(
+  //     comment => comment.text != comText
+  //   )
+  // }
 
   public cancelComment() {
     this.commentForm.get('text').reset();

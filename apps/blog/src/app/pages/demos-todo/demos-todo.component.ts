@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { BehaviorSubject, combineLatest } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
@@ -56,7 +56,7 @@ export class DemosTodoComponent {
             })
           )
         ),
-        tap(console.log)
+        tap()
       )
       .subscribe((todos: Todo[]) => this.todos$.next(todos))
 

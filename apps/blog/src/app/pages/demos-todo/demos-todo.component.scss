@@ -27,9 +27,11 @@
     &_example-card {
       margin: 5px;
       position: relative;
-      max-width: 200px;
+      width: 200px;
 
       mat-card-header {
+        margin-bottom: 40px;
+
         button {
           position: absolute;
           top: -3px;
@@ -49,13 +51,6 @@
 
       mat-card-content{
         padding-bottom: 25px;
-      }
-
-      .descr{
-        white-space: normal;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        width: 200px;
       }
 
       .priority {

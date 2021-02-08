@@ -7,8 +7,18 @@ form {
   .example-left {
     width: 65%;
 
-    .example-left_input {
+    &_input {
       width: 90%;
+    }
+
+    &_editor{
+      width: 350px;
+      margin-bottom: 20px;
+    }
+
+    .comments__title {
+      display: flex;
+      align-items: baseline;
     }
   }
 
@@ -63,6 +73,11 @@ form {
     position: absolute;
     top: -10px;
     right: -10px;
+  }
+  .material-icons.aspect {
+    position: absolute;
+    top: -10px;
+    right: 20px;
   }
 }
 
