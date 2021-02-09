@@ -5,6 +5,7 @@ import { Comment, Todo } from '../demos-todo.component';
 import { User } from '../../../shared/users';
 import { CreateTodoModalData } from '../create-todo/create-todo.component';
 import { BehaviorSubject } from 'rxjs';
+import { Router } from '@angular/router';
 
 export interface EditTodoModalData extends CreateTodoModalData {
   todo: Todo
@@ -26,6 +27,7 @@ export class EditTodoComponent {
     private readonly dialogRef: MatDialogRef<EditTodoComponent>,
     @Inject(MAT_DIALOG_DATA)
     private readonly data: EditTodoModalData,
+    private router: Router
   ) {
     this.users$.next(data.users);
     this.todo$.next(data.todo);
@@ -64,11 +66,6 @@ export class EditTodoComponent {
     this.isShowedCommentButtons$.next(false)
   }
 
-
-  public fesmI(id: string): void {
-
-  }
-
   public removeComment(comTime): void {
     let newComments = this.todo$.value.comments.filter(
       comment => comment.time != comTime
@@ -81,12 +78,6 @@ export class EditTodoComponent {
       ]
     })
   }
-
-  // editComment(comText): void {
-  //   let newComments = this.todo$.value.comments.filter(
-  //     comment => comment.text != comText
-  //   )
-  // }
 
   public cancelComment() {
     this.commentForm.get('text').reset();
@@ -104,6 +95,11 @@ export class EditTodoComponent {
 
   public showCommentButton(): void {
     this.isShowedCommentButtons$.next(true)
+  }
+
+  public sendingData(id: string): void {
+    this.router.navigate(['/demos', id], { queryParams: {data : JSON.stringify(this.todo$.value)}})
+    this.editTodo()
   }
 
   public get reporter(): User {

@@ -53,10 +53,8 @@
     <div class="example-right">
 
       <button
-        (click)="editTodo()"
+        (click)="sendingData(ctx.todo.id)"
         class="material-icons aspect"
-        [routerLink]="['/demos', ctx.todo.id]"
-        [queryParams]="ctx.todo"
         mat-icon-button>
         <mat-icon>aspect_ratio</mat-icon>
       </button>

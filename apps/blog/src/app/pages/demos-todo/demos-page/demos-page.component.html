@@ -19,7 +19,7 @@
       ></textarea>
     </mat-form-field>
     <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
-      <button mat-flat-button color="primary" [disabled]="commentForm.invalid">Save</button>
+      <button mat-flat-button color="primary" (click)="addComment($event)" [disabled]="commentForm.invalid">Save</button>
       <button mat-flat-button (click)="cancelComment()">Cancel</button>
     </div>
 
@@ -34,6 +34,7 @@
           <mat-icon>edit</mat-icon>
         </button>
         <button
+          (click)="removeComment(comment.time)"
           mat-icon-button color="warn"
           aria-label="Example icon button "
         >
@@ -56,7 +57,7 @@
     <mat-form-field class="assignees">
       <mat-label>Assignees</mat-label>
       <mat-select formControlName="assigneesId">
-        <mat-option *ngFor="let user of users$" value="{{user.id}}">
+        <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
           <img [src]='user.avatarUrl' style='height: 15px; width: 15px; border-radius: 50%;' alt=''>
           {{user.name}}
         </mat-option>
@@ -79,11 +80,12 @@
     </div>
 
     <button
-      [disabled]="form.pristine"
+      [disabled]="form.pristine && !commentsAdded"
       mat-flat-button
       color="primary"
       type="submit"
       class="edit-btn"
+      (click)="editTodo(todo$.value.id)"
     >
       edit
     </button>
