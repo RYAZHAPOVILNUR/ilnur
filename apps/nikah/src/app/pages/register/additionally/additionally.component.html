@@ -1,0 +1,41 @@
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column; align-items:  center'>
+    <mat-form-field appearance="fill">
+      <mat-label>Тип жилья</mat-label>
+      <mat-select (valueChange)='selectValueChange("housing", $event)'>
+        <mat-option *ngFor="let housing of housings$ | async" [value]='housing'>
+          {{housing}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Возможность переезда</mat-label>
+      <mat-select (valueChange)='selectValueChange("relocation", $event)'>
+        <mat-option *ngFor="let relocation of relocations$ | async" [value]="relocation">
+          {{relocation}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Принятие чужих детей</mat-label>
+      <mat-select (valueChange)='selectValueChange("adoptingChildren", $event)'>
+        <mat-option *ngFor="let adoptingChildren of adoptingChildrens$ | async" [value]="adoptingChildren">
+          {{adoptingChildren}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Многоженство</mat-label>
+      <mat-select (valueChange)='selectValueChange("polygamy", $event)'>
+        <mat-option *ngFor="let polygamy of polygamys$ | async" [value]="polygamy">
+          {{polygamy}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+  </div>
+</form>

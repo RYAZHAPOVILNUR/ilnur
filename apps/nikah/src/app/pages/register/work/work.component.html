@@ -1,1 +1,54 @@
-<p>work works!</p>
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column; align-items:  center'>
+    <mat-form-field appearance="fill">
+      <mat-label>Образование</mat-label>
+      <mat-select (valueChange)='selectValueChange("education", $event)'>
+        <mat-option *ngFor="let education of educations$ | async" [value]='education'>
+          {{education}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Профессия или род деятельности</mat-label>-->
+<!--            <input type="text" (valueChange)='selectValueChange("about", $event)' matInput placeholder="О себе">-->
+<!--        </mat-form-field>-->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Форма занятости</mat-label>
+      <mat-select (valueChange)='selectValueChange("employmentForm", $event)'>
+        <mat-option *ngFor="let employment of employments$ | async" [value]="employment">
+          {{employment}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--    <mat-form-field appearance="fill">-->
+    <!--      <mat-label>Должность</mat-label>-->
+    <!--        <input type="email" matInput placeholder="Хобби и интересы">-->
+    <!--    </mat-form-field>-->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Финансовое положение</mat-label>
+      <mat-select (valueChange)='selectValueChange("financialCondition", $event)'>
+        <mat-option *ngFor="let financial of financials$ | async" [value]="financial">
+          {{financial}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Знание языков</mat-label>
+      <mat-select (valueChange)='selectValueChange("languages", $event)' multiple>
+        <mat-select-trigger>
+          {{languages$.value ? languages$.value[0] : ''}}
+          <span *ngIf="languages$.value?.length > 1" class="example-additional-selection">
+          (+{{languages$.value.length - 1}} {{languages$.value?.length === 2 ? 'other' : 'others'}})
+        </span>
+        </mat-select-trigger>
+        <mat-option *ngFor="let language of languages$ | async" [value]="language">{{language}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+  </div>
+</form>

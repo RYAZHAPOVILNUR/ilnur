@@ -1,0 +1,100 @@
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column; align-items:  center'>
+    <mat-form-field appearance="fill">
+      <mat-label>Религия</mat-label>
+      <mat-select (valueChange)='selectValueChange("religion", $event)'>
+        <mat-option *ngFor="let religion of religions$ | async" [value]='religion'>
+          {{religion}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Течение ислама</mat-label>
+      <mat-select (valueChange)='selectValueChange("flow", $event)'>
+        <mat-option *ngFor="let flow of flows$ | async" [value]='flow'>
+          {{flow}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Молитва</mat-label>
+      <mat-select (valueChange)='selectValueChange("prayer", $event)'>
+        <mat-option *ngFor="let prayer of prayers$ | async" [value]="prayer">
+          {{prayer}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Пост</mat-label>
+      <mat-select (valueChange)='selectValueChange("abstinence", $event)'>
+        <mat-option *ngFor="let abstinence of abstinences$ | async" [value]='abstinence'>
+          {{abstinence}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Хадж и умра</mat-label>
+      <mat-select (valueChange)='selectValueChange("pilgrimage", $event)'>
+        <mat-option *ngFor="let pilgrimage of pilgrimages$ | async" [value]="pilgrimage">
+          {{pilgrimage}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Религиозная практика</mat-label>
+      <mat-select (valueChange)='selectValueChange("prescription", $event)'>
+        <mat-option *ngFor="let prescription of prescriptions$ | async" [value]='prescription'>
+          {{prescription}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Празднование праздников</mat-label>
+      <mat-select (valueChange)='selectValueChange("holiday", $event)'>
+        <mat-option *ngFor="let holiday of holidays$ | async" [value]="holiday">
+          {{holiday}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Как долго вы соблюдаете религию?</mat-label>
+      <mat-select (valueChange)='selectValueChange("sura", $event)'>
+        <mat-option *ngFor="let sura of suras$ | async" [value]="sura">
+          {{sura}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Сколько сур вы знаете наизусть?</mat-label>
+      <mat-select (valueChange)='selectValueChange("observe", $event)'>
+        <mat-option *ngFor="let observe of observes$ | async" [value]="observe">
+          {{observe}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>У вас есть религиозное образование?</mat-label>
+      <mat-select (valueChange)='selectValueChange("educationReligion", $event)'>
+        <mat-option *ngFor="let educationReligion of educationReligions$ | async" [value]="educationReligion">
+          {{educationReligion}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <!--    <mat-form-field appearance="fill">-->
+    <!--      <mat-label>Источник религиозных знаний</mat-label>-->
+    <!--        <input type="email" matInput placeholder="Спорт">-->
+    <!--    </mat-form-field>-->
+
+
+  </div>
+</form>

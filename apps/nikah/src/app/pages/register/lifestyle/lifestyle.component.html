@@ -1,1 +1,56 @@
-<p>lifestyle works!</p>
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column; align-items:  center'>
+    <mat-form-field appearance="fill">
+      <mat-label>Курение</mat-label>
+      <mat-select (valueChange)='selectValueChange("smoke", $event)'>
+        <mat-option *ngFor="let smoke of smoking$ | async" [value]='smoke'>
+          {{smoke}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Употребление алкоголя</mat-label>
+      <mat-select (valueChange)='selectValueChange("alcohol", $event)'>
+        <mat-option *ngFor="let alcohol of consumptionAlcohol$ | async" [value]="alcohol">
+          {{alcohol}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Питание</mat-label>
+      <mat-select (valueChange)='selectValueChange("eating", $event)'>
+        <mat-option *ngFor="let eating of eatings$ | async" [value]="eating">
+          {{eating}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>О себе</mat-label>-->
+<!--        <input type="email" matInput placeholder="О себе">-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>Хобби и интересы</mat-label>-->
+<!--        <input type="email" matInput placeholder="Хобби и интересы">-->
+<!--    </mat-form-field>-->
+
+<!--    <mat-form-field appearance="fill">-->
+<!--      <mat-label>Спорт</mat-label>-->
+<!--        <input type="email" matInput placeholder="Спорт">-->
+<!--    </mat-form-field>-->
+
+    <mat-form-field appearance="fill">
+      <mat-label>Частота занятия спортом</mat-label>
+      <mat-select (valueChange)='selectValueChange("frequency", $event)'>
+        <mat-option *ngFor="let frequency of frequencySport$ | async" [value]="frequency">
+          {{frequency}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

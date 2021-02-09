@@ -2,17 +2,54 @@
   <div style='display: flex; flex-direction: column; align-items:  center'>
     <mat-form-field appearance="fill">
       <mat-label>Рост</mat-label>
-      <mat-select formControlName='height'>
+      <mat-select (valueChange)='selectValueChange("height", $event)'>
         <mat-option *ngFor="let height of heights" [value]='height'>
           {{height}}
         </mat-option>
       </mat-select>
     </mat-form-field>
+
     <mat-form-field appearance="fill">
       <mat-label>Вес</mat-label>
-      <mat-select formControlName='weight'>
+      <mat-select (valueChange)='selectValueChange("weight", $event)'>
         <mat-option *ngFor="let weight of weights" [value]="weight">
           {{weight}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Телосложение</mat-label>
+      <mat-select (valueChange)='selectValueChange("bodyType", $event)'>
+        <mat-option *ngFor="let bodyType of bodyTypes$ | async" [value]="bodyType">
+          {{bodyType}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Цвет глаз</mat-label>
+      <mat-select (valueChange)='selectValueChange("eye", $event)'>
+        <mat-option *ngFor="let eye of eyeColors$ | async" [value]="eye">
+          {{eye}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Цвет волос</mat-label>
+      <mat-select (valueChange)='selectValueChange("hair", $event)'>
+        <mat-option *ngFor="let hair of hairColors$ | async" [value]="hair">
+          {{hair}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Растительность на лице</mat-label>
+      <mat-select (valueChange)='selectValueChange("facial", $event)'>
+        <mat-option *ngFor="let facial of facialHairs$ | async" [value]="facial">
+          {{facial}}
         </mat-option>
       </mat-select>
     </mat-form-field>

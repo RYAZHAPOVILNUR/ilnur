@@ -1,0 +1,39 @@
+<form [formGroup]='form'>
+  <div style='display: flex; flex-direction: column; align-items:  center'>
+    <mat-form-field appearance="fill">
+      <mat-label>Семейное положение</mat-label>
+      <mat-select (valueChange)='selectValueChange("status", $event)'>
+        <mat-option *ngFor="let status of maritalStatus$ | async" [value]='status'>
+          {{status}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Количество детей</mat-label>
+      <mat-select (valueChange)='selectValueChange("children", $event)'>
+        <mat-option *ngFor="let children of childrens" [value]="children">
+          {{children}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Вы проживате с родителями?</mat-label>
+      <mat-select (valueChange)='selectValueChange("liveParent", $event)'>
+        <mat-option *ngFor="let liveParent of liveParents$ | async" [value]="liveParent">
+          {{liveParent}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="fill">
+      <mat-label>Желаемое количество детей</mat-label>
+      <mat-select (valueChange)='selectValueChange("desiredChildren", $event)'>
+        <mat-option *ngFor="let desiredChildren of desiredChildrens$ | async" [value]="desiredChildren">
+          {{desiredChildren}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</form>

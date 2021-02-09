@@ -11,11 +11,25 @@ import { WorkComponent } from './work/work.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { MaritalstatusComponent } from './maritalstatus/maritalstatus.component';
+import { SpouseComponent } from './spouse/spouse.component';
+import { ReligionComponent } from './religion/religion.component';
+import { AdditionallyComponent } from './additionally/additionally.component';
 
 
 
 @NgModule({
-  declarations: [RegisterComponent, CommonInfoComponent, LooksComponent, LifestyleComponent, WorkComponent],
+  declarations: [
+    RegisterComponent,
+    CommonInfoComponent,
+    LooksComponent,
+    LifestyleComponent,
+    WorkComponent,
+    MaritalstatusComponent,
+    SpouseComponent,
+    ReligionComponent,
+    AdditionallyComponent,
+  ],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
