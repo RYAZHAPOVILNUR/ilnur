@@ -1,0 +1,17 @@
+.example-card {
+  width: 230px;
+  padding: 20px;
+}
+
+.profile-image{
+  width: 230px;
+  height: 232px;
+  background-image: url('https://forum-translational-medicine.org/files/Bio-M/ftm/Ungerer.jpg');
+  background-size: cover;
+  display: flex;
+  align-items: flex-end;
+}
+
+.profile-image p{
+  padding-left: 20px;
+}

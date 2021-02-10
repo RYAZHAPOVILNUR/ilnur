@@ -52,9 +52,11 @@ export class SpouseComponent implements OnInit {
   }
 
   selectValueChange(field, e) {
-    console.log(field)
-    console.log(e)
     this.form.patchValue({[field]: e})
+  }
+
+  public selectValueInputChange(field, e) {
+    this.form.patchValue({[field]: e.target.value})
   }
 
 }

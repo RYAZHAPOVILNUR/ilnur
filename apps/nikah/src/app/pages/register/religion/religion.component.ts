@@ -38,9 +38,13 @@ export class ReligionComponent {
   constructor(
     private readonly store: RegisterStore
   ) { }
+
+
   selectValueChange(field, e) {
-    console.log(field)
-    console.log(e)
     this.form.patchValue({[field]: e})
+  }
+
+  public selectValueInputChange(field, e) {
+    this.form.patchValue({[field]: e.target.value})
   }
 }

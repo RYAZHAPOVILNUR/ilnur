@@ -1,64 +1,73 @@
 <form [formGroup]='form'>
   <div style='display: flex; flex-direction: column; align-items:  center'>
 
-   <div style="display: flex">
-     <mat-form-field appearance="fill">
-       <mat-label>От</mat-label>
-       <mat-select (valueChange)='selectValueChange("ageOf", $event)'>
-         <mat-option *ngFor="let ageOf of ageOfs" [value]='ageOf'>
-           {{ageOf}}
-         </mat-option>
-       </mat-select>
-     </mat-form-field>
+   <div>
+     <p>Возвраст</p>
+     <div style="display: flex; width: 500px;justify-content: space-around;">
+       <mat-form-field appearance="fill">
+         <mat-label>От</mat-label>
+         <mat-select (valueChange)='selectValueChange("ageOf", $event)'>
+           <mat-option *ngFor="let ageOf of ageOfs" [value]='ageOf'>
+             {{ageOf}}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
 
-     <mat-form-field appearance="fill">
-       <mat-label>До</mat-label>
-       <mat-select (valueChange)='selectValueChange("ageUp", $event)'>
-         <mat-option *ngFor="let ageUp of ageUps" [value]='ageUp'>
-           {{ageUp}}
-         </mat-option>
-       </mat-select>
-     </mat-form-field>
+       <mat-form-field appearance="fill">
+         <mat-label>До</mat-label>
+         <mat-select (valueChange)='selectValueChange("ageUp", $event)'>
+           <mat-option *ngFor="let ageUp of ageUps" [value]='ageUp'>
+             {{ageUp}}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
+     </div>
    </div>
 
-   <div style="display: flex">
-     <mat-form-field appearance="fill">
-       <mat-label>От</mat-label>
-       <mat-select (valueChange)='selectValueChange("heightsOf", $event)'>
-         <mat-option *ngFor="let heightsOf of heightsOfs" [value]='heightsOf'>
-           {{heightsOf}}
-         </mat-option>
-       </mat-select>
-     </mat-form-field>
+   <div>
+     <p>Рост</p>
+     <div style="display: flex; width: 500px;justify-content: space-around;">
+       <mat-form-field appearance="fill">
+         <mat-label>От</mat-label>
+         <mat-select (valueChange)='selectValueChange("heightsOf", $event)'>
+           <mat-option *ngFor="let heightsOf of heightsOfs" [value]='heightsOf'>
+             {{heightsOf}}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
 
-     <mat-form-field appearance="fill">
-       <mat-label>До</mat-label>
-       <mat-select (valueChange)='selectValueChange("heightsUp", $event)'>
-         <mat-option *ngFor="let heightsUp of heightsUps" [value]='heightsUp'>
-           {{heightsUp}}
-         </mat-option>
-       </mat-select>
-     </mat-form-field>
+       <mat-form-field appearance="fill">
+         <mat-label>До</mat-label>
+         <mat-select (valueChange)='selectValueChange("heightsUp", $event)'>
+           <mat-option *ngFor="let heightsUp of heightsUps" [value]='heightsUp'>
+             {{heightsUp}}
+           </mat-option>
+         </mat-select>
+       </mat-form-field>
+     </div>
    </div>
 
-    <div style="display: flex">
-      <mat-form-field appearance="fill">
-        <mat-label>От</mat-label>
-        <mat-select (valueChange)='selectValueChange("weightsOf", $event)'>
-          <mat-option *ngFor="let weightsOf of weightsOfs" [value]='weightsOf'>
-            {{weightsOf}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+    <div>
+      <p>Вес</p>
+      <div style="display: flex; width: 500px;justify-content: space-around;">
+        <mat-form-field appearance="fill">
+          <mat-label>От</mat-label>
+          <mat-select (valueChange)='selectValueChange("weightsOf", $event)'>
+            <mat-option *ngFor="let weightsOf of weightsOfs" [value]='weightsOf'>
+              {{weightsOf}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
 
-      <mat-form-field appearance="fill">
-        <mat-label>До</mat-label>
-        <mat-select (valueChange)='selectValueChange("weightsUp", $event)'>
-          <mat-option *ngFor="let weightsUp of weightsUps" [value]='weightsUp'>
-            {{weightsUp}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label>До</mat-label>
+          <mat-select (valueChange)='selectValueChange("weightsUp", $event)'>
+            <mat-option *ngFor="let weightsUp of weightsUps" [value]='weightsUp'>
+              {{weightsUp}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
     </div>
 
     <mat-form-field appearance="fill">
@@ -79,15 +88,15 @@
       </mat-select>
     </mat-form-field>
 
-    <!--    <mat-form-field appearance="fill">-->
-    <!--      <mat-label>О ней</mat-label>-->
-    <!--        <input type="email" matInput placeholder="О себе">-->
-    <!--    </mat-form-field>-->
+    <mat-form-field appearance="fill">
+      <mat-label>О ней</mat-label>
+        <input type="text" (change)='selectValueInputChange("about", $event)' matInput>
+    </mat-form-field>
 
-    <!--    <mat-form-field appearance="fill">-->
-    <!--      <mat-label>Характер</mat-label>-->
-    <!--        <input type="email" matInput placeholder="Хобби и интересы">-->
-    <!--    </mat-form-field>-->
+    <mat-form-field appearance="fill">
+      <mat-label>Характер</mat-label>
+        <input type="text" (change)='selectValueInputChange("character", $event)' matInput>
+    </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Дети</mat-label>

@@ -1,0 +1,56 @@
+<div style="display: flex; padding: 30px">
+
+  <div class="left" style="width: 30%">
+    <mat-card class="example-card">
+      <div class="profile-image">
+        <p>{{person.name}}</p>
+      </div>
+      <p>Репутация: {{person.reputation}}</p>
+      <mat-progress-bar mode="determinate" value="{{person.reputation}}" style=" width: 230px;"></mat-progress-bar>
+      <p>Что такое репутация?</p>
+
+      <mat-card-content>
+        <h2>Ваш ID: {{person.id}}</h2>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="example-card" style="margin-top: 20px;">
+      <button mat-button>
+        <mat-icon>visibility</mat-icon>
+        Гости
+      </button>
+      <button mat-button>
+        <mat-icon>visibility</mat-icon>
+        Просмотренные анкеты
+      </button>
+      <button mat-button>
+        <mat-icon>favorite_border</mat-icon>
+        Избранное
+      </button>
+      <button mat-button>
+        <mat-icon>person_add_alt</mat-icon>
+        Входящие запросы
+      </button>
+      <button mat-button>
+        <mat-icon>emoji_people</mat-icon>
+        Исходящие запросы
+      </button>
+      <button mat-button>
+        <mat-icon>perm_identity</mat-icon>
+        Показать мою анкету
+      </button>
+    </mat-card>
+
+  </div>
+
+  <div class="right" style="width: 70%">
+    <mat-card style="padding: 24px">
+      <div class="text" style="display: flex; justify-content: space-between">
+        <p>Заполнение анкеты: {{person.filling}}%</p>
+        <p>Изменить анкету</p>
+      </div>
+      <mat-progress-bar mode="determinate" value="{{person.filling}}"></mat-progress-bar>
+
+    </mat-card>
+  </div>
+</div>

@@ -90,11 +90,10 @@
       </mat-select>
     </mat-form-field>
 
-    <!--    <mat-form-field appearance="fill">-->
-    <!--      <mat-label>Источник религиозных знаний</mat-label>-->
-    <!--        <input type="email" matInput placeholder="Спорт">-->
-    <!--    </mat-form-field>-->
-
+    <mat-form-field appearance="fill">
+      <mat-label>Источник религиозных знаний</mat-label>
+        <input type="text" (change)='selectValueInputChange("sourceReligion", $event)' matInput>
+    </mat-form-field>
 
   </div>
 </form>

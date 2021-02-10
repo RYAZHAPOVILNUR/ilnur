@@ -10,12 +10,13 @@ import { LifestyleComponent } from './lifestyle/lifestyle.component';
 import { WorkComponent } from './work/work.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MaritalstatusComponent } from './maritalstatus/maritalstatus.component';
 import { SpouseComponent } from './spouse/spouse.component';
 import { ReligionComponent } from './religion/religion.component';
 import { AdditionallyComponent } from './additionally/additionally.component';
-
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -37,7 +38,9 @@ import { AdditionallyComponent } from './additionally/additionally.component';
     MatTabsModule,
     ReactiveFormsModule,
     MatFormFieldModule,
-    MatSelectModule
+    MatSelectModule,
+    MatInputModule,
+    MatButtonModule
   ]
 })
 export class RegisterModule { }

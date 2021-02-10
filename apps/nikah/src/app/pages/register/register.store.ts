@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ComponentStore } from '@ngrx/component-store';
-import { FormArray, FormControl, FormGroup } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Injectable()
 export class RegisterStore extends ComponentStore<any> {
@@ -11,60 +11,60 @@ export class RegisterStore extends ComponentStore<any> {
 
     this.form = new FormGroup({
       commonInfo: new FormGroup({
-        country: new FormControl(null),
-        city: new FormControl(null),
-        nationality: new FormControl(null)
+        country: new FormControl(null, Validators.required),
+        city: new FormControl(null, Validators.required),
+        nationality: new FormControl(null, Validators.required)
       }),
       looks: new FormGroup({
-        height: new FormControl(null),
-        weight: new FormControl(null),
-        bodyType: new FormControl(null),
-        eyeColor: new FormControl(null),
-        hairColor: new FormControl(null),
-        facialHair: new FormControl(null)
+        height: new FormControl(null, Validators.required),
+        weight: new FormControl(null, Validators.required),
+        bodyType: new FormControl(null, Validators.required),
+        eyeColor: new FormControl(null, Validators.required),
+        hairColor: new FormControl(null, Validators.required),
+        facialHair: new FormControl(null, Validators.required)
       }),
       lifestyle: new FormGroup({
-        smoke: new FormControl(null),
-        alcohol: new FormControl(null),
-        eating: new FormControl(null),
+        smoke: new FormControl(null, Validators.required),
+        alcohol: new FormControl(null, Validators.required),
+        eating: new FormControl(null, Validators.required),
         about: new FormControl(null),
         hobbies: new FormControl(null),
         sport: new FormControl(null),
         frequency: new FormControl(null),
       }),
       work: new FormGroup({
-        education: new FormControl(null),
+        education: new FormControl(null, Validators.required),
+        employmentForm: new FormControl(null, Validators.required),
+        financialCondition: new FormControl(null, Validators.required),
+        language: new FormControl(null, Validators.required),
         profession: new FormControl(null),
-        employmentForm: new FormControl(null),
         position: new FormControl(null),
-        financialCondition: new FormControl(null),
-        languages: new FormArray([])
       }),
       maritalstatus: new FormGroup({
-        status: new FormControl(null),
-        children: new FormControl(null),
-        liveParent: new FormControl(null),
-        desiredChildren: new FormControl(null)
+        status: new FormControl(null, Validators.required),
+        children: new FormControl(null, Validators.required),
+        liveParent: new FormControl(null, Validators.required),
+        desiredChildren: new FormControl(null, Validators.required)
       }),
       futurespouse: new FormGroup({
-        ageof: new FormControl(null),
-        ageup: new FormControl(null),
-        heightof: new FormControl(null),
-        heightup: new FormControl(null),
-        weightof: new FormControl(null),
-        weightup: new FormControl(null),
+        ageOf: new FormControl(null),
+        ageUp: new FormControl(null),
+        heightsOf: new FormControl(null),
+        heightsUp: new FormControl(null),
+        weightsOf: new FormControl(null),
+        weightsUp: new FormControl(null),
         bodyType: new FormControl(null),
-        belief: new FormControl(null),
+        belief: new FormControl(null, Validators.required),
         character: new FormControl(null),
         about: new FormControl(null),
         children: new FormControl(null)
       }),
       religion: new FormGroup({
-        religion: new FormControl(null),
-        flow: new FormControl(null),
-        prayer: new FormControl(null),
-        abstinence: new FormControl(null),
-        pilgrimage: new FormControl(null),
+        religion: new FormControl(null, Validators.required),
+        flow: new FormControl(null, Validators.required),
+        prayer: new FormControl(null, Validators.required),
+        abstinence: new FormControl(null, Validators.required),
+        pilgrimage: new FormControl(null, Validators.required),
         prescription: new FormControl(null),
         holiday: new FormControl(null),
         observe: new FormControl(null),
@@ -73,12 +73,11 @@ export class RegisterStore extends ComponentStore<any> {
         sourceReligion: new FormControl(null)
       }),
       additionally: new FormGroup({
-        housing: new FormControl(null),
-        relocation: new FormControl(null),
-        adoptingChildren: new FormControl(null),
-        polygamy: new FormControl(null)
+        housing: new FormControl(null, Validators.required),
+        relocation: new FormControl(null, Validators.required),
+        adoptingChildren: new FormControl(null, Validators.required),
+        polygamy: new FormControl(null, Validators.required)
       })
     })
-    console.log(this.form)
   }
 }

@@ -27,8 +27,6 @@ export class AdditionallyComponent {
   ) { }
 
   selectValueChange(field, e) {
-    console.log(field)
-    console.log(e)
     this.form.patchValue({[field]: e})
   }
 

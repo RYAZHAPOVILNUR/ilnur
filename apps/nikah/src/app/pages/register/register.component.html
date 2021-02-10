@@ -1,26 +1,51 @@
-<mat-tab-group animationDuration="0ms" mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4">
-  <mat-tab label="Общая информация">
-    <ilnur-common-info></ilnur-common-info>
-  </mat-tab>
-  <mat-tab label="Внешний вид">
-    <ilnur-looks></ilnur-looks>
-  </mat-tab>
-  <mat-tab label="Образ жизни">
-    <ilnur-lifestyle></ilnur-lifestyle>
-  </mat-tab>
-  <mat-tab label="Работа и образование">
-    <ilnur-work></ilnur-work>
-  </mat-tab>
-  <mat-tab label="Семейное положение">
-    <ilnur-maritalstatus></ilnur-maritalstatus>
-  </mat-tab>
-  <mat-tab label="Будущий супруг">
-    <ilnur-spouse></ilnur-spouse>
-  </mat-tab>
-  <mat-tab label="Религия">
-    <ilnur-religion></ilnur-religion>
-  </mat-tab>
-  <mat-tab label="Дополнительная информация">
-    <ilnur-additionally></ilnur-additionally>
-  </mat-tab>
-</mat-tab-group>
+<div class="form-register">
+
+  <mat-tab-group animationDuration="0ms" [(selectedIndex)]="selectedIndex" class="example-stretched-tabs mat-elevation-z4">
+    <mat-tab label="Общая информация">
+      <ilnur-common-info></ilnur-common-info>
+    </mat-tab>
+    <mat-tab label="Внешний вид">
+      <ilnur-looks></ilnur-looks>
+    </mat-tab>
+    <mat-tab label="Образ жизни">
+      <ilnur-lifestyle></ilnur-lifestyle>
+    </mat-tab>
+    <mat-tab label="Работа и образование">
+      <ilnur-work></ilnur-work>
+    </mat-tab>
+    <mat-tab label="Семейное положение">
+      <ilnur-maritalstatus></ilnur-maritalstatus>
+    </mat-tab>
+    <mat-tab label="Будущий супруг">
+      <ilnur-spouse></ilnur-spouse>
+    </mat-tab>
+    <mat-tab label="Религия">
+      <ilnur-religion></ilnur-religion>
+    </mat-tab>
+    <mat-tab label="Дополнительная информация">
+      <ilnur-additionally></ilnur-additionally>
+    </mat-tab>
+  </mat-tab-group>
+  <div class="example-button-row" style="display: flex; justify-content: space-around; margin-top: 20px;">
+    <button style="
+        position: absolute;
+        bottom: 50px;
+        z-index: 999;
+        left: 25px;"
+        (click)="prevTab()"
+        mat-raised-button>
+      Назад </button>
+    <button
+      style="
+        position: absolute;
+        background: lightgreen;
+        z-index: 999;
+        bottom: 50px;
+        right: 25px;"
+        (click)="nextTab()"
+        mat-raised-button>
+      Далее </button>
+  </div>
+</div>
+
+

@@ -29,27 +29,27 @@
 
     <mat-form-field appearance="fill">
       <mat-label>Цвет глаз</mat-label>
-      <mat-select (valueChange)='selectValueChange("eye", $event)'>
-        <mat-option *ngFor="let eye of eyeColors$ | async" [value]="eye">
-          {{eye}}
+      <mat-select (valueChange)='selectValueChange("eyeColor", $event)'>
+        <mat-option *ngFor="let eyeColor of eyeColors$ | async" [value]="eyeColor">
+          {{eyeColor}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Цвет волос</mat-label>
-      <mat-select (valueChange)='selectValueChange("hair", $event)'>
-        <mat-option *ngFor="let hair of hairColors$ | async" [value]="hair">
-          {{hair}}
+      <mat-select (valueChange)='selectValueChange("hairColor", $event)'>
+        <mat-option *ngFor="let hairColor of hairColors$ | async" [value]="hairColor">
+          {{hairColor}}
         </mat-option>
       </mat-select>
     </mat-form-field>
 
     <mat-form-field appearance="fill">
       <mat-label>Растительность на лице</mat-label>
-      <mat-select (valueChange)='selectValueChange("facial", $event)'>
-        <mat-option *ngFor="let facial of facialHairs$ | async" [value]="facial">
-          {{facial}}
+      <mat-select (valueChange)='selectValueChange("facialHair", $event)'>
+        <mat-option *ngFor="let facialHair of facialHairs$ | async" [value]="facialHair">
+          {{facialHair}}
         </mat-option>
       </mat-select>
     </mat-form-field>

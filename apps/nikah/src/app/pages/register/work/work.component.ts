@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {FormControl, FormGroup } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { RegisterStore } from '../register.store';
 
@@ -28,10 +28,13 @@ export class WorkComponent implements OnInit {
   }
 
 
-  selectValueChange(field, e) {
-    console.log(field)
-    console.log(e)
+  public selectValueChange(field, e) {
     this.form.patchValue({[field]: e})
   }
+
+  public selectValueInputChange(field, e) {
+    this.form.patchValue({[field]: e.target.value})
+  }
+
 
 }
