@@ -1,0 +1,15 @@
+.navbar h1 {
+  font-family: 'Lexend Mega', sans-serif;
+}
+.navbar h1 span {
+  color: #3f51b5;
+}
+a{
+  text-decoration: none;
+  color: black;
+}
+li {
+  list-style: none;
+  padding-right: 15px;
+  font-family: 'Open Sans', sans-serif;
+}

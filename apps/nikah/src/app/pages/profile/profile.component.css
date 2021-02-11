@@ -1,10 +1,18 @@
+p, span, a {
+  font-family: 'Open Sans', sans-serif;
+}
+
+span {
+  padding-left: 10px;
+}
+
 .example-card {
-  width: 230px;
+  max-width: 264px;
   padding: 20px;
 }
 
 .profile-image{
-  width: 230px;
+  max-width: 264px;
   height: 232px;
   background-image: url('https://forum-translational-medicine.org/files/Bio-M/ftm/Ungerer.jpg');
   background-size: cover;

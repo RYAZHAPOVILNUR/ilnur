@@ -1,0 +1,204 @@
+<div style="background: #d0deeb;  padding: 30px; ">
+  <div class="wrapper" style="max-width: 90%; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between;">
+
+      <div class="left" style="width: 26%">
+
+        <mat-card class="example-card">
+          <mat-card-header>
+
+            <mat-card-title
+              style="
+                font-size: 15px;
+                font-weight: bold">
+              Параметры поиска
+            </mat-card-title>
+
+            <mat-divider style="top: 45px"></mat-divider>
+
+          </mat-card-header>
+
+          <section
+            class="example-section"
+            style="
+              display:flex;
+              flex-direction: column;
+              margin: 10px 0;">
+
+            <label class="example-margin">Пол:</label>
+
+            <mat-radio-button
+              class="example-margin"
+              (click)="defineGender('man')">
+              Муж
+            </mat-radio-button>
+
+            <mat-radio-button
+              class="example-margin"
+              (click)="defineGender('female')"
+              style="margin-top: 5px;">
+              Жен
+            </mat-radio-button>
+
+          </section>
+
+          <mat-form-field appearance="outline" style="width: 100%;">
+
+            <mat-label>Страна</mat-label>
+
+            <mat-select [(ngModel)]="searchCountry">
+              <mat-option *ngFor="let country of countries$ | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" style="width: 100%;">
+
+            <mat-label>Город</mat-label>
+
+            <mat-select [(ngModel)]="searchCity" *ngIf="searchCountry == 'Russia'">
+              <mat-option *ngFor="let country of russia$ | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+
+            <mat-select [(ngModel)]="searchCity" *ngIf="searchCountry == 'Saudia'">
+              <mat-option *ngFor="let country of saudia$ | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+
+            <mat-select [(ngModel)]="searchCity" *ngIf="searchCountry == 'Egypt'">
+              <mat-option *ngFor="let country of egypt$ | async" [value]="country.name">
+                {{country.name}}
+              </mat-option>
+            </mat-select>
+
+            <mat-select [disabled]="searchCountry == ''" *ngIf="searchCountry == ''">
+              <mat-option>
+              </mat-option>
+            </mat-select>
+
+          </mat-form-field>
+
+          <div>
+
+            <span>Возвраст:</span>
+
+            <div style="display:flex; justify-content: space-between">
+
+              <mat-form-field appearance="outline" style="width: 120px;">
+                <mat-label>От</mat-label>
+                <mat-select name="food">
+                  <mat-option>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field appearance="outline" style="width: 120px;">
+                <mat-label>До</mat-label>
+                <mat-select name="food">
+                  <mat-option>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            </div>
+
+          </div>
+
+          <section class="example-section"style="display:flex; flex-direction: column;" >
+            <span>Семейное положение</span>
+
+            <mat-radio-button
+              (click)="defineMerriage('')"
+              class="example-margin">
+              Не важно
+            </mat-radio-button>
+
+            <mat-radio-button
+              (click)="defineMerriage('true')"
+              class="example-margin">
+              Был(а) в браке
+            </mat-radio-button>
+
+            <mat-radio-button
+              (click)="defineMerriage('false')"
+              class="example-margin">
+              Не был(а) в браке
+            </mat-radio-button>
+
+          </section>
+
+          <section
+            class="example-section"
+            style="
+              display:flex;
+              flex-direction: column;
+              margin-top: 10px;">
+
+            <label class="example-margin">Дети</label>
+
+            <mat-radio-button
+              (click)="defineMerriage('')"
+              class="example-margin">
+              Не важно
+            </mat-radio-button>
+
+            <mat-radio-button
+              (click)="defineMerriage('true')"
+              class="example-margin">
+              Есть
+            </mat-radio-button>
+
+            <mat-radio-button
+              (click)="defineMerriage('false')"
+              class="example-margin">
+              Нету
+            </mat-radio-button>
+
+          </section>
+
+        </mat-card>
+
+      </div>
+
+      <div class="right"
+           style="
+            width: 70%;
+            display:flex;
+            flex-wrap: wrap;
+            margin-top: -5px;">
+
+        <mat-card
+          class="example-card"
+          style="
+            max-width: 200px;
+            height: 325px;
+            margin: 5px;"
+          *ngFor="let user of users$
+          | async
+          | pipeGender: searchGender
+          | pipeCountry: searchCountry
+          | pipeCity: searchCity
+          | pipeMerriage: searchMerriage
+          | pipeChildren: searchChildren
+          ">
+
+          <img mat-card-image src="{{user.avatar}}" alt="">
+
+          <mat-card-header>
+            <mat-card-title>{{user.name}}, {{user.age}}</mat-card-title>
+            <mat-card-subtitle>{{user.country}}, {{user.city}}</mat-card-subtitle>
+          </mat-card-header>
+
+        </mat-card>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
