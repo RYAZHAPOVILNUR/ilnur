@@ -46,7 +46,7 @@ export class EditTodoComponent {
   public addComment(event): void {
     event.preventDefault()
     event.stopPropagation()
-    if(this.commentForm.value.text) {
+    if (this.commentForm.value.text) {
       const newComment: Comment = {
         authorId: this.commentForm.value.authorId,
         text: this.commentForm.value.text,
@@ -97,8 +97,13 @@ export class EditTodoComponent {
     this.isShowedCommentButtons$.next(true)
   }
 
+  // public sendingData(id: string): void {
+  //   this.router.navigate(['/demos', id], { queryParams: {data : JSON.stringify(this.todo$.value)}})
+  //   this.editTodo()
+  // }
+
   public sendingData(id: string): void {
-    this.router.navigate(['/demos', id], { queryParams: {data : JSON.stringify(this.todo$.value)}})
+    this.router.navigate(['/demos', id], { state: this.todo$.value })
     this.editTodo()
   }
 

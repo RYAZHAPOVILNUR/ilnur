@@ -1,7 +1,6 @@
-import { Component} from '@angular/core';
+import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Params } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 import { UserService } from '../../../shared/services/user.service';
 import { User } from '../../../shared/users';
@@ -24,14 +23,12 @@ export class DemosPageComponent {
   public readonly data$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null);
 
   constructor(
-    private route: ActivatedRoute,
     private userService: UserService,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
   ) {
-    this.route.queryParams.subscribe((params: Params) => {
-      this.data$.next(JSON.parse(params.data))
-      this.todo$.next(this.data$.value)
-    })
+
+    this.data$.next(history.state)
+    this.todo$.next(this.data$.value)
     this.userService.currentUser.subscribe((user: User) => {
       this.user$.next(user)
     })
@@ -64,7 +61,7 @@ export class DemosPageComponent {
   public addComment(event): void {
     event.preventDefault()
     event.stopPropagation()
-    if(this.commentForm.value.text) {
+    if (this.commentForm.value.text) {
       const newComment: Comment = {
         authorId: this.commentForm.value.authorId,
         text: this.commentForm.value.text,
