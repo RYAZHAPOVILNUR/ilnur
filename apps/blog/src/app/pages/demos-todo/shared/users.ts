@@ -1,13 +1,7 @@
-export interface User {
-  id: number,
-  name: string,
-  username: string,
-  email: string,
-  phone: string,
-  avatarUrl: string
-}
+import { UserInterface } from "../types/user.interface";
 
-export const users: User[] = [
+
+export const users: UserInterface[] = [
   {
     id: 1,
     name: 'Bret',

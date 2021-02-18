@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import { Observable, of } from 'rxjs';
-import { User } from '../users';
+import { UserInterface } from '../../types/user.interface';
 import { users } from '../users'
 
 @Injectable({
@@ -9,11 +9,15 @@ import { users } from '../users'
 export class UserService {
   public users = users
 
-  public get getUsers(): Observable<User[]> {
+  getUserss(): Observable<UserInterface[]> {
     return of(users)
   }
 
-  public get currentUser(): Observable<User> {
+  public get getUsers(): Observable<UserInterface[]> {
+    return of(users)
+  }
+
+  public get currentUser(): Observable<UserInterface> {
     const currentUser = this.users.find(user => user.id === 1)
     return of(currentUser)
   }

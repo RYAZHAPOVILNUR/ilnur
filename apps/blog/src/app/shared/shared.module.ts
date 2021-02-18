@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { SearchPipe } from './search.pipe';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexModule, FlexLayoutModule } from '@angular/flex-layout';
 import { MatDialogModule } from '@angular/material/dialog';

@@ -1,14 +1,15 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Comment, Todo } from '../demos-todo.component';
-import { User } from '../../../shared/users';
 import { CreateTodoModalData } from '../create-todo/create-todo.component';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { UserInterface } from '../../types/user.interface';
+import { TodoInterface } from '../../types/todo.interface';
+import { CommentInterface } from '../../types/comment.interface';
 
 export interface EditTodoModalData extends CreateTodoModalData {
-  todo: Todo
+  todo: TodoInterface
 }
 
 @Component({
@@ -19,8 +20,8 @@ export interface EditTodoModalData extends CreateTodoModalData {
 export class EditTodoComponent {
   public readonly form: FormGroup
   public readonly commentForm: FormGroup
-  public readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([])
-  public readonly todo$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null)
+  public readonly users$: BehaviorSubject<UserInterface[]> = new BehaviorSubject<UserInterface[]>([])
+  public readonly todo$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null)
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
 
   constructor(
@@ -47,7 +48,7 @@ export class EditTodoComponent {
     event.preventDefault()
     event.stopPropagation()
     if (this.commentForm.value.text) {
-      const newComment: Comment = {
+      const newComment: CommentInterface = {
         authorId: this.commentForm.value.authorId,
         text: this.commentForm.value.text,
         time: new Date().getTime()
@@ -90,24 +91,19 @@ export class EditTodoComponent {
       ...this.form.value,
       id: this.data.todo.id,
       updated: new Date().getTime()
-    } as Todo)
+    } as TodoInterface)
   }
 
   public showCommentButton(): void {
     this.isShowedCommentButtons$.next(true)
   }
 
-  // public sendingData(id: string): void {
-  //   this.router.navigate(['/demos', id], { queryParams: {data : JSON.stringify(this.todo$.value)}})
-  //   this.editTodo()
-  // }
-
   public sendingData(id: string): void {
     this.router.navigate(['/demos', id], { state: this.todo$.value })
     this.editTodo()
   }
 
-  public get reporter(): User {
+  public get reporter(): UserInterface {
     return this.users$.value.find(
       user => user.id == this.todo$.value.reporterId
     )

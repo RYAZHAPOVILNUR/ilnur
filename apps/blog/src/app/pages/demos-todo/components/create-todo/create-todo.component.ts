@@ -1,12 +1,12 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { Todo } from '../demos-todo.component';
-import { User } from '../../../shared/users'
+import { TodoInterface } from '../../types/todo.interface';
+import {UserInterface } from '../../types/user.interface'
 
 export interface CreateTodoModalData {
-  users: User[],
-  currentUser: User
+  users: UserInterface[],
+  currentUser: UserInterface
 }
 
 @Component({
@@ -16,8 +16,8 @@ export interface CreateTodoModalData {
 })
 export class CreateTodoComponent {
   public readonly form: FormGroup
-  public readonly users: User[]
-  public readonly user: User
+  public readonly users: UserInterface[]
+  public readonly user: UserInterface
 
   constructor(
     @Inject(MAT_DIALOG_DATA)
@@ -41,7 +41,7 @@ export class CreateTodoComponent {
     this.dialogRef.close({
       ...this.form.value,
       created: new Date().getTime()
-    } as Todo)
+    } as TodoInterface)
   }
 
 }

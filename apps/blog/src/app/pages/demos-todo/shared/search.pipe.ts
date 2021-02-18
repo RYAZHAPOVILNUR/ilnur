@@ -1,11 +1,11 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import { Todo } from '../pages/demos-todo/demos-todo.component'
+import { TodoInterface } from '../types/todo.interface'
 
 @Pipe({
   name: 'searchTodo'
 })
 export class SearchPipe implements PipeTransform {
-  transform(todos: Todo[], search = ''): Todo[] {
+  transform(todos: TodoInterface[], search = ''): TodoInterface[] {
     if(!search.trim()) {
       return todos
     }

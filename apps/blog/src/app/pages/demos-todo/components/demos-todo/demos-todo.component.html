@@ -4,11 +4,7 @@
       <mat-label>Найти Todo...</mat-label>
       <input matInput [(ngModel)]="searchStr" />
     </mat-form-field>
-    <button
-      (click)="createTodo()"
-      color="primary"
-      mat-flat-button
-    >
+    <button (click)="createTodo()" color="primary" mat-flat-button>
       Add todo
     </button>
   </div>
@@ -25,9 +21,13 @@
       </mat-card-header>
       <mat-card-actions class="priority">
         <div class="options">
-          <img mat-card-image [src]="user$.value.avatarUrl" alt="Photo of a Shiba Inu" />
+          <img
+            mat-card-image
+            [src]="user$.value.avatarUrl"
+            alt="Photo of a Shiba Inu"
+          />
           <div class="priority__item">
-            <p>{{todo.priority}}</p>
+            <p>{{ todo.priority }}</p>
             <span
               *ngIf="
                 todo.priority == 'Low' || todo.priority == 'Lowest';
@@ -37,29 +37,30 @@
               [class.lowest]="todo.priority === 'Lowest'"
               class="material-icons"
             >
-            arrow_downward
-          </span>
-            <ng-template #upward>
-            <span
-              [class.medium]="todo.priority === 'Medium'"
-              [class.high]="todo.priority === 'High'"
-              [class.highest]="todo.priority === 'Highest'"
-              class="material-icons"
-            >
-              arrow_upward
+              arrow_downward
             </span>
+            <ng-template #upward>
+              <span
+                [class.medium]="todo.priority === 'Medium'"
+                [class.high]="todo.priority === 'High'"
+                [class.highest]="todo.priority === 'Highest'"
+                class="material-icons"
+              >
+                arrow_upward
+              </span>
             </ng-template>
           </div>
         </div>
         <button
-          mat-icon-button color="warn"
+          mat-icon-button
+          color="warn"
           aria-label="Example icon button with a heart icon"
           (click)="removeTodo(todo.id, $event)"
         >
           <mat-icon>delete</mat-icon>
         </button>
+        <p *ngFor="let item of profiles$ | async">{{ item.name }}</p>
       </mat-card-actions>
     </mat-card>
   </div>
 </div>
-

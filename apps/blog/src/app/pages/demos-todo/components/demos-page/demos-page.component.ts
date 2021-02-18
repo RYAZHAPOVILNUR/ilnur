@@ -2,9 +2,10 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { UserService } from '../../../shared/services/user.service';
-import { User } from '../../../shared/users';
-import { Todo, Comment } from '../demos-todo.component';
+import { CommentInterface } from '../../types/comment.interface';
+import { TodoInterface } from '../../types/todo.interface';
+import { UserInterface } from '../../types/user.interface';
+import { UserService } from '../../shared/services/user.service'
 
 const COLLECTION_NAME = 'tasks'
 
@@ -16,11 +17,11 @@ const COLLECTION_NAME = 'tasks'
 export class DemosPageComponent {
   public readonly form: FormGroup
   public readonly commentForm: FormGroup
-  public readonly todo$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null);
-  public readonly user$: BehaviorSubject<User> = new BehaviorSubject<User>(null);
-  public readonly users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
+  public readonly todo$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
+  public readonly user$: BehaviorSubject<UserInterface> = new BehaviorSubject<UserInterface>(null);
+  public readonly users$: BehaviorSubject<UserInterface[]> = new BehaviorSubject<UserInterface[]>([]);
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
-  public readonly data$: BehaviorSubject<Todo> = new BehaviorSubject<Todo>(null);
+  public readonly data$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
 
   constructor(
     private userService: UserService,
@@ -29,10 +30,10 @@ export class DemosPageComponent {
 
     this.data$.next(history.state)
     this.todo$.next(this.data$.value)
-    this.userService.currentUser.subscribe((user: User) => {
+    this.userService.currentUser.subscribe((user: UserInterface) => {
       this.user$.next(user)
     })
-    this.userService.getUsers.subscribe((users: User[]) => {
+    this.userService.getUsers.subscribe((users: UserInterface[]) => {
       this.users$.next(users)
     })
 
@@ -62,7 +63,7 @@ export class DemosPageComponent {
     event.preventDefault()
     event.stopPropagation()
     if (this.commentForm.value.text) {
-      const newComment: Comment = {
+      const newComment: CommentInterface = {
         authorId: this.commentForm.value.authorId,
         text: this.commentForm.value.text,
         time: new Date().getTime()
@@ -98,7 +99,7 @@ export class DemosPageComponent {
     this.isShowedCommentButtons$.next(false);
   }
 
-  public get reporter(): User {
+  public get reporter(): UserInterface {
     return this.users$.value.find(
       user => user.id == this.todo$.value.reporterId
     )

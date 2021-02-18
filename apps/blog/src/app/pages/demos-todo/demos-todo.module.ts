@@ -5,7 +5,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSelectModule } from '@angular/material/select';
@@ -18,12 +17,24 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { QuillModule } from 'ngx-quill';
 
-import { CreateTodoComponent } from './create-todo/create-todo.component';
-import { EditTodoComponent } from './edit-todo/edit-todo.component';
-import { DemosTodoComponent } from './demos-todo.component';
-import { SearchPipe } from '../../shared/search.pipe';
-import { DemosPageComponent } from './demos-page/demos-page.component';
-import { DemosLayoutComponent } from './demos-layout/demos-layout.component';
+import { CreateTodoComponent } from './components/create-todo/create-todo.component';
+import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
+import { DemosTodoComponent } from './components/demos-todo/demos-todo.component';
+import { DemosPageComponent } from './components/demos-page/demos-page.component';
+import { DemosLayoutComponent } from './components/demos-layout/demos-layout.component';
+import { SearchPipe } from './shared/search.pipe';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
+import { GetUserEffect } from './store/effects/getUser.effect';
+import { reducers } from './store/reducers';
+import { UserService } from './shared/services/user.service';
+
+const routes = [
+  {path: '', component: DemosLayoutComponent, children: [
+    {path: '', component: DemosTodoComponent},
+    {path: 'demos/:id', component: DemosPageComponent}
+  ]}
+]
 
 @NgModule({
   declarations: [
@@ -59,12 +70,10 @@ import { DemosLayoutComponent } from './demos-layout/demos-layout.component';
     MatGridListModule,
     MatFormFieldModule,
     CommonModule,
-    RouterModule.forChild([
-      {path: '', component: DemosLayoutComponent, children: [
-          {path: '', component: DemosTodoComponent},
-          {path: 'demos/:id', component: DemosPageComponent}
-        ]}
-    ])
+    RouterModule.forChild(routes),
+    EffectsModule.forFeature([GetUserEffect]),
+    StoreModule.forFeature('users', reducers)
   ],
+  providers: [UserService]
 })
 export class DemosTodoModule {}
