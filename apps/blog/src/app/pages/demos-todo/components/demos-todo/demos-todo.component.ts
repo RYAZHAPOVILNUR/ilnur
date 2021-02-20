@@ -1,17 +1,18 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, map, tap } from 'rxjs/operators';
 
-import { UserService } from '../../shared/services/user.service';
 import { CreateTodoComponent, CreateTodoModalData } from '../create-todo/create-todo.component';
 import { EditTodoComponent, EditTodoModalData } from '../edit-todo/edit-todo.component';
-import { TodoInterface } from '../../types/todo.interface';
-import { UserInterface } from '../../types/user.interface';
+import { TodoInterface } from '../../types/todoTypes/todo.interface';
+import { UserInterface } from '../../types/userTypes/user.interface';
 import { TodoService } from '../../shared/services/todo.service';
 import { select, Store } from '@ngrx/store';
-import { getUserAction } from '../../store/actions/getUser.action';
-import { usersSelector } from '../../store/selectors';
+import { getUserAction } from '../../store/storeUser/actions/getUser.action';
+import { usersSelector } from '../../store/storeUser/selectors';
+import { getTodoAction } from '../../store/storeTodo/actions/getTodo.action';
+import { todoSelector } from '../../store/storeTodo/selectors';
 
 
 @Component({
@@ -20,58 +21,41 @@ import { usersSelector } from '../../store/selectors';
   styleUrls: ['./demos-todo.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DemosTodoComponent implements OnInit{
+export class DemosTodoComponent implements OnInit, OnDestroy{
   public readonly todos$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
   private readonly user$: BehaviorSubject<UserInterface> = new BehaviorSubject<UserInterface>(null);
   private readonly users$: BehaviorSubject<UserInterface[]> = new BehaviorSubject<UserInterface[]>([]);
   public searchStr = '';
-  public profiles$: Observable<UserInterface[] | null>
-  public profile: UserInterface
+  public usersSubscription$: Subscription
+  public userSubscription$: Subscription
+  public todosSubscription$: Subscription
 
   constructor(
     public dialog: MatDialog,
-    private userService: UserService,
     private todoService: TodoService,
     private store: Store
-  ) {
-    this.todoService.collection.snapshotChanges()
-      .pipe(
-        map(
-          (actions) => actions.map(
-            (action) => ({
-              ...action.payload.doc.data(),
-              id: action.payload.doc.id
-            })
-          )
-        )
-      )
-      .subscribe((todos: TodoInterface[]) => this.todos$.next(todos))
-
-
-
-    combineLatest([
-      this.userService.getUsers,
-      this.userService.currentUser
-    ])
-      .pipe(
-        tap(([users, user]) => {
-          this.user$.next(user)
-          this.users$.next(users)
-        })
-      ).subscribe()
-  }
+  ) {}
 
   ngOnInit(): void {
     this.initializeValues()
     this.fetchData()
+
+    this.userSubscription$ = this.users$.pipe(
+      map((user) => user.filter(user => user.id === 1))
+    ).subscribe((user) => this.user$.next(user[0]))
   }
 
   initializeValues(): void {
-    this.profiles$ = this.store.pipe(select(usersSelector))
+    this.usersSubscription$ = this.store.pipe(select(usersSelector))
+      .subscribe((users: UserInterface[]) => this.users$.next(users))
+
+    this.todosSubscription$ = this.store.pipe(select(todoSelector))
+      .subscribe((todos: TodoInterface[]) => this.todos$.next(todos))
   }
 
   fetchData(): void {
     this.store.dispatch(getUserAction())
+    this.store.dispatch(getTodoAction())
   }
 
   public createTodo(): void {
@@ -113,5 +97,18 @@ export class DemosTodoComponent implements OnInit{
     this.todoService.deleteTodo(id)
   }
 
+  ngOnDestroy(): void {
+    if (this.usersSubscription$) {
+      this.usersSubscription$.unsubscribe()
+    }
+
+    if (this.userSubscription$) {
+      this.userSubscription$.unsubscribe()
+    }
+
+    if (this.todosSubscription$) {
+      this.todosSubscription$.unsubscribe()
+    }
+  }
 
 }

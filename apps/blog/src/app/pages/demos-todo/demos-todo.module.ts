@@ -25,9 +25,11 @@ import { DemosLayoutComponent } from './components/demos-layout/demos-layout.com
 import { SearchPipe } from './shared/search.pipe';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
-import { GetUserEffect } from './store/effects/getUser.effect';
-import { reducers } from './store/reducers';
+import { GetUserEffect } from './store/storeUser/effects/getUser.effect';
+import { reducers } from './store/storeUser/reducers';
+import { reducer } from './store/storeTodo/reducers';
 import { UserService } from './shared/services/user.service';
+import { GetTodoEffect } from './store/storeTodo/effects/getTodo.effect';
 
 const routes = [
   {path: '', component: DemosLayoutComponent, children: [
@@ -71,8 +73,9 @@ const routes = [
     MatFormFieldModule,
     CommonModule,
     RouterModule.forChild(routes),
-    EffectsModule.forFeature([GetUserEffect]),
-    StoreModule.forFeature('users', reducers)
+    EffectsModule.forFeature([GetUserEffect, GetTodoEffect]),
+    StoreModule.forFeature('users', reducers),
+    StoreModule.forFeature('todos', reducer)
   ],
   providers: [UserService]
 })

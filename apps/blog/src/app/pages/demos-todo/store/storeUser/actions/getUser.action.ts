@@ -1,6 +1,6 @@
 import {createAction, props} from '@ngrx/store'
 import { ActionTypes } from '../ActionTypes'
-import {GetUsersInterface} from '../../types/getUsers.interface'
+import {GetUsersInterface} from '../../../types/userTypes/getUsers.interface'
 
 export const getUserAction = createAction(
   ActionTypes.GET_USER

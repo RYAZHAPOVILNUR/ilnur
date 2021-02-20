@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from "@ngrx/store";
-import { UserStateInterface } from "../types/userState.interface";
+import { UserStateInterface } from "../../types/userTypes/userState.interface";
 import { getUserSuccessAction } from "./actions/getUser.action";
 
 const initialState: UserStateInterface = {

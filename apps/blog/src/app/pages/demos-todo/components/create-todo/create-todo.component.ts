@@ -1,8 +1,8 @@
 import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { TodoInterface } from '../../types/todo.interface';
-import {UserInterface } from '../../types/user.interface'
+import { TodoInterface } from '../../types/todoTypes/todo.interface';
+import {UserInterface } from '../../types/userTypes/user.interface'
 
 export interface CreateTodoModalData {
   users: UserInterface[],

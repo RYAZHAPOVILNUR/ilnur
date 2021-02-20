@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core'
 import { Observable, of } from 'rxjs';
-import { UserInterface } from '../../types/user.interface';
+import { UserInterface } from '../../types/userTypes/user.interface';
 import { users } from '../users'
 
 @Injectable({

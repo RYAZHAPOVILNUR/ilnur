@@ -1,5 +1,5 @@
 import {Pipe, PipeTransform} from '@angular/core'
-import { TodoInterface } from '../types/todo.interface'
+import { TodoInterface } from '../types/todoTypes/todo.interface'
 
 @Pipe({
   name: 'searchTodo'

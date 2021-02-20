@@ -1,7 +1,7 @@
 import { createSelector } from "@ngrx/store"
 import { createFeatureSelector } from "@ngrx/store"
-import { AppStateInterface } from "../types/appState.interface"
-import { UserStateInterface } from "../types/userState.interface"
+import { AppStateInterface } from "../../types/appState.interface"
+import { UserStateInterface } from "../../types/userTypes/userState.interface"
 
 export const userFeatureSelector = createFeatureSelector<
   AppStateInterface,

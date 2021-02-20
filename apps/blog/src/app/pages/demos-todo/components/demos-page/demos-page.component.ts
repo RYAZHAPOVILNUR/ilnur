@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { CommentInterface } from '../../types/comment.interface';
-import { TodoInterface } from '../../types/todo.interface';
-import { UserInterface } from '../../types/user.interface';
+import { TodoInterface } from '../../types/todoTypes/todo.interface';
+import { UserInterface } from '../../types/userTypes/user.interface';
 import { UserService } from '../../shared/services/user.service'
 
 const COLLECTION_NAME = 'tasks'

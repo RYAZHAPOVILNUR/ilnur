@@ -3,9 +3,9 @@ import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap} from 'rxjs/operators'
 import {of} from 'rxjs'
 
-import { UserService } from '../../shared/services/user.service'
+import { UserService } from '../../../shared/services/user.service'
 import { getUserAction, getUserFailureAction, getUserSuccessAction } from '../actions/getUser.action'
-import { UserInterface } from '../../types/user.interface'
+import { UserInterface } from '../../../types/userTypes/user.interface'
 
 @Injectable()
 export class GetUserEffect {

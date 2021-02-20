@@ -4,8 +4,8 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CreateTodoModalData } from '../create-todo/create-todo.component';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
-import { UserInterface } from '../../types/user.interface';
-import { TodoInterface } from '../../types/todo.interface';
+import { UserInterface } from '../../types/userTypes/user.interface';
+import { TodoInterface } from '../../types/todoTypes/todo.interface';
 import { CommentInterface } from '../../types/comment.interface';
 
 export interface EditTodoModalData extends CreateTodoModalData {
