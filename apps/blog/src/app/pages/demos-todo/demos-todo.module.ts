@@ -30,6 +30,7 @@ import { reducers } from './store/storeUser/reducers';
 import { reducer } from './store/storeTodo/reducers';
 import { UserService } from './shared/services/user.service';
 import { GetTodoEffect } from './store/storeTodo/effects/getTodo.effect';
+import { todoReducer } from './store';
 
 const routes = [
   {path: '', component: DemosLayoutComponent, children: [
@@ -74,8 +75,7 @@ const routes = [
     CommonModule,
     RouterModule.forChild(routes),
     EffectsModule.forFeature([GetUserEffect, GetTodoEffect]),
-    StoreModule.forFeature('users', reducers),
-    StoreModule.forFeature('todos', reducer)
+    StoreModule.forFeature('todos', todoReducer)
   ],
   providers: [UserService]
 })

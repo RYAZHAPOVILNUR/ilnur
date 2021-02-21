@@ -9,7 +9,7 @@ import { users } from '../users'
 export class UserService {
   public users = users
 
-  getUserss(): Observable<UserInterface[]> {
+  public getUserss(): Observable<UserInterface[]> {
     return of(users)
   }
 

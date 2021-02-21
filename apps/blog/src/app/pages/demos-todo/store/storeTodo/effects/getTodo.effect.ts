@@ -13,7 +13,7 @@ export class GetTodoEffect {
     this.actions$.pipe(
       ofType(getTodoAction),
       switchMap(() => {
-        return this.todoService.getTodo().pipe(
+        return this.todoService.todos.pipe(
           map((todos: TodoInterface[]) => {
             return getTodoSuccessAction({todos})
           }),

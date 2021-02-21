@@ -1,14 +1,10 @@
 import { createSelector } from "@ngrx/store"
 import { createFeatureSelector } from "@ngrx/store"
-import { AppStateInterface } from "../../types/appState.interface"
-import { UserStateInterface } from "../../types/userTypes/userState.interface"
+import { TodoState } from ".."
 
-export const userFeatureSelector = createFeatureSelector<
-  AppStateInterface,
-  UserStateInterface
->('users')
+export const userFeatureSelector = createFeatureSelector('todos')
 
 export const usersSelector = createSelector(
   userFeatureSelector,
-  (usersState: UserStateInterface) => usersState.data
+  (usersState: TodoState) => usersState.users.data
 )

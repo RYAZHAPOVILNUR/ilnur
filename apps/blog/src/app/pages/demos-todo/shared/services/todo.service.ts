@@ -10,16 +10,17 @@ const COLLECTION_NAME = 'tasks'
   providedIn: 'root'
 })
 export class TodoService {
-  public todos
+  public todos: Observable<TodoInterface[]>
 
   constructor(private firestore: AngularFirestore) {
-    this.obtainingTodo()
+    this.getTodos()
   }
+
   public get collection(): AngularFirestoreCollection<TodoInterface> {
     return this.firestore.collection(COLLECTION_NAME)
   }
 
-  obtainingTodo() {
+  public getTodos() {
     this.todos = this.collection.snapshotChanges().pipe(
       map((actions) =>
         actions.map((action) =>
@@ -32,19 +33,15 @@ export class TodoService {
     )
   }
 
-  getTodo(): Observable<TodoInterface[]> {
-    return this.todos
-  }
-
-  updateTodo(data): void {
+  public updateTodo(data): void {
     this.firestore.doc(`${COLLECTION_NAME}/${data.id}`).update(data)
   }
 
-  addTodo(data): void {
+  public addTodo(data): void {
     this.collection.add(data)
   }
 
-  deleteTodo(id): void {
+  public deleteTodo(id): void {
     this.firestore.doc(`${COLLECTION_NAME}/${id}`).delete()
   }
 }
