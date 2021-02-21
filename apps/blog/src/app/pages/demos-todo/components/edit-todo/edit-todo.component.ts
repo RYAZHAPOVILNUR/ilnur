@@ -35,6 +35,7 @@ export class EditTodoComponent {
     this.form = new FormGroup({
       title: new FormControl(this.data.todo.title, [Validators.required]),
       priority: new FormControl(this.data.todo.priority),
+      status: new FormControl(this.data.todo.status),
       description: new FormControl(this.data.todo.description),
       assigneesId: new FormControl(this.data.todo.assigneesId)
     });
@@ -67,9 +68,9 @@ export class EditTodoComponent {
     this.isShowedCommentButtons$.next(false)
   }
 
-  public removeComment(comTime): void {
+  public removeComment(commentTime): void {
     let newComments = this.todo$.value.comments.filter(
-      comment => comment.time != comTime
+      comment => comment.time != commentTime
     )
 
     this.todo$.next({
@@ -83,6 +84,20 @@ export class EditTodoComponent {
   public cancelComment() {
     this.commentForm.get('text').reset();
     this.isShowedCommentButtons$.next(false);
+  }
+
+  public editComment(commentText): void {
+    let newComments = this.todo$.value.comments.filter(
+      comment => comment.text != commentText
+    )
+
+    this.todo$.next({
+      ...this.todo$.value,
+      comments: [
+        ...newComments
+      ]
+    })
+    this.commentForm.patchValue({ text: commentText })
   }
 
   public editTodo(): void {

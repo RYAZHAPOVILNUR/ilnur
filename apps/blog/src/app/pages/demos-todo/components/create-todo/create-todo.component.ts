@@ -30,6 +30,7 @@ export class CreateTodoComponent {
     this.form = new FormGroup({
       title: new FormControl('', [Validators.required]),
       priority: new FormControl('', [Validators.required]),
+      status: new FormControl('', [Validators.required]),
       description: new FormControl(''),
       reporterId: new FormControl('',[Validators.required]),
       assigneesId: new FormControl(''),

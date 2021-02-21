@@ -31,6 +31,7 @@ import { reducer } from './store/storeTodo/reducers';
 import { UserService } from './shared/services/user.service';
 import { GetTodoEffect } from './store/storeTodo/effects/getTodo.effect';
 import { todoReducer } from './store';
+import { DemosCard } from './components/demos-todo/demos-card/demos-card.component';
 
 const routes = [
   {path: '', component: DemosLayoutComponent, children: [
@@ -46,7 +47,8 @@ const routes = [
     EditTodoComponent,
     SearchPipe,
     DemosPageComponent,
-    DemosLayoutComponent
+    DemosLayoutComponent,
+    DemosCard
   ],
   imports: [
     QuillModule.forRoot(),

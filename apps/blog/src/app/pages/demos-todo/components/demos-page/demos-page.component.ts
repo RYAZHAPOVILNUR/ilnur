@@ -82,6 +82,21 @@ export class DemosPageComponent {
     this.isShowedCommentButtons$.next(false)
   }
 
+  public editComment(commentText): void {
+    let newComments = this.todo$.value.comments.filter(
+      comment => comment.text != commentText
+    )
+
+    this.todo$.next({
+      ...this.todo$.value,
+      comments: [
+        ...newComments
+      ]
+    })
+    this.commentForm.patchValue({ text: commentText })
+    // this.addComment(commentText)
+  }
+
   public removeComment(comTime): void {
     let newComments = this.todo$.value.comments.filter(
       comment => comment.time != comTime
@@ -111,6 +126,12 @@ export class DemosPageComponent {
 
   public get commentsAdded(): boolean {
     return this.todo$.value.comments.length !== this.data$.value.comments.length
+  }
+
+  public get modifiedComment(): boolean {
+    if (this.commentForm.get('text').value == this.commentForm.get('text').value) {
+      return false
+    }
   }
 
 }

@@ -31,10 +31,16 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
       )
     )
   );
+  public evaluation$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public work$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public review$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public performed$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+
   public searchStr = '';
   public usersSubscription$: Subscription
   public userSubscription$: Subscription
   public todosSubscription$: Subscription
+  public editTodosSubscription$: Subscription
 
   constructor(
     public dialog: MatDialog,
@@ -49,6 +55,25 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
   fetchData(): void {
     this.store.dispatch(getUserAction())
     this.store.dispatch(getTodoAction())
+    setTimeout(() => {
+      this.todos$.pipe(map(todos => todos.filter((todo) => {
+        console.log(todo)
+        return todo.status == 'evaluation'
+      }))).subscribe(todos => this.evaluation$.next(todos))
+
+      this.todos$.pipe(map(todos => todos.filter((todo) => {
+        return todo.status == 'work'
+      }))).subscribe(todos => this.work$.next(todos))
+
+      this.todos$.pipe(map(todos => todos.filter((todo) => {
+        return todo.status == 'review'
+      }))).subscribe(todos => this.review$.next(todos))
+
+      this.todos$.pipe(map(todos => todos.filter((todo) => {
+        return todo.status == 'performed'
+      }))).subscribe(todos => this.performed$.next(todos))
+    }, 2000)
+    console.log(this.evaluation$);
   }
 
   public createTodo(): void {
@@ -70,7 +95,7 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
   }
 
   public editTodo(id: string): void {
-    combineLatest([this.todos$, this.users$, this.user$]).pipe(
+    this.editTodosSubscription$ = combineLatest([this.todos$, this.users$, this.user$]).pipe(
       switchMap(
         ([todos, users, currentUser]) => this.dialog.open(EditTodoComponent, {
           data: {
@@ -83,7 +108,10 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
           .pipe(
             filter((data: TodoInterface) => data != null),
             tap(
-              (data: TodoInterface) => this.todoService.updateTodo(data)
+              (data: TodoInterface) => {
+                this.todoService.updateTodo(data)
+                this.editTodosSubscription$.unsubscribe()
+              }
             )
           )
       )
@@ -91,8 +119,8 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
       .subscribe()
   }
 
-  public removeTodo(id: string, event) {
-    event.stopPropagation()
+  public removeTodo(id: string) {
+    // event.stopPropagation()
     this.todoService.deleteTodo(id)
   }
 
@@ -107,6 +135,10 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
 
     if (this.todosSubscription$) {
       this.todosSubscription$.unsubscribe()
+    }
+
+    if (this.editTodosSubscription$) {
+      this.editTodosSubscription$.unsubscribe()
     }
   }
 

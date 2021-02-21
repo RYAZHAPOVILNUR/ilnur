@@ -1,7 +1,4 @@
-<form
-  [formGroup]="form"
-  (ngSubmit)="createTodo()"
->
+<form [formGroup]="form" (ngSubmit)="createTodo()">
   <div class="create">
     <div class="create__inputs">
       <mat-form-field class="example-full-width">
@@ -19,6 +16,16 @@
           <mat-option value="Medium">Medium</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="evaluation">Оценка </mat-option>
+          <mat-option value="work">В работе</mat-option>
+          <mat-option value="review">Ревью</mat-option>
+          <mat-option value="performed">Выполнено</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
 
     <div class="create__editor">
@@ -29,14 +36,18 @@
   <mat-form-field>
     <mat-label>Reporter</mat-label>
     <mat-select formControlName="reporterId">
-      <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</mat-option>
+      <mat-option *ngFor="let user of users" value="{{ user.id }}">{{
+        user.name
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field>
     <mat-label>Assignees</mat-label>
     <mat-select formControlName="assigneesId">
-      <mat-option *ngFor="let user of users" value="{{user.id}}">{{user.name}}</mat-option>
+      <mat-option *ngFor="let user of users" value="{{ user.id }}">{{
+        user.name
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 

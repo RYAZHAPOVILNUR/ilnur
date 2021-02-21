@@ -1,0 +1,43 @@
+<mat-card class="demos__content_example-card">
+  <mat-card-header>
+    <mat-card-title>
+      <p>{{ titleProps }}</p>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-actions class="priority">
+    <div class="options">
+      <div class="priority__item">
+        <p>{{ priorityProps }}</p>
+        <span
+          *ngIf="
+            priorityProps == 'Low' || priorityProps == 'Lowest';
+            else upward
+          "
+          [class.low]="priorityProps === 'Low'"
+          [class.lowest]="priorityProps === 'Lowest'"
+          class="material-icons"
+        >
+          arrow_downward
+        </span>
+        <ng-template #upward>
+          <span
+            [class.medium]="priorityProps === 'Medium'"
+            [class.high]="priorityProps === 'High'"
+            [class.highest]="priorityProps === 'Highest'"
+            class="material-icons"
+          >
+            arrow_upward
+          </span>
+        </ng-template>
+      </div>
+    </div>
+    <button
+      mat-icon-button
+      color="warn"
+      aria-label="Example icon button with a heart icon"
+      (click)="removeTodo(idProps)"
+    >
+      <mat-icon>delete</mat-icon>
+    </button>
+  </mat-card-actions>
+</mat-card>

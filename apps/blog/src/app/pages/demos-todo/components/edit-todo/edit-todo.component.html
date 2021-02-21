@@ -1,11 +1,11 @@
 <ng-container
-  *ngIf='{
+  *ngIf="{
     todo: todo$ | async
-  } as ctx'
+  } as ctx"
 >
   <form [formGroup]="form">
     <div class="example-left">
-      <p>todo №: {{ctx.todo.id}}</p>
+      <p>todo №: {{ ctx.todo.id }}</p>
       <mat-form-field appearance="outline" class="example-left_input">
         <mat-label>Title</mat-label>
         <input formControlName="title" matInput placeholder="Title" />
@@ -15,7 +15,11 @@
         <quill-editor formControlName="description"></quill-editor>
       </div>
 
-      <mat-form-field appearance="outline" [formGroup]="commentForm" class="example-left_input">
+      <mat-form-field
+        appearance="outline"
+        [formGroup]="commentForm"
+        class="example-left_input"
+      >
         <mat-label>Comments</mat-label>
         <textarea
           formControlName="text"
@@ -24,38 +28,49 @@
         ></textarea>
       </mat-form-field>
       <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
-        <button mat-flat-button color="primary" (click)="addComment($event)" [disabled]="commentForm.invalid">Save</button>
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addComment($event)"
+          [disabled]="commentForm.invalid"
+        >
+          Save
+        </button>
         <button mat-flat-button (click)="cancelComment()">Cancel</button>
       </div>
 
       <div class="comments" *ngFor="let comment of ctx.todo.comments">
         <div class="comments__title">
-          <p>{{comment.authorId}} {{comment.time | date:'dd.MM.yy HH:mm:ss'}} </p>
+          <p>
+            {{ comment.authorId }}
+            {{ comment.time | date: 'dd.MM.yy HH:mm:ss' }}
+          </p>
           <button
-            mat-icon-button color="primary"
+            mat-icon-button
+            color="primary"
             aria-label="Example icon "
             (click)="editComment(comment.text)"
           >
             <mat-icon>edit</mat-icon>
           </button>
           <button
-            mat-icon-button color="warn"
+            mat-icon-button
+            color="warn"
             aria-label="Example icon button "
             (click)="removeComment(comment.time)"
           >
             <mat-icon>delete</mat-icon>
           </button>
         </div>
-        <p>{{comment.text}}</p>
+        <p>{{ comment.text }}</p>
       </div>
-
     </div>
     <div class="example-right">
-
       <button
         (click)="sendingData(ctx.todo.id)"
         class="material-icons aspect"
-        mat-icon-button>
+        mat-icon-button
+      >
         <mat-icon>aspect_ratio</mat-icon>
       </button>
 
@@ -66,17 +81,25 @@
       <div class="reporter">
         <span>Reporter:</span>
         <span class="reporter__name">
-        <img class="img" [src]="reporter.avatarUrl" alt="{{reporter.name}}" />
-          {{reporter.name}}
-      </span>
+          <img
+            class="img"
+            [src]="reporter.avatarUrl"
+            alt="{{ reporter.name }}"
+          />
+          {{ reporter.name }}
+        </span>
       </div>
 
       <mat-form-field class="assignees">
         <mat-label>Assignees</mat-label>
         <mat-select formControlName="assigneesId">
-          <mat-option *ngFor="let user of users$ | async" value="{{user.id}}">
-            <img [src]='user.avatarUrl' style='height: 15px; width: 15px; border-radius: 50%;' alt=''>
-            {{user.name}}
+          <mat-option *ngFor="let user of users$ | async" value="{{ user.id }}">
+            <img
+              [src]="user.avatarUrl"
+              style="height: 15px; width: 15px; border-radius: 50%"
+              alt=""
+            />
+            {{ user.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
@@ -91,9 +114,20 @@
           <mat-option value="Medium">Medium</mat-option>
         </mat-select>
       </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="evaluation">Оценка </mat-option>
+          <mat-option value="work">В работе</mat-option>
+          <mat-option value="review">Ревью</mat-option>
+          <mat-option value="performed">Выполнено</mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <div class="time">
-        <p>Created: {{ctx.todo.created | date:'dd.MM.yy HH:mm:ss'}}</p>
-        <p>Updated: {{ctx.todo.updated | date:'dd.MM.yy HH:mm:ss'}}</p>
+        <p>Created: {{ ctx.todo.created | date: 'dd.MM.yy HH:mm:ss' }}</p>
+        <p>Updated: {{ ctx.todo.updated | date: 'dd.MM.yy HH:mm:ss' }}</p>
       </div>
 
       <button
