@@ -1,11 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { CommentInterface } from '../../types/comment.interface';
 import { TodoInterface } from '../../types/todoTypes/todo.interface';
 import { UserInterface } from '../../types/userTypes/user.interface';
 import { UserService } from '../../shared/services/user.service'
+import { ActivatedRoute, Params } from '@angular/router';
+import { map } from 'rxjs/operators';
+import { select, Store } from '@ngrx/store';
+import { todoSelector } from '../../store/storeTodo/selectors';
+import { getTodosAction } from '../../store/storeTodo/actions/getTodo.action';
 
 const COLLECTION_NAME = 'tasks'
 
@@ -14,22 +19,34 @@ const COLLECTION_NAME = 'tasks'
   templateUrl: './demos-page.component.html',
   styleUrls: ['./demos-page.component.scss']
 })
-export class DemosPageComponent {
-  public readonly form: FormGroup
-  public readonly commentForm: FormGroup
+export class DemosPageComponent implements OnInit{
+  public form: FormGroup
+  public commentForm: FormGroup
+  public readonly todos$: Observable<TodoInterface[]> = this.store.pipe(select(todoSelector));
   public readonly todo$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
   public readonly user$: BehaviorSubject<UserInterface> = new BehaviorSubject<UserInterface>(null);
   public readonly users$: BehaviorSubject<UserInterface[]> = new BehaviorSubject<UserInterface[]>([]);
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public readonly data$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
+  public todoId
 
   constructor(
     private userService: UserService,
     private firestore: AngularFirestore,
+    private store: Store,
+    private route: ActivatedRoute
   ) {
+    this.route.params.subscribe((params: Params) => this.todoId = params.id)
 
-    this.data$.next(history.state)
-    this.todo$.next(this.data$.value)
+    // this.data$.next(history.state)
+    // this.todo$.next(this.data$.value)
+
+    console.log(this.todos$);
+    console.log('constructor', this.todo$.value);
+
+
+
+
     this.userService.currentUser.subscribe((user: UserInterface) => {
       this.user$.next(user)
     })
@@ -37,23 +54,42 @@ export class DemosPageComponent {
       this.users$.next(users)
     })
 
-    this.form = new FormGroup({
-      title: new FormControl(this.todo$.value.title, [Validators.required]),
-      priority: new FormControl(this.todo$.value.priority),
-      description: new FormControl(this.todo$.value.description),
-      assigneesId: new FormControl(this.todo$.value.assigneesId)
-    });
-    this.commentForm = new FormGroup({
-      authorId: new FormControl(this.reporter.name),
-      text: new FormControl('', [Validators.required])
-    });
   }
 
-  public editTodo(id: string): void {
+  ngOnInit(): void {
+    this.store.dispatch(getTodosAction())
+    this.fetchData()
+    console.log('ngOnInit', this.todo$.value);
+  }
+
+  fetchData(): void {
+    this.todos$.pipe(map(todos => {
+      if (todos) {
+        return todos.find((todo) => {
+          return todo.id == this.todoId
+        })
+      }
+    })).subscribe(todos => console.log(todos))
+
+    console.log('fetchData', this.todo$.value);
+
+    if (this.todo$.value !== undefined) {
+      this.form = new FormGroup({
+        title: new FormControl(this.todo$.value.title, [Validators.required]),
+        priority: new FormControl(this.todo$.value.priority),
+        description: new FormControl(this.todo$.value.description),
+        assigneesId: new FormControl(this.todo$.value.assigneesId)
+      });
+      this.commentForm = new FormGroup({
+        authorId: new FormControl(this.reporter.name),
+        text: new FormControl('', [Validators.required])
+      });
+    }
+  }
+  public editTodo(): void {
     let data = {
       ...this.todo$.value,
       ...this.form.value,
-      id: id,
       updated: new Date().getTime()
     }
     this.firestore.doc(`${COLLECTION_NAME}/${data.id}`).update(data)
@@ -80,6 +116,7 @@ export class DemosPageComponent {
       this.commentForm.get('text').reset()
     }
     this.isShowedCommentButtons$.next(false)
+    this.editTodo()
   }
 
   public editComment(commentText): void {
@@ -94,7 +131,6 @@ export class DemosPageComponent {
       ]
     })
     this.commentForm.patchValue({ text: commentText })
-    // this.addComment(commentText)
   }
 
   public removeComment(comTime): void {
@@ -124,14 +160,8 @@ export class DemosPageComponent {
     this.isShowedCommentButtons$.next(true)
   }
 
-  public get commentsAdded(): boolean {
-    return this.todo$.value.comments.length !== this.data$.value.comments.length
-  }
-
-  public get modifiedComment(): boolean {
-    if (this.commentForm.get('text').value == this.commentForm.get('text').value) {
-      return false
-    }
-  }
+  // public get commentsAdded(): boolean {
+  //   return this.todo$.value.comments.length !== this.data$.value.comments.length
+  // }
 
 }

@@ -26,10 +26,8 @@ import { SearchPipe } from './shared/search.pipe';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { GetUserEffect } from './store/storeUser/effects/getUser.effect';
-import { reducers } from './store/storeUser/reducers';
-import { reducer } from './store/storeTodo/reducers';
 import { UserService } from './shared/services/user.service';
-import { GetTodoEffect } from './store/storeTodo/effects/getTodo.effect';
+import { GetTodosEffect } from './store/storeTodo/effects/getTodo.effect';
 import { todoReducer } from './store';
 import { DemosCard } from './components/demos-todo/demos-card/demos-card.component';
 
@@ -76,7 +74,7 @@ const routes = [
     MatFormFieldModule,
     CommonModule,
     RouterModule.forChild(routes),
-    EffectsModule.forFeature([GetUserEffect, GetTodoEffect]),
+    EffectsModule.forFeature([GetUserEffect, GetTodosEffect]),
     StoreModule.forFeature('todos', todoReducer)
   ],
   providers: [UserService]

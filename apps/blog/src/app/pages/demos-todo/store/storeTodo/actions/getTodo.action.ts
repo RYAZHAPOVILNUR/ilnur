@@ -1,14 +1,14 @@
 import {createAction, props} from '@ngrx/store'
 import { ActionTypes } from '../ActionTypes'
-import { GetTodoInterface } from '../../../types/todoTypes/getTodo.interface'
+import { GetTodosInterface } from '../../../types/todoTypes/getTodo.interface'
 
-export const getTodoAction = createAction(
-  ActionTypes.GET_TODO
+export const getTodosAction = createAction(
+  ActionTypes.GET_TODOS
 )
 
-export const getTodoSuccessAction = createAction(
-  ActionTypes.GET_TODO_SUCCESS,
-  props<GetTodoInterface>()
+export const getTodosSuccessAction = createAction(
+  ActionTypes.GET_TODOS_SUCCESS,
+  props<GetTodosInterface>()
 )
 
-export const getTodoFailureAction = createAction(ActionTypes.GET_TODO_FAILURE)
+export const getTodosFailureAction = createAction(ActionTypes.GET_TODOS_FAILURE)

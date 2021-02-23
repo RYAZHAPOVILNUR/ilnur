@@ -8,16 +8,20 @@
       Add todo
     </button>
   </div>
-  <div class="demos__content" *ngIf="todos$">
-    <div>
-      <p>Оценка</p>
+
+  <div class="demos__content">
+    <div class="demos__content_card">
+      <div class="demos__content_card-header">
+        <p style="margin: 0; padding: 10px">Оценка</p>
+      </div>
       <demos-card
-        (click)="editTodo(todo.id)"
+        style="width: 95%"
+        (editEvent)="editTodo($event)"
         *ngFor="let todo of evaluation$ | async | searchTodo: searchStr"
         [title]="todo.title"
         [priority]="todo.priority"
         [id]="todo.id"
-        (idEvent)="removeTodo($event)"
+        (removeEvent)="removeTodo($event)"
       ></demos-card>
       <!-- <mat-card
         class="demos__content_example-card"
@@ -68,9 +72,20 @@
         </mat-card-actions>
       </mat-card> -->
     </div>
-    <div>
-      <p>В работе</p>
-      <mat-card
+    <div class="demos__content_card">
+      <div class="demos__content_card-header">
+        <p style="margin: 0; padding: 10px">В работе</p>
+      </div>
+      <demos-card
+        style="width: 95%"
+        (editEvent)="editTodo($event)"
+        *ngFor="let todo of work$ | async | searchTodo: searchStr"
+        [title]="todo.title"
+        [priority]="todo.priority"
+        [id]="todo.id"
+        (removeEvent)="removeTodo($event)"
+      ></demos-card>
+      <!-- <mat-card
         class="demos__content_example-card"
         *ngFor="let todo of work$ | async | searchTodo: searchStr"
         (click)="editTodo(todo.id)"
@@ -117,11 +132,23 @@
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
     </div>
-    <div>
-      <p>Ревью</p>
-      <mat-card
+    <div class="demos__content_card">
+      <div class="demos__content_card-header">
+        <p style="margin: 0; padding: 10px">Ревью</p>
+      </div>
+
+      <demos-card
+        style="width: 95%"
+        (editEvent)="editTodo($event)"
+        *ngFor="let todo of review$ | async | searchTodo: searchStr"
+        [title]="todo.title"
+        [priority]="todo.priority"
+        [id]="todo.id"
+        (removeEvent)="removeTodo($event)"
+      ></demos-card>
+      <!-- <mat-card
         class="demos__content_example-card"
         *ngFor="let todo of review$ | async | searchTodo: searchStr"
         (click)="editTodo(todo.id)"
@@ -168,11 +195,22 @@
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
     </div>
-    <div>
-      <p>Выполнено</p>
-      <mat-card
+    <div class="demos__content_card">
+      <div class="demos__content_card-header">
+        <p style="margin: 0; padding: 10px">Выполнено</p>
+      </div>
+      <demos-card
+        style="width: 95%"
+        (editEvent)="editTodo($event)"
+        *ngFor="let todo of performed$ | async | searchTodo: searchStr"
+        [title]="todo.title"
+        [priority]="todo.priority"
+        [id]="todo.id"
+        (removeEvent)="removeTodo($event)"
+      ></demos-card>
+      <!-- <mat-card
         class="demos__content_example-card"
         *ngFor="let todo of performed$ | async | searchTodo: searchStr"
         (click)="editTodo(todo.id)"
@@ -219,7 +257,7 @@
             <mat-icon>delete</mat-icon>
           </button>
         </mat-card-actions>
-      </mat-card>
+      </mat-card> -->
     </div>
   </div>
 </div>

@@ -33,6 +33,14 @@
     </div>
     <button
       mat-icon-button
+      color="primary"
+      aria-label="Example icon"
+      (click)="editTodo(idProps)"
+    >
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button
+      mat-icon-button
       color="warn"
       aria-label="Example icon button with a heart icon"
       (click)="removeTodo(idProps)"

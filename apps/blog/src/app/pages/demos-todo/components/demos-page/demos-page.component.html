@@ -1,4 +1,4 @@
-<form [formGroup]="form">
+<form [formGroup]="form" *ngIf="todo$.value; else loading">
   <div class="example-left">
     <p>todo №: {{ todo$.value.id }}</p>
     <mat-form-field appearance="outline" class="example-left_input">
@@ -98,14 +98,18 @@
     </div>
 
     <button
-      [disabled]="form.pristine && !commentsAdded"
+      [disabled]="form.pristine"
       mat-flat-button
       color="primary"
       type="submit"
       class="edit-btn"
-      (click)="editTodo(todo$.value.id)"
+      (click)="editTodo()"
     >
       edit
     </button>
   </div>
 </form>
+
+<ng-template #loading>
+  <p>cskmcksd</p>
+</ng-template>

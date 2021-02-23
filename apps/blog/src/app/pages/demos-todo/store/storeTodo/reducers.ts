@@ -1,6 +1,6 @@
 import { Action, createReducer, on } from "@ngrx/store";
 import { TodoStateInterface } from "../../types/todoTypes/todoState.interface";
-import { getTodoSuccessAction } from "./actions/getTodo.action";
+import { getTodosSuccessAction } from "./actions/getTodo.action";
 
 const initialState: TodoStateInterface = {
   data: null
@@ -9,7 +9,7 @@ const initialState: TodoStateInterface = {
 const todoReducer = createReducer(
   initialState,
   on(
-    getTodoSuccessAction,
+    getTodosSuccessAction,
     (state, action): TodoStateInterface => ({
       ...state,
       data: action.todos

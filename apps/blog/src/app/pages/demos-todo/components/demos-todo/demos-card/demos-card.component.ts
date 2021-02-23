@@ -9,10 +9,14 @@ export class DemosCard {
   @Input('title') titleProps: string
   @Input('priority') priorityProps: string
   @Input('id') idProps: string
-  @Output() idEvent = new EventEmitter<string>();
+  @Output() removeEvent = new EventEmitter<string>();
+  @Output() editEvent = new EventEmitter<string>();
 
 
   public removeTodo(id) {
-    this.idEvent.emit(id);
+    this.removeEvent.emit(id);
+  }
+  public editTodo(id) {
+    this.editEvent.emit(id);
   }
 }

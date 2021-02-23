@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
-import { filter, flatMap, map, switchMap, tap, withLatestFrom } from 'rxjs/operators';
+import { filter, map, switchMap, tap } from 'rxjs/operators';
 
 import { CreateTodoComponent, CreateTodoModalData } from '../create-todo/create-todo.component';
 import { EditTodoComponent, EditTodoModalData } from '../edit-todo/edit-todo.component';
@@ -11,7 +11,7 @@ import { TodoService } from '../../shared/services/todo.service';
 import { select, Store } from '@ngrx/store';
 import { getUserAction } from '../../store/storeUser/actions/getUser.action';
 import { usersSelector } from '../../store/storeUser/selectors';
-import { getTodoAction } from '../../store/storeTodo/actions/getTodo.action';
+import { getTodosAction } from '../../store/storeTodo/actions/getTodo.action';
 import { todoSelector } from '../../store/storeTodo/selectors';
 
 
@@ -24,17 +24,11 @@ import { todoSelector } from '../../store/storeTodo/selectors';
 export class DemosTodoComponent implements OnInit, OnDestroy{
   public readonly todos$: Observable<TodoInterface[]> = this.store.pipe(select(todoSelector));
   private readonly users$: Observable<UserInterface[]> = this.store.pipe(select(usersSelector));
-  private readonly user$: Observable<UserInterface> = this.users$.pipe(
-    map(
-      users => users.find(
-        user => user.id === 1
-      )
-    )
-  );
-  public evaluation$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
-  public work$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
-  public review$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
-  public performed$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  private readonly user$: Observable<UserInterface> = this.users$.pipe(map(users => users.find(user => user.id === 1)));
+  public readonly evaluation$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public readonly work$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public readonly review$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
+  public readonly performed$: BehaviorSubject<TodoInterface[]> = new BehaviorSubject<TodoInterface[]>([]);
 
   public searchStr = '';
   public usersSubscription$: Subscription
@@ -49,31 +43,44 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
   ) {}
 
   ngOnInit(): void {
+    this.store.dispatch(getUserAction())
+    this.store.dispatch(getTodosAction())
     this.fetchData()
   }
 
-  fetchData(): void {
-    this.store.dispatch(getUserAction())
-    this.store.dispatch(getTodoAction())
-    setTimeout(() => {
-      this.todos$.pipe(map(todos => todos.filter((todo) => {
-        console.log(todo)
-        return todo.status == 'evaluation'
-      }))).subscribe(todos => this.evaluation$.next(todos))
+  fetchData() {
+    this.todos$.pipe(map(todos => {
+      if (todos) {
+        return todos.filter((todo) => {
+          return todo.status == 'evaluation'
+        })
+      }
+    })).subscribe(todos => this.evaluation$.next(todos))
 
-      this.todos$.pipe(map(todos => todos.filter((todo) => {
-        return todo.status == 'work'
-      }))).subscribe(todos => this.work$.next(todos))
+    this.todos$.pipe(map(todos => {
+      if (todos) {
+        return todos.filter((todo) => {
+          return todo.status == 'work'
+        })
+      }
+    })).subscribe(todos => this.work$.next(todos))
 
-      this.todos$.pipe(map(todos => todos.filter((todo) => {
-        return todo.status == 'review'
-      }))).subscribe(todos => this.review$.next(todos))
+    this.todos$.pipe(map(todos => {
+      if (todos) {
+        return todos.filter((todo) => {
+          return todo.status == 'review'
+        })
+      }
+    })).subscribe(todos => this.review$.next(todos))
 
-      this.todos$.pipe(map(todos => todos.filter((todo) => {
-        return todo.status == 'performed'
-      }))).subscribe(todos => this.performed$.next(todos))
-    }, 2000)
-    console.log(this.evaluation$);
+    this.todos$.pipe(map(todos => {
+      if (todos) {
+        return todos.filter((todo) => {
+          return todo.status == 'performed'
+        })
+      }
+    })).subscribe(todos => this.performed$.next(todos))
+
   }
 
   public createTodo(): void {
@@ -120,7 +127,6 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
   }
 
   public removeTodo(id: string) {
-    // event.stopPropagation()
     this.todoService.deleteTodo(id)
   }
 

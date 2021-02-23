@@ -1,5 +1,5 @@
 import { TodoInterface } from "./todo.interface";
 
-export interface GetTodoInterface {
+export interface GetTodosInterface {
   todos: TodoInterface[]
 }

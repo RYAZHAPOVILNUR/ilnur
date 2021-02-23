@@ -3,22 +3,22 @@ import {createEffect, Actions, ofType} from '@ngrx/effects'
 import {map, catchError, switchMap} from 'rxjs/operators'
 import {of} from 'rxjs'
 
-import { getTodoAction, getTodoFailureAction, getTodoSuccessAction } from '../actions/getTodo.action'
+import { getTodosAction, getTodosFailureAction, getTodosSuccessAction } from '../actions/getTodo.action'
 import { TodoService } from '../../../shared/services/todo.service'
 import { TodoInterface } from '../../../types/todoTypes/todo.interface'
 
 @Injectable()
-export class GetTodoEffect {
-  getTodo$ = createEffect(() =>
+export class GetTodosEffect {
+  getTodos$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(getTodoAction),
+      ofType(getTodosAction),
       switchMap(() => {
         return this.todoService.todos.pipe(
           map((todos: TodoInterface[]) => {
-            return getTodoSuccessAction({todos})
+            return getTodosSuccessAction({todos})
           }),
           catchError(() => {
-            return of(getTodoFailureAction())
+            return of(getTodosFailureAction())
           })
         )
       })
