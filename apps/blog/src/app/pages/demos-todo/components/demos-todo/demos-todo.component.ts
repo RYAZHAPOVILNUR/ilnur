@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/
 import { BehaviorSubject, combineLatest, Observable, Subscription } from 'rxjs';
 import { MatDialog } from '@angular/material/dialog';
 import { filter, map, switchMap, tap } from 'rxjs/operators';
+import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
 
 import { CreateTodoComponent, CreateTodoModalData } from '../create-todo/create-todo.component';
 import { EditTodoComponent, EditTodoModalData } from '../edit-todo/edit-todo.component';
@@ -40,7 +41,61 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
     public dialog: MatDialog,
     private todoService: TodoService,
     private store: Store
-  ) {}
+  ) { }
+
+
+  todo = [
+    'Get to work',
+    'Pick up groceries',
+    'Go home',
+    'Fall asleep'
+  ];
+
+  done = [
+    'Get up',
+    'Brush teeth',
+    'Take a shower',
+    'Check e-mail',
+    'Walk dog'
+  ];
+
+  drop(event: CdkDragDrop<string[]>) {
+    var moveditem = JSON.parse(JSON.stringify(event.container.data[event.currentIndex]))
+    console.log(moveditem.status);
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(event.previousContainer.data,
+                        event.container.data,
+                        event.previousIndex,
+                        event.currentIndex);
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   ngOnInit(): void {
     this.store.dispatch(getUserAction())

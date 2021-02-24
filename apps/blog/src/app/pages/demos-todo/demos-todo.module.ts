@@ -16,6 +16,9 @@ import { FlexLayoutModule, FlexModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { QuillModule } from 'ngx-quill';
+import { DragDropModule } from '@angular/cdk/drag-drop';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreModule } from '@ngrx/store';
 
 import { CreateTodoComponent } from './components/create-todo/create-todo.component';
 import { EditTodoComponent } from './components/edit-todo/edit-todo.component';
@@ -23,8 +26,6 @@ import { DemosTodoComponent } from './components/demos-todo/demos-todo.component
 import { DemosPageComponent } from './components/demos-page/demos-page.component';
 import { DemosLayoutComponent } from './components/demos-layout/demos-layout.component';
 import { SearchPipe } from './shared/search.pipe';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreModule } from '@ngrx/store';
 import { GetUserEffect } from './store/storeUser/effects/getUser.effect';
 import { UserService } from './shared/services/user.service';
 import { GetTodosEffect } from './store/storeTodo/effects/getTodo.effect';
@@ -75,7 +76,8 @@ const routes = [
     CommonModule,
     RouterModule.forChild(routes),
     EffectsModule.forFeature([GetUserEffect, GetTodosEffect]),
-    StoreModule.forFeature('todos', todoReducer)
+    StoreModule.forFeature('todos', todoReducer),
+    DragDropModule
   ],
   providers: [UserService]
 })

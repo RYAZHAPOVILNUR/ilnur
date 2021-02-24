@@ -1,114 +1,132 @@
-<form [formGroup]="form" *ngIf="todo$.value; else loading">
-  <div class="example-left">
-    <p>todo №: {{ todo$.value.id }}</p>
-    <mat-form-field appearance="outline" class="example-left_input">
-      <mat-label>Title</mat-label>
-      <input formControlName="title" matInput placeholder="Title" />
-    </mat-form-field>
+<div *ngIf="todo$.value != undefined; else loading">
+  <form [formGroup]="form">
+    <div class="example-left">
+      <p>todo №: {{ todo$.value.id }}</p>
+      <mat-form-field appearance="outline" class="example-left_input">
+        <mat-label>Title</mat-label>
+        <input formControlName="title" matInput placeholder="Title" />
+      </mat-form-field>
 
-    <div class="example-left_editor">
-      <quill-editor formControlName="description"></quill-editor>
+      <div class="example-left_editor">
+        <quill-editor formControlName="description"></quill-editor>
+      </div>
+
+      <mat-form-field
+        appearance="outline"
+        [formGroup]="commentForm"
+        class="example-left_input"
+      >
+        <mat-label>Comments</mat-label>
+        <textarea
+          formControlName="text"
+          matInput
+          (focus)="showCommentButton()"
+        ></textarea>
+      </mat-form-field>
+      <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
+        <button
+          mat-flat-button
+          color="primary"
+          (click)="addComment($event)"
+          [disabled]="commentForm.invalid"
+        >
+          Save
+        </button>
+        <button mat-flat-button (click)="cancelComment()">Cancel</button>
+      </div>
+
+      <div class="comments" *ngFor="let comment of todo$.value.comments">
+        <div class="comments__title">
+          <p>
+            {{ comment.authorId }}
+            {{ comment.time | date: 'dd.MM.yy HH:mm:ss' }}
+          </p>
+          <button
+            mat-icon-button
+            color="primary"
+            aria-label="Example icon "
+            (click)="editComment(comment.text)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button
+            (click)="removeComment(comment.time)"
+            mat-icon-button
+            color="warn"
+            aria-label="Example icon button "
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        <p>{{ comment.text }}</p>
+      </div>
     </div>
+    <div class="example-right">
+      <div class="reporter">
+        <span>Reporter:</span>
+        <span class="reporter__name">
+          <img
+            class="img"
+            [src]="user$.value.avatarUrl"
+            alt="{{ user$.value.name }}"
+          />
+          {{ user$.value.name }}
+        </span>
+      </div>
 
-    <mat-form-field
-      appearance="outline"
-      [formGroup]="commentForm"
-      class="example-left_input"
-    >
-      <mat-label>Comments</mat-label>
-      <textarea
-        formControlName="text"
-        matInput
-        (focus)="showCommentButton()"
-      ></textarea>
-    </mat-form-field>
-    <div class="comment-btn" *ngIf="isShowedCommentButtons$ | async">
+      <mat-form-field class="assignees">
+        <mat-label>Assignees</mat-label>
+        <mat-select formControlName="assigneesId">
+          <mat-option *ngFor="let user of users$ | async" value="{{ user.id }}">
+            <img
+              [src]="user.avatarUrl"
+              style="height: 15px; width: 15px; border-radius: 50%"
+              alt=""
+            />
+            {{ user.name }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="priority">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          <mat-option value="Lowest">Lowest</mat-option>
+          <mat-option value="Low">Low</mat-option>
+          <mat-option value="High">High</mat-option>
+          <mat-option value="Highest">Highest</mat-option>
+          <mat-option value="Medium">Medium</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="priority">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          <mat-option value="evaluation">Оценка </mat-option>
+          <mat-option value="work">В работе</mat-option>
+          <mat-option value="review">Ревью</mat-option>
+          <mat-option value="performed">Выполнено</mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="time">
+        <p>Created: {{ todo$.value.created | date: 'dd.MM.yy HH:mm:ss' }}</p>
+        <p>Updated: {{ todo$.value.updated | date: 'dd.MM.yy HH:mm:ss' }}</p>
+      </div>
+
       <button
+        [disabled]="form.pristine"
         mat-flat-button
         color="primary"
-        (click)="addComment($event)"
-        [disabled]="commentForm.invalid"
+        type="submit"
+        class="edit-btn"
+        (click)="editTodo()"
       >
-        Save
+        edit
       </button>
-      <button mat-flat-button (click)="cancelComment()">Cancel</button>
     </div>
-
-    <div class="comments" *ngFor="let comment of todo$.value.comments">
-      <div class="comments__title">
-        <p>
-          {{ comment.authorId }} {{ comment.time | date: 'dd.MM.yy HH:mm:ss' }}
-        </p>
-        <button
-          mat-icon-button
-          color="primary"
-          aria-label="Example icon "
-          (click)="editComment(comment.text)"
-        >
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button
-          (click)="removeComment(comment.time)"
-          mat-icon-button
-          color="warn"
-          aria-label="Example icon button "
-        >
-          <mat-icon>delete</mat-icon>
-        </button>
-      </div>
-      <p>{{ comment.text }}</p>
-    </div>
-  </div>
-  <div class="example-right">
-    <div class="reporter">
-      <span>Reporter:</span>
-      <span class="reporter__name">
-        <img class="img" [src]="reporter.avatarUrl" alt="{{ reporter.name }}" />
-        {{ reporter.name }}
-      </span>
-    </div>
-
-    <mat-form-field class="assignees">
-      <mat-label>Assignees</mat-label>
-      <mat-select formControlName="assigneesId">
-        <mat-option *ngFor="let user of users$ | async" value="{{ user.id }}">
-          <img
-            [src]="user.avatarUrl"
-            style="height: 15px; width: 15px; border-radius: 50%"
-            alt=""
-          />
-          {{ user.name }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-
-    <mat-form-field class="priority">
-      <mat-label>Priority</mat-label>
-      <mat-select formControlName="priority">
-        <mat-option value="Lowest">Lowest</mat-option>
-        <mat-option value="Low">Low</mat-option>
-        <mat-option value="High">High</mat-option>
-        <mat-option value="Highest">Highest</mat-option>
-        <mat-option value="Medium">Medium</mat-option>
-      </mat-select>
-    </mat-form-field>
-    <div class="time">
-      <p>Created: {{ todo$.value.created | date: 'dd.MM.yy HH:mm:ss' }}</p>
-      <p>Updated: {{ todo$.value.updated | date: 'dd.MM.yy HH:mm:ss' }}</p>
-    </div>
-
-    <button
-      [disabled]="form.pristine"
-      mat-flat-button
-      color="primary"
-      type="submit"
-      class="edit-btn"
-      (click)="editTodo()"
-    >
-      edit
-    </button>
-  </div>
-</form>
+  </form>
+</div>
 
 <ng-template #loading>
   <p>cskmcksd</p>

@@ -1,18 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { CommentInterface } from '../../types/comment.interface';
 import { TodoInterface } from '../../types/todoTypes/todo.interface';
 import { UserInterface } from '../../types/userTypes/user.interface';
 import { UserService } from '../../shared/services/user.service'
-import { ActivatedRoute, Params } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { select, Store } from '@ngrx/store';
-import { todoSelector } from '../../store/storeTodo/selectors';
-import { getTodosAction } from '../../store/storeTodo/actions/getTodo.action';
+import { TodoService } from '../../shared/services/todo.service';
 
-const COLLECTION_NAME = 'tasks'
 
 @Component({
   selector: 'demos-page',
@@ -22,30 +16,17 @@ const COLLECTION_NAME = 'tasks'
 export class DemosPageComponent implements OnInit{
   public form: FormGroup
   public commentForm: FormGroup
-  public readonly todos$: Observable<TodoInterface[]> = this.store.pipe(select(todoSelector));
   public readonly todo$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
   public readonly user$: BehaviorSubject<UserInterface> = new BehaviorSubject<UserInterface>(null);
   public readonly users$: BehaviorSubject<UserInterface[]> = new BehaviorSubject<UserInterface[]>([]);
   public readonly isShowedCommentButtons$: BehaviorSubject<boolean> = new BehaviorSubject(false)
   public readonly data$: BehaviorSubject<TodoInterface> = new BehaviorSubject<TodoInterface>(null);
-  public todoId
 
   constructor(
+    private todoService: TodoService,
     private userService: UserService,
-    private firestore: AngularFirestore,
-    private store: Store,
-    private route: ActivatedRoute
   ) {
-    this.route.params.subscribe((params: Params) => this.todoId = params.id)
-
-    // this.data$.next(history.state)
-    // this.todo$.next(this.data$.value)
-
-    console.log(this.todos$);
-    console.log('constructor', this.todo$.value);
-
-
-
+    this.todo$.next(history.state)
 
     this.userService.currentUser.subscribe((user: UserInterface) => {
       this.user$.next(user)
@@ -56,43 +37,31 @@ export class DemosPageComponent implements OnInit{
 
   }
 
-  ngOnInit(): void {
-    this.store.dispatch(getTodosAction())
+  public ngOnInit(): void {
     this.fetchData()
-    console.log('ngOnInit', this.todo$.value);
   }
 
-  fetchData(): void {
-    this.todos$.pipe(map(todos => {
-      if (todos) {
-        return todos.find((todo) => {
-          return todo.id == this.todoId
-        })
-      }
-    })).subscribe(todos => console.log(todos))
-
-    console.log('fetchData', this.todo$.value);
-
-    if (this.todo$.value !== undefined) {
-      this.form = new FormGroup({
-        title: new FormControl(this.todo$.value.title, [Validators.required]),
-        priority: new FormControl(this.todo$.value.priority),
-        description: new FormControl(this.todo$.value.description),
-        assigneesId: new FormControl(this.todo$.value.assigneesId)
-      });
-      this.commentForm = new FormGroup({
-        authorId: new FormControl(this.reporter.name),
-        text: new FormControl('', [Validators.required])
-      });
-    }
+  public fetchData(): void {
+    this.form = new FormGroup({
+      title: new FormControl(this.todo$.value.title, [Validators.required]),
+      priority: new FormControl(this.todo$.value.priority),
+      status: new FormControl(this.todo$.value.status),
+      description: new FormControl(this.todo$.value.description),
+      assigneesId: new FormControl(this.todo$.value.assigneesId)
+    });
+    this.commentForm = new FormGroup({
+      authorId: new FormControl(this.user$.value.name),
+      text: new FormControl('', [Validators.required])
+    });
   }
+
   public editTodo(): void {
     let data = {
       ...this.todo$.value,
       ...this.form.value,
       updated: new Date().getTime()
     }
-    this.firestore.doc(`${COLLECTION_NAME}/${data.id}`).update(data)
+    this.todoService.updateTodo(data)
   }
 
   public addComment(event): void {
@@ -143,17 +112,12 @@ export class DemosPageComponent implements OnInit{
         ...newComments
       ]
     })
+    this.editTodo()
   }
 
   public cancelComment() {
     this.commentForm.get('text').reset();
     this.isShowedCommentButtons$.next(false);
-  }
-
-  public get reporter(): UserInterface {
-    return this.users$.value.find(
-      user => user.id == this.todo$.value.reporterId
-    )
   }
 
   public showCommentButton(): void {
