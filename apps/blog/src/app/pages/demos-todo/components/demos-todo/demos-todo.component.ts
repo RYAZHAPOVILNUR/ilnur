@@ -43,60 +43,6 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
     private store: Store
   ) { }
 
-
-  todo = [
-    'Get to work',
-    'Pick up groceries',
-    'Go home',
-    'Fall asleep'
-  ];
-
-  done = [
-    'Get up',
-    'Brush teeth',
-    'Take a shower',
-    'Check e-mail',
-    'Walk dog'
-  ];
-
-  drop(event: CdkDragDrop<string[]>) {
-    var moveditem = JSON.parse(JSON.stringify(event.container.data[event.currentIndex]))
-    console.log(moveditem.status);
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(event.previousContainer.data,
-                        event.container.data,
-                        event.previousIndex,
-                        event.currentIndex);
-    }
-  }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   ngOnInit(): void {
     this.store.dispatch(getUserAction())
     this.store.dispatch(getTodosAction())
@@ -171,6 +117,7 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
             filter((data: TodoInterface) => data != null),
             tap(
               (data: TodoInterface) => {
+                console.log(data);
                 this.todoService.updateTodo(data)
                 this.editTodosSubscription$.unsubscribe()
               }
@@ -183,6 +130,52 @@ export class DemosTodoComponent implements OnInit, OnDestroy{
 
   public removeTodo(id: string) {
     this.todoService.deleteTodo(id)
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    if (event.previousContainer === event.container) {
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
+    }
+
+    if (event.container.id == 'cdk-drop-list-0') {
+      event.container.data.forEach(elemement => {
+        const elem = JSON.parse(JSON.stringify(elemement))
+        elem.status = 'evaluation'
+        this.todoService.updateTodo(elem)
+      })
+    }
+    if (event.container.id == 'cdk-drop-list-1') {
+      event.container.data.forEach(elemement => {
+        const elem = JSON.parse(JSON.stringify(elemement))
+        elem.status = 'work'
+        this.todoService.updateTodo(elem)
+      })
+    }
+    if (event.container.id == 'cdk-drop-list-2') {
+      event.container.data.forEach(elemement => {
+        const elem = JSON.parse(JSON.stringify(elemement))
+        elem.status = 'review'
+        this.todoService.updateTodo(elem)
+      })
+    }
+    if (event.container.id == 'cdk-drop-list-3') {
+      event.container.data.forEach(elemement => {
+        const elem = JSON.parse(JSON.stringify(elemement))
+        elem.status = 'performed'
+        this.todoService.updateTodo(elem)
+      })
+    }
   }
 
   ngOnDestroy(): void {

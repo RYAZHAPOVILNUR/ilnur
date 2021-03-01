@@ -34,7 +34,7 @@
     <div
       class="demos__content_card"
       cdkDropList
-      [cdkDropListData]="evaluation$ | async"
+      [cdkDropListData]="work$ | async"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="demos__content_card-header">
@@ -55,7 +55,7 @@
     <div
       class="demos__content_card"
       cdkDropList
-      [cdkDropListData]="evaluation$ | async"
+      [cdkDropListData]="review$ | async"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="demos__content_card-header">
@@ -76,7 +76,7 @@
     <div
       class="demos__content_card"
       cdkDropList
-      [cdkDropListData]="evaluation$ | async"
+      [cdkDropListData]="performed$ | async"
       (cdkDropListDropped)="drop($event)"
     >
       <div class="demos__content_card-header">
